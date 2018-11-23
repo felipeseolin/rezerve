@@ -25,14 +25,14 @@ import model.Situacao;
  *
  * @author Rafael
  */
-public class ReservaCadastrar extends javax.swing.JFrame {
+public class ReservaTomarDecisão extends javax.swing.JFrame {
 
     private static ReservaRecursoController control = new ReservaRecursoController();
 
     /**
      * Creates new form Cadastrar
      */
-    public ReservaCadastrar() {
+    public ReservaTomarDecisão() {
         initComponents();
         carregaComboBoxes();
     }
@@ -47,7 +47,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
     private void initComponents() {
 
         painelBotoes = new javax.swing.JPanel();
-        btnInserir = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         painelForm = new javax.swing.JPanel();
         labelHorarioInicial = new javax.swing.JLabel();
@@ -62,12 +62,15 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         labelMotivo = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taMotivo = new javax.swing.JTextArea();
-        jLabel1 = new javax.swing.JLabel();
-        passSenha = new javax.swing.JPasswordField();
         dateData = new com.toedter.calendar.JDateChooser();
-        jLabel2 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
+        labelId = new javax.swing.JLabel();
+        spinId = new javax.swing.JSpinner();
+        labelUsario = new javax.swing.JLabel();
+        tfUsuario = new javax.swing.JTextField();
+        tfEmail = new javax.swing.JTextField();
+        labelEmail = new javax.swing.JLabel();
+        labelSenha = new javax.swing.JLabel();
+        passSenha = new javax.swing.JPasswordField();
         labelTitulo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
@@ -85,10 +88,10 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         setTitle("Cadastrar Sala");
         setExtendedState(6);
 
-        btnInserir.setText("Inserir");
-        btnInserir.addActionListener(new java.awt.event.ActionListener() {
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInserirActionPerformed(evt);
+                btnSalvarActionPerformed(evt);
             }
         });
 
@@ -104,8 +107,8 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         painelBotoesLayout.setHorizontalGroup(
             painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
-                .addContainerGap(758, Short.MAX_VALUE)
-                .addComponent(btnInserir)
+                .addContainerGap(900, Short.MAX_VALUE)
+                .addComponent(btnSalvar)
                 .addGap(18, 18, 18)
                 .addComponent(btnCancelar)
                 .addGap(24, 24, 24))
@@ -115,7 +118,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelBotoesLayout.createSequentialGroup()
                 .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(painelBotoesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnInserir)
+                    .addComponent(btnSalvar)
                     .addComponent(btnCancelar))
                 .addGap(28, 28, 28))
         );
@@ -142,61 +145,72 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         taMotivo.setRows(5);
         jScrollPane1.setViewportView(taMotivo);
 
-        jLabel1.setText("Digite sua senha para confirmar:");
-
         dateData.setMaxSelectableDate(new java.util.Date(253370775669000L));
         dateData.setMinSelectableDate(new java.util.Date(1542852000000L));
 
-        jLabel2.setText("Id:");
+        labelId.setText("Id:");
 
-        jLabel3.setText("Usuário Requisitante:");
+        labelUsario.setText("Usuário Requisitante:");
+
+        labelEmail.setText("Email do Requisitante:");
+
+        labelSenha.setText("Digite sua senha para confirmar:");
 
         javax.swing.GroupLayout painelFormLayout = new javax.swing.GroupLayout(painelForm);
         painelForm.setLayout(painelFormLayout);
         painelFormLayout.setHorizontalGroup(
             painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFormLayout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(19, 19, 19)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelFormLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(labelSenha)
+                        .addGap(42, 42, 42)
+                        .addComponent(passSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
                     .addGroup(painelFormLayout.createSequentialGroup()
                         .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(painelFormLayout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(33, 33, 33)
-                                .addComponent(passSenha))
-                            .addGroup(painelFormLayout.createSequentialGroup()
-                                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labelHorarioInicial)
-                                    .addComponent(labelHorarioFinal)
-                                    .addComponent(labelData)
-                                    .addComponent(labelSala)
-                                    .addComponent(labelSituacao)
-                                    .addComponent(labelMotivo)
-                                    .addComponent(jLabel2))
-                                .addGap(26, 26, 26)
-                                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1)
-                                    .addComponent(cbHorarioInicial, 0, 740, Short.MAX_VALUE)
-                                    .addComponent(cbHorarioFinal, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbSala, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(dateData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jSpinner1))))
-                        .addGap(59, 59, 59))))
+                            .addComponent(labelHorarioInicial)
+                            .addComponent(labelHorarioFinal)
+                            .addComponent(labelData)
+                            .addComponent(labelSala)
+                            .addComponent(labelSituacao)
+                            .addComponent(labelMotivo))
+                        .addGap(79, 79, 79)
+                        .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbSala, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbHorarioFinal, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbSituacao, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFormLayout.createSequentialGroup()
+                        .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelUsario)
+                            .addComponent(labelId)
+                            .addComponent(labelEmail))
+                        .addGap(35, 35, 35)
+                        .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbHorarioInicial, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateData, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(spinId))))
+                .addGap(57, 57, 57))
         );
         painelFormLayout.setVerticalGroup(
             painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFormLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(38, 38, 38)
+                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spinId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelUsario))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelEmail))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelMotivo))
@@ -220,16 +234,16 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelSituacao))
-                .addGap(40, 40, 40)
-                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelSenha)
                     .addComponent(passSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addGap(64, 64, 64))
         );
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitulo.setText("Cadastrar Reserva");
+        labelTitulo.setText("Tomar Decisão");
 
         barraMenu.setToolTipText("");
 
@@ -326,8 +340,8 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(painelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelForm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(71, 71, 71)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -386,9 +400,9 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
-    private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        inserir();
-    }//GEN-LAST:event_btnInserirActionPerformed
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        decisao();
+    }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         new ReservaLista().setVisible(true);
@@ -401,7 +415,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
      * Método responsável por tratar a requisição de quando o usuário pede para
      * inserir um novo registro
      */
-    public void inserir() {
+    public void decisao() {
         ArrayList novaLista = new ArrayList();
 
         try {
@@ -552,24 +566,24 @@ public class ReservaCadastrar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnInserir;
+    private javax.swing.JButton btnSalvar;
     private javax.swing.JComboBox<Object> cbHorarioFinal;
     private javax.swing.JComboBox<Object> cbHorarioInicial;
     private javax.swing.JComboBox<Object> cbSala;
     private javax.swing.JComboBox<Object> cbSituacao;
     private com.toedter.calendar.JDateChooser dateData;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel labelData;
+    private javax.swing.JLabel labelEmail;
     private javax.swing.JLabel labelHorarioFinal;
     private javax.swing.JLabel labelHorarioInicial;
+    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelMotivo;
     private javax.swing.JLabel labelSala;
+    private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelSituacao;
     private javax.swing.JLabel labelTitulo;
+    private javax.swing.JLabel labelUsario;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
     private javax.swing.JMenuItem mItemCadastrarUsuario;
@@ -583,6 +597,9 @@ public class ReservaCadastrar extends javax.swing.JFrame {
     private javax.swing.JPanel painelBotoes;
     private javax.swing.JPanel painelForm;
     private javax.swing.JPasswordField passSenha;
+    private javax.swing.JSpinner spinId;
     private javax.swing.JTextArea taMotivo;
+    private javax.swing.JTextField tfEmail;
+    private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
 }

@@ -131,8 +131,8 @@
               <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Component id="labelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="painelForm" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <Component id="painelForm" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
               <Component id="painelBotoes" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -145,8 +145,8 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="758" max="32767" attributes="0"/>
-                  <Component id="btnInserir" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="900" max="32767" attributes="0"/>
+                  <Component id="btnSalvar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -158,7 +158,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="66" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnInserir" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -167,12 +167,12 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnInserir">
+        <Component class="javax.swing.JButton" name="btnSalvar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Inserir"/>
+            <Property name="text" type="java.lang.String" value="Salvar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInserirActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnCancelar">
@@ -191,58 +191,69 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="labelSenha" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
+                          <Component id="passSenha" pref="753" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
-                                  <Component id="passSenha" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="labelHorarioInicial" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelHorarioFinal" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelData" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelSala" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelSituacao" min="-2" max="-2" attributes="0"/>
-                                      <Component id="labelMotivo" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="jScrollPane1" max="32767" attributes="0"/>
-                                      <Component id="cbHorarioInicial" alignment="0" pref="740" max="32767" attributes="0"/>
-                                      <Component id="cbHorarioFinal" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="cbSala" max="32767" attributes="0"/>
-                                      <Component id="cbSituacao" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="dateData" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jSpinner1" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="labelHorarioInicial" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelHorarioFinal" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelData" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelSala" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelSituacao" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelMotivo" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="59" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="79" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cbSala" alignment="1" max="32767" attributes="0"/>
+                              <Component id="cbHorarioFinal" alignment="1" max="32767" attributes="0"/>
+                              <Component id="cbSituacao" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="labelUsario" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelId" min="-2" max="-2" attributes="0"/>
+                              <Component id="labelEmail" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="cbHorarioInicial" max="32767" attributes="0"/>
+                              <Component id="dateData" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
+                              <Component id="tfEmail" alignment="1" max="32767" attributes="0"/>
+                              <Component id="tfUsuario" alignment="1" max="32767" attributes="0"/>
+                              <Component id="spinId" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
+                  <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="71" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jSpinner1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="spinId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tfUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelUsario" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="tfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labelEmail" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="33" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                       <Component id="labelMotivo" min="-2" max="-2" attributes="0"/>
@@ -272,12 +283,12 @@
                       <Component id="cbSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="passSenha" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="84" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="labelSenha" min="-2" max="-2" attributes="0"/>
+                      <Component id="passSenha" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -371,13 +382,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Digite sua senha para confirmar:"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JPasswordField" name="passSenha">
-        </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="dateData">
           <Properties>
             <Property name="maxSelectableDate" type="java.util.Date" editor="org.netbeans.beaninfo.editors.DateEditor">
@@ -388,17 +392,33 @@
             </Property>
           </Properties>
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel2">
+        <Component class="javax.swing.JLabel" name="labelId">
           <Properties>
             <Property name="text" type="java.lang.String" value="Id:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JSpinner" name="jSpinner1">
+        <Component class="javax.swing.JSpinner" name="spinId">
         </Component>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="labelUsario">
           <Properties>
             <Property name="text" type="java.lang.String" value="Usu&#xe1;rio Requisitante:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfUsuario">
+        </Component>
+        <Component class="javax.swing.JTextField" name="tfEmail">
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelEmail">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Email do Requisitante:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelSenha">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Digite sua senha para confirmar:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JPasswordField" name="passSenha">
         </Component>
       </SubComponents>
     </Container>
@@ -408,7 +428,7 @@
           <Font name="Dialog" size="36" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Cadastrar Reserva"/>
+        <Property name="text" type="java.lang.String" value="Tomar Decis&#xe3;o"/>
       </Properties>
     </Component>
   </SubComponents>
