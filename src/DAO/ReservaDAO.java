@@ -209,6 +209,130 @@ public class ReservaDAO {
         return select(sqldml);
     }
     
+    /**
+     * Método responsável por listar todos os registros de reserva daquele usuario
+     *
+     * @return
+     */
+    protected static ArrayList<Reserva> selectAllCoord() {
+        Usuario usuario = Login.getUsuario();
+        String siglaDepartamento = usuario.getDepartamento().getSigla();
+        String sqldml = "select RESER_ID, RESER_MOTIVO, RESER_DATA, "
+                + " RESER_HORARIO_INICIAL, RESER_HORARIO_FINAL, RESER_CONFIRMADA,  "
+                + " USUARIO.USU_ID, USU_PNOME, USU_UNOME, USU_EMAIL, USU_ATIVO,  "
+                + " USUARIO.DEP_ID, TIPUS_ID, SALA.SALA_ID, SALA_NUM,  "
+                + " SALA_NUM_CADEIRAS, SALA_NUM_COMP, SALA_DETALHES,  "
+                + " SALA_ATIVA,TIPSAL_ID, SALA.DEP_ID, BLOC_ID, SITUACAO.SIT_ID,  " 
+                + " SIT_NOME, SIT_MENSAGEM, DEP_SIGLA "
+                + " from RESERVA, SALA, USUARIO, SITUACAO, DEPARTAMENTO "
+                + " where RESERVA.SALA_ID = SALA.SALA_ID and  " 
+                + " RESERVA.USU_ID = USUARIO.USU_ID and  " 
+                + " RESERVA.SIT_ID = SITUACAO.SIT_ID and "
+                + " DEPARTAMENTO.DEP_ID = SALA.DEP_ID and "
+                + " DEP_SIGLA = '" + siglaDepartamento + "' "
+                + " order by RESER_DATA desc ";
+        "select RESER_ID, RESER_MOTIVO, RESER_DATA,\n"
+                + "    RESER_HORARIO_INICIAL, RESER_HORARIO_FINAL, RESER_CONFIRMADA,\n"
+                + "    USUARIO.USU_ID, USU_PNOME, USU_UNOME, USU_EMAIL, USU_ATIVO,\n"
+                + "    DEPARTAMENTO.DEP_ID, DEP_NOME, DEP_SIGLA, DEP_ATIVO,TIPO_DE_USUARIO.TIPUS_ID, TIPUS_SIGLA, TIPUS_NOME, SALA.SALA_ID, SALA_NUM,\n"
+                + "    SALA_NUM_CADEIRAS, SALA_NUM_COMP, SALA_DETALHES,\n"
+                + "    SALA_ATIVA, TIPSAL_ID, SALA.DEP_ID, BLOC_ID, SITUACAO.SIT_ID,\n"
+                + "    SIT_NOME, SIT_MENSAGEM, DEP_SIGLA\n"
+                + "from RESERVA, SALA, USUARIO, SITUACAO, DEPARTAMENTO, TIPO_DE_USUARIO\n"
+                + "where RESERVA.SALA_ID = SALA.SALA_ID and\n"
+                + "    RESERVA.USU_ID = USUARIO.USU_ID and\n"
+                + "	USUARIO.TIPUS_ID = TIPO_DE_USUARIO.TIPUS_ID and\n"
+                + "	DEPARTAMENTO.DEP_ID = USUARIO.DEP_ID and\n"
+                + "    RESERVA.SIT_ID = SITUACAO.SIT_ID and\n"
+                + "    DEPARTAMENTO.DEP_ID = SALA.DEP_ID and\n"
+                + "    DEP_SIGLA = 'DAMEC'\n"
+                + "order by RESER_DATA desc ;"
+        PreparedStatement pstdados = null;
+        ResultSet rs = null;
+        ArrayList<Reserva> retornoLista = null;
+
+        try {
+            int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
+            int concorrencia = ResultSet.CONCUR_UPDATABLE;
+            connection = bd.conectaBD();
+            pstdados = connection.prepareStatement(sqldml, tipo, concorrencia);
+
+            pstdados.executeQuery();
+
+            rs = pstdados.executeQuery();
+            if (!rs.first()) {
+                return null;
+            }
+
+            retornoLista = new ArrayList<Reserva>();
+            ResultSetMetaData rsmd = rs.getMetaData();
+
+            do {
+                ArrayList registros = bd.proximoRegistro(rs, rsmd);
+
+                Iterator iterator = registros.iterator();
+
+                //while (iterator.hasNext()) {
+                Reserva reserva = new Reserva(
+                        (int) iterator.next(), //id
+                        (String) iterator.next().toString(), //motivo
+                        (java.util.Date) iterator.next(), //data
+                        (Horario) Horario.valueOf(iterator.next().toString()), //data Iniciail
+                        (Horario) Horario.valueOf(iterator.next().toString()), //data Final
+                        (boolean) iterator.next(), //confirmada
+                        new Usuario(
+                                (int) iterator.next(),//id
+                                (String) iterator.next().toString(),//pnome
+                                (String) iterator.next().toString(),//unome
+                                (String) iterator.next().toString(),//email
+                                (boolean) iterator.next(),//ativo
+                                new Departamento(
+                                        (int) iterator.next()//id
+                                ),
+                                new TipoUsuario(
+                                        (int) iterator.next()//id
+                                )
+                        ),
+                        new Sala(
+                                (String) iterator.next().toString(),//id
+                                (int) iterator.next(),//numero
+                                (int) iterator.next(),//numero cadeiras
+                                (int) iterator.next(),//numero computadores
+                                (String) iterator.next(),//detalhes
+                                (boolean) iterator.next(),//ativa
+                                new TipoSala(
+                                        (int) iterator.next()//id
+                                ),
+                                new Departamento(
+                                        (int) iterator.next()//id
+                                ),
+                                new Bloco(
+                                        (int) iterator.next()//id
+                                )
+                        ),
+                        new Situacao(
+                                (int) iterator.next(),//id
+                                (String) iterator.next().toString(),//nome
+                                (String) iterator.next().toString()//mensagem
+                        )
+                );
+                retornoLista.add(reserva);
+
+            } while (rs.next());
+            //Chama o Commit
+            connection = bd.commit(connection);
+        } catch (SQLException error) {
+            String msgErro = "Erro com o banco de dados: " + error;
+            JOptionPane.showMessageDialog(null, msgErro);
+            //Dá Roolback
+            connection = bd.rollback(connection);
+        } finally {
+            //Termina connecção
+            connection = bd.close(connection, pstdados, rs);
+        }
+        return retornoLista;
+    }
+    
     private static ArrayList<Reserva> select(String sqldml) {
         PreparedStatement pstdados = null;
         ResultSet rs = null;
@@ -235,7 +359,7 @@ public class ReservaDAO {
 
                 Iterator iterator = registros.iterator();
 
-                while (iterator.hasNext()) {
+                //while (iterator.hasNext()) {
 
                     Reserva reserva = new Reserva(
                             (int) iterator.next(), //id
@@ -281,7 +405,7 @@ public class ReservaDAO {
                             )
                     );
                     retornoLista.add(reserva);
-                }
+                
             } while (rs.next());
             //Chama o Commit
             connection = bd.commit(connection);

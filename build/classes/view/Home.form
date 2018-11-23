@@ -119,16 +119,18 @@
               <Component id="labelLogotipo" pref="1364" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
               <Component id="btnGerenciarSalas" min="-2" pref="142" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Component id="btnGerenciarUsuários" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Component id="btnGerenciarReservas" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="140" max="-2" attributes="0"/>
+              <Component id="btnGerenciarMinhasReservas" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
+              <Component id="btnReservasDecisoes" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -142,7 +144,8 @@
                   <Component id="btnGerenciarSalas" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
                   <Component id="btnGerenciarUsuários" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
                   <Component id="btnGerenciarReservas" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
+                  <Component id="btnGerenciarMinhasReservas" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
+                  <Component id="btnReservasDecisoes" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="116" max="32767" attributes="0"/>
           </Group>
@@ -182,12 +185,20 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGerenciarReservasActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnGerenciarMinhasReservas">
       <Properties>
         <Property name="text" type="java.lang.String" value="Gerenciar Minhas Reservas"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGerenciarMinhasReservasActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnReservasDecisoes">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reservas Aguardando Minha Decis&#xe3;o"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnReservasDecisoesActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

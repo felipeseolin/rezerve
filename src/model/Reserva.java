@@ -212,6 +212,10 @@ public final class Reserva extends ReservaDAO {
     public static ArrayList<Reserva> selectAllMy() {
         return ReservaDAO.selectAllMy();
     }
+    
+    public static ArrayList<Reserva> selectAllCoord() {
+        return ReservaDAO.selectAllCoord();
+    }
     // </editor-fold>
 
     @Override

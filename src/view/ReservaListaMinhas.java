@@ -21,14 +21,14 @@ import model.Usuario;
  *
  * @author Rafael
  */
-public class MinhasReservasLista extends javax.swing.JFrame {
+public class ReservaListaMinhas extends javax.swing.JFrame {
 
     private static ReservaRecursoController control = new ReservaRecursoController();
 
     /**
      * Creates new form Home
      */
-    public MinhasReservasLista() {
+    public ReservaListaMinhas() {
         initComponents();
         listar();
     }
@@ -285,7 +285,7 @@ public class MinhasReservasLista extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemCadastrarReservaActionPerformed
 
     private void mItemListarTodasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarTodasReservasActionPerformed
-        new MinhasReservasLista().setVisible(true);
+        new ReservaListaMinhas().setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
@@ -297,7 +297,7 @@ public class MinhasReservasLista extends javax.swing.JFrame {
      * inserir um novo registro
      */   
     public void listar() {
-        ArrayList registros = control.listarMinhasReservas();
+        ArrayList registros = control.listarReservasDecisoes();
         Iterator iterator = registros.iterator();
         DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
         tabela.setNumRows(0);
@@ -380,20 +380,23 @@ public class MinhasReservasLista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MinhasReservasLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaMinhas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MinhasReservasLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaMinhas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MinhasReservasLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaMinhas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MinhasReservasLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaMinhas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MinhasReservasLista().setVisible(true);
+                new ReservaListaMinhas().setVisible(true);
             }
         });
     }

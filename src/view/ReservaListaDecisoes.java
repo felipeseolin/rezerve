@@ -5,31 +5,32 @@
  */
 package view;
 
-import model.Login;
+import controller.ReservaRecursoController;
+import java.awt.HeadlessException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import model.Horario;
+import model.Sala;
+import model.Situacao;
 import model.Usuario;
 
 /**
  *
- * @author Seolin
+ * @author Rafael
  */
-public class Home extends javax.swing.JFrame {
+public class ReservaListaDecisoes extends javax.swing.JFrame {
+
+    private static ReservaRecursoController control = new ReservaRecursoController();
 
     /**
      * Creates new form Home
      */
-    public Home() {
+    public ReservaListaDecisoes() {
         initComponents();
-        if(Login.isAutenticado()) {
-            Usuario usuario = Login.getUsuario();
-            String siglaTipoUsuario = usuario.getTipoUsuario().getSigla();
-            if(!siglaTipoUsuario.equals("COORD") ||
-                    siglaTipoUsuario.equals("ADMIN")) {
-                btnReservasDecisoes.setEnabled(false);
-                btnReservasDecisoes.setVisible(false);
-            }
-        } else {
-            this.dispose();
-        }
+        listar();
     }
 
     /**
@@ -41,12 +42,10 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelLogotipo = new javax.swing.JLabel();
-        btnGerenciarSalas = new javax.swing.JButton();
-        btnGerenciarUsuários = new javax.swing.JButton();
-        btnGerenciarReservas = new javax.swing.JButton();
-        btnGerenciarMinhasReservas = new javax.swing.JButton();
-        btnReservasDecisoes = new javax.swing.JButton();
+        scrollPane = new javax.swing.JScrollPane();
+        tabelaReserva = new javax.swing.JTable();
+        btnCadastrar = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -60,50 +59,54 @@ public class Home extends javax.swing.JFrame {
         mItemListarTodasReservas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reserva de Salas");
         setExtendedState(6);
 
-        labelLogotipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelLogotipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo1.png"))); // NOI18N
+        tabelaReserva.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        btnGerenciarSalas.setText("Gerenciar Salas");
-        btnGerenciarSalas.addActionListener(new java.awt.event.ActionListener() {
+            },
+            new String [] {
+                "Id", "Motivo", "Data", "Horário Inicial", "Horário Final", "Confirmada", "Usuário", "Sala", "Situação"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        scrollPane.setViewportView(tabelaReserva);
+
+        btnCadastrar.setText("Tomar Decisão");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerenciarSalasActionPerformed(evt);
+                btnCadastrarActionPerformed(evt);
             }
         });
 
-        btnGerenciarUsuários.setText("Gerenciar Usuários");
-        btnGerenciarUsuários.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerenciarUsuáriosActionPerformed(evt);
-            }
-        });
-
-        btnGerenciarReservas.setText("Gerenciar Reservas");
-        btnGerenciarReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerenciarReservasActionPerformed(evt);
-            }
-        });
-
-        btnGerenciarMinhasReservas.setText("Gerenciar Minhas Reservas");
-        btnGerenciarMinhasReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGerenciarMinhasReservasActionPerformed(evt);
-            }
-        });
-
-        btnReservasDecisoes.setText("Reservas Aguardando Minha Decisão");
-        btnReservasDecisoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReservasDecisoesActionPerformed(evt);
-            }
-        });
+        labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitulo.setText("Gerenciar reservas aguardando decisão");
 
         barraMenu.setToolTipText("");
 
         menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
         menuHome.setText("Home");
+        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHomeMouseClicked(evt);
+            }
+        });
         menuHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuHomeActionPerformed(evt);
@@ -177,58 +180,42 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(labelLogotipo, javax.swing.GroupLayout.DEFAULT_SIZE, 1364, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
-                .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
-                .addComponent(btnGerenciarUsuários)
-                .addGap(61, 61, 61)
-                .addComponent(btnGerenciarReservas)
-                .addGap(61, 61, 61)
-                .addComponent(btnGerenciarMinhasReservas)
-                .addGap(62, 62, 62)
-                .addComponent(btnReservasDecisoes)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(labelLogotipo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerenciarUsuários, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerenciarReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnGerenciarMinhasReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReservasDecisoes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(24, 24, 24)
+                .addComponent(labelTitulo)
+                .addGap(37, 37, 37)
+                .addComponent(btnCadastrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnGerenciarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarReservasActionPerformed
-        new ReservaLista().setVisible(true);
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        new ReservaCadastrar().setVisible(true);
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_btnGerenciarReservasActionPerformed
+    }//GEN-LAST:event_btnCadastrarActionPerformed
 
-    private void btnGerenciarUsuáriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarUsuáriosActionPerformed
-        new UsuarioLista().setVisible(true);
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_btnGerenciarUsuáriosActionPerformed
-
-    private void btnGerenciarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarSalasActionPerformed
-        new SalaLista().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnGerenciarSalasActionPerformed
+    }//GEN-LAST:event_menuHomeMouseClicked
 
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
         new Home().setVisible(true);
@@ -272,20 +259,85 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
-    private void btnGerenciarMinhasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarMinhasReservasActionPerformed
-        new ReservaListaMinhas().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnGerenciarMinhasReservasActionPerformed
+    // <editor-fold defaultstate="collapsed" desc=" CRUD ">
+    
+    /**
+     * Método responsável por tratar a requisição de quando o usuário pede para
+     * inserir um novo registro
+     */   
+    public void listar() {
+        ArrayList registros = control.listarReservasDecisoes();
+        if(registros == null) {
+            JOptionPane.showMessageDialog(this, "Não há itens.");
+            return;
+        }
+        Iterator iterator = registros.iterator();
+        DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
+        tabela.setNumRows(0);
 
-    private void btnReservasDecisoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasDecisoesActionPerformed
-        new ReservaListaDecisoes().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnReservasDecisoesActionPerformed
+        while (iterator.hasNext()) {
+
+            int id = (int) iterator.next();
+            String motivo = (String) iterator.next().toString();
+            Date data = (Date) iterator.next();
+            Horario horarioInicial = (Horario) iterator.next();
+            Horario horarioFinal = (Horario) iterator.next();
+            boolean confirmada = (boolean) iterator.next();
+            Usuario usuario = (Usuario) iterator.next();
+            Sala sala = (Sala) iterator.next();
+            Situacao situacao = (Situacao) iterator.next();
+
+            Object[] dados = {id, motivo, data, horarioInicial, horarioFinal,
+                confirmada, usuario, sala, situacao};
+            tabela.addRow(dados);
+        }
+    }
+
+    public void excluir() {
+        try {
+            int selectedRowIndex = tabelaReserva.getSelectedRow();
+            if (selectedRowIndex >= 0) {
+                int id = (int) tabelaReserva.getModel().getValueAt(selectedRowIndex, 0);
+                int confirm = JOptionPane.showConfirmDialog(this,
+                        "Deseja realmente excluir a reserva " + id + "?");
+                if (confirm == 0) {
+                    DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
+                    control.excluirReserva(id);
+                    tabela.removeRow(selectedRowIndex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Nenhuma reserva selecionada");
+            }
+        } catch (HeadlessException error) {
+            String msgError = "Erro: " + error;
+            JOptionPane.showMessageDialog(this, error);
+        }
+    }
+
+    public void editar() {
+        DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
+        int selectedRowIndex = tabelaReserva.getSelectedRow();
+
+        int id = Integer.parseInt(tabela.getValueAt(selectedRowIndex, 0).toString());
+        String motivo = tabela.getValueAt(selectedRowIndex, 1).toString();
+        Date data = (Date) tabela.getValueAt(selectedRowIndex, 2);
+//        Horario horarioInicial = (Horario) tabela.getValueAt(selectedRowIndex, 3);
+//        Horario horarioFinal = (Horario) tabela.getValueAt(selectedRowIndex, 4);
+        boolean confirmada = Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, 6).toString());
+//        Usuario usuario = (Usuario) tabela.getValueAt(selectedRowIndex, 6);
+//        Sala sala = (Sala) tabela.getValueAt(selectedRowIndex, 7);
+//        Situacao situacao = (Situacao) tabela.getValueAt(selectedRowIndex, 8);
+
+        SalaEditar ed = new SalaEditar();
+//        ed.iniciar(id, num, cadeiras, computadores, detalhes, ativa);
+        ed.setVisible(true);
+        
+    }
+
+    // </editor-fold>
 
     /**
-     * @param args the command line arguments
+     * @param args 
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -301,32 +353,28 @@ public class Home extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaDecisoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaDecisoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaDecisoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaDecisoes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
+                new ReservaListaDecisoes().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton btnGerenciarMinhasReservas;
-    private javax.swing.JButton btnGerenciarReservas;
-    private javax.swing.JButton btnGerenciarSalas;
-    private javax.swing.JButton btnGerenciarUsuários;
-    private javax.swing.JButton btnReservasDecisoes;
-    private javax.swing.JLabel labelLogotipo;
+    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
     private javax.swing.JMenuItem mItemCadastrarUsuario;
@@ -337,5 +385,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenu menuGerenciarSalas;
     private javax.swing.JMenu menuGerenciarUsuarios;
     private javax.swing.JMenu menuHome;
+    private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTable tabelaReserva;
     // End of variables declaration//GEN-END:variables
 }
