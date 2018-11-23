@@ -1,15 +1,5 @@
               UTFPR
 Universidade Tecnológica Federal do Paraná
-        Programação Desktop - SO35A
-
-Alunos {
-    Felipe Seolin Bento         R.A.: 1915959
-    Rafael Fernandes Marques    R.A.: 1459783
-}
-
-Professor {
-    Fabricio Martins Lopes
-}
 
 Projeto {
 
