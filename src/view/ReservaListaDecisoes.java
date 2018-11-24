@@ -44,7 +44,7 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
 
         scrollPane = new javax.swing.JScrollPane();
         tabelaReserva = new javax.swing.JTable();
-        btnCadastrar = new javax.swing.JButton();
+        btnTomarDecisao = new javax.swing.JButton();
         labelTitulo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
@@ -87,10 +87,10 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
         });
         scrollPane.setViewportView(tabelaReserva);
 
-        btnCadastrar.setText("Tomar Decisão");
-        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+        btnTomarDecisao.setText("Tomar Decisão");
+        btnTomarDecisao.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCadastrarActionPerformed(evt);
+                btnTomarDecisaoActionPerformed(evt);
             }
         });
 
@@ -187,7 +187,7 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
                     .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnTomarDecisao, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -196,7 +196,7 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(labelTitulo)
                 .addGap(37, 37, 37)
-                .addComponent(btnCadastrar)
+                .addComponent(btnTomarDecisao)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
@@ -205,11 +205,9 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        new ReservaCadastrar().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+    private void btnTomarDecisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTomarDecisaoActionPerformed
+        tomadaDecisao();
+    }//GEN-LAST:event_btnTomarDecisaoActionPerformed
 
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
         new Home().setVisible(true);
@@ -260,14 +258,14 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
-    
     /**
      * Método responsável por tratar a requisição de quando o usuário pede para
      * inserir um novo registro
-     */   
+     */
     public void listar() {
         ArrayList registros = control.listarReservasDecisoes();
-        if(registros == null) {
+        if (registros == null) {
+            this.setVisible(true);
             JOptionPane.showMessageDialog(this, "Não há itens.");
             return;
         }
@@ -314,30 +312,32 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
         }
     }
 
-    public void editar() {
+    public void tomadaDecisao() {
         DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
         int selectedRowIndex = tabelaReserva.getSelectedRow();
 
-        int id = Integer.parseInt(tabela.getValueAt(selectedRowIndex, 0).toString());
-        String motivo = tabela.getValueAt(selectedRowIndex, 1).toString();
-        Date data = (Date) tabela.getValueAt(selectedRowIndex, 2);
-//        Horario horarioInicial = (Horario) tabela.getValueAt(selectedRowIndex, 3);
-//        Horario horarioFinal = (Horario) tabela.getValueAt(selectedRowIndex, 4);
-        boolean confirmada = Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, 6).toString());
-//        Usuario usuario = (Usuario) tabela.getValueAt(selectedRowIndex, 6);
-//        Sala sala = (Sala) tabela.getValueAt(selectedRowIndex, 7);
-//        Situacao situacao = (Situacao) tabela.getValueAt(selectedRowIndex, 8);
-
-        SalaEditar ed = new SalaEditar();
-//        ed.iniciar(id, num, cadeiras, computadores, detalhes, ativa);
-        ed.setVisible(true);
+        int i = 0;
+        int id = Integer.parseInt(tabela.getValueAt(selectedRowIndex, i++).toString());
+        String motivo = tabela.getValueAt(selectedRowIndex, i++).toString();
+        Date data = (Date) tabela.getValueAt(selectedRowIndex, i++);
+        Horario horarioInicial = (Horario) tabela.getValueAt(selectedRowIndex, i++);
+        Horario horarioFinal = (Horario) tabela.getValueAt(selectedRowIndex, i++);
+        boolean confirmada = Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, i++).toString());
+        Usuario usuario = (Usuario) tabela.getValueAt(selectedRowIndex, i++);
+        Sala sala = (Sala) tabela.getValueAt(selectedRowIndex, i++);
+        Situacao situacao = (Situacao) tabela.getValueAt(selectedRowIndex, i++);
         
+        ReservaTomarDecisão jan = new ReservaTomarDecisão();
+        jan.iniciar(id, motivo, data, horarioInicial, horarioFinal, confirmada, usuario,
+            sala, situacao);
+        jan.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }
 
     // </editor-fold>
-
     /**
-     * @param args 
+     * @param args
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -373,7 +373,7 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton btnCadastrar;
+    private javax.swing.JButton btnTomarDecisao;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;

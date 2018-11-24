@@ -239,6 +239,7 @@ public class ReservaDAO {
                 + " RESERVA.SIT_ID = SITUACAO.SIT_ID and "
                 + " SALA.TIPSAL_ID = TIPO_DE_SALA.TIPSAL_ID and "
                 + " BLOCO.BLOC_ID = SALA.BLOC_ID and "
+                + " SITUACAO.SIT_ID = 2 and "
                 + " DEP_SIGLA = '" + siglaDep + "' "
                 + " order by RESER_DATA desc";
 

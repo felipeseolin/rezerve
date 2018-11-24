@@ -6,18 +6,15 @@
 package view;
 
 import controller.ReservaRecursoController;
-import controller.SalaRecursoController;
 import controller.SituacaoRecursoController;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
-import model.Bloco;
-import model.Departamento;
 import model.Horario;
 import model.Login;
-import model.TipoSala;
+import model.Usuario;
 import model.Sala;
 import model.Situacao;
 
@@ -34,7 +31,6 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
      */
     public ReservaTomarDecisão() {
         initComponents();
-        carregaComboBoxes();
     }
 
     /**
@@ -234,11 +230,11 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelSituacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSenha)
                     .addComponent(passSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(64, 64, 64))
+                .addGap(18, 18, 18))
         );
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -426,21 +422,26 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Senha incorreta.");
                 return;
             }
-            
+            Situacao situacao = (Situacao) cbSituacao.getSelectedItem() ;//situacao
             //Capturando informações e adicionando a uma lista
-            novaLista.add(taMotivo.getText());
-            novaLista.add(dateData.getDate());
-            novaLista.add(cbHorarioInicial.getSelectedItem());
-            novaLista.add(cbHorarioFinal.getSelectedItem());
-            novaLista.add(false);//Confirmada
-            novaLista.add(Login.getUsuario());//USUARIO
-            novaLista.add(cbSala.getSelectedItem());
-            novaLista.add(cbSituacao.getSelectedItem());
+            novaLista.add((int) spinId.getValue());//id
+            novaLista.add(taMotivo.getText());//motivo
+            novaLista.add(dateData.getDate());//data
+            novaLista.add(cbHorarioInicial.getSelectedItem());//horario inicial
+            novaLista.add(cbHorarioFinal.getSelectedItem());//hoarario final
+            if(situacao.getId() == 1) {
+                novaLista.add(true);//Confirmada
+            } else {
+                novaLista.add(false);//Não confirmada
+            }
+            novaLista.add(Login.getUsuario());//usuario
+            novaLista.add(cbSala.getSelectedItem());//sala
+            novaLista.add(cbSituacao.getSelectedItem());//situacao
             
             //Mandando para o Contoller
-            if (control.criarReserva(novaLista)) {
-                JOptionPane.showMessageDialog(this, "A reserva foi salva com sucesso!");
-                new ReservaLista().setVisible(true);
+            if (control.editarReserva(novaLista)) {
+                JOptionPane.showMessageDialog(this, "Sua decisão foi salva!");
+                new Home().setVisible(true);
                 this.setVisible(false);
                 this.dispose();
             }
@@ -449,64 +450,44 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, msgErro);
         }
     }
+    
+    public void iniciar(int id, String motivo, Date data, Horario horarioInicial, 
+            Horario horarioFinal, boolean confirmada, Usuario usuario, 
+            Sala sala, Situacao situacao){
+            
+        spinId.setValue(id);
+        spinId.setEnabled(false);
+        
+        taMotivo.setText(motivo);
+        taMotivo.setEnabled(false);
+        
+        dateData.setDate(data);
+        dateData.setEnabled(false);
+        
+        cbHorarioInicial.addItem(horarioInicial);
+        cbHorarioInicial.setSelectedItem(horarioInicial);
+        cbHorarioInicial.setEnabled(false);
+        
+        cbHorarioFinal.addItem(horarioFinal);
+        cbHorarioFinal.setSelectedItem(horarioFinal);
+        cbHorarioFinal.setEnabled(false);
+        
+        cbSala.addItem(sala);
+        cbSala.setSelectedItem(sala);
+        cbSala.setEnabled(false);
+        
+        tfUsuario.setText(usuario.getpNome() + " " + usuario.getuNome());
+        tfUsuario.setEnabled(false);
+        
+        tfEmail.setText(usuario.getEmail());
+        tfEmail.setEnabled(false);
+        
+        carregaComboBoxes();
+    }
 
     private void carregaComboBoxes() {
         ArrayList lista;
         Iterator iterator;
-        
-        cbHorarioInicial.addItem(Horario.M1);
-        cbHorarioInicial.addItem(Horario.M2);
-        cbHorarioInicial.addItem(Horario.M3);
-        cbHorarioInicial.addItem(Horario.M4);
-        cbHorarioInicial.addItem(Horario.M5);
-        cbHorarioInicial.addItem(Horario.M6);
-        cbHorarioInicial.addItem(Horario.T1);
-        cbHorarioInicial.addItem(Horario.T2);
-        cbHorarioInicial.addItem(Horario.T3);
-        cbHorarioInicial.addItem(Horario.T4);
-        cbHorarioInicial.addItem(Horario.T5);
-        cbHorarioInicial.addItem(Horario.T6);
-        cbHorarioInicial.addItem(Horario.N1);
-        cbHorarioInicial.addItem(Horario.N2);
-        cbHorarioInicial.addItem(Horario.N3);
-        cbHorarioInicial.addItem(Horario.N4);
-        cbHorarioInicial.addItem(Horario.N5);
-        
-        cbHorarioFinal.addItem(Horario.M1);
-        cbHorarioFinal.addItem(Horario.M2);
-        cbHorarioFinal.addItem(Horario.M3);
-        cbHorarioFinal.addItem(Horario.M4);
-        cbHorarioFinal.addItem(Horario.M5);
-        cbHorarioFinal.addItem(Horario.M6);
-        cbHorarioFinal.addItem(Horario.T1);
-        cbHorarioFinal.addItem(Horario.T2);
-        cbHorarioFinal.addItem(Horario.T3);
-        cbHorarioFinal.addItem(Horario.T4);
-        cbHorarioFinal.addItem(Horario.T5);
-        cbHorarioFinal.addItem(Horario.T6);
-        cbHorarioFinal.addItem(Horario.N1);
-        cbHorarioFinal.addItem(Horario.N2);
-        cbHorarioFinal.addItem(Horario.N3);
-        cbHorarioFinal.addItem(Horario.N4);
-        cbHorarioFinal.addItem(Horario.N5);
-        
-        SalaRecursoController controlSala = new SalaRecursoController();
-        lista = controlSala.listarSala();
-        iterator = lista.iterator();
-        while (iterator.hasNext()) {
-            Sala sala = new Sala(
-                    (String) iterator.next(),//ID
-                    (int) iterator.next(),//Numero
-                    (int) iterator.next(),//Numero de Cadeiras
-                    (int) iterator.next(),//Numero de Computadores
-                    (String) iterator.next(),//Detalhes
-                    (boolean) iterator.next(),//Ativa
-                    (TipoSala) iterator.next(),//TipoSala
-                    (Departamento) iterator.next(),//Departamento
-                    (Bloco) iterator.next()//Bloco
-            );
-            cbSala.addItem(sala);
-        }
 
         SituacaoRecursoController controlSituacao = new SituacaoRecursoController();
         lista = controlSituacao.listarSituacoes();
@@ -522,8 +503,6 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                 cbSituacao.setSelectedItem(situacao);
             }
         }
-        cbSituacao.setEnabled(false);
-
     }
 
     // </editor-fold>

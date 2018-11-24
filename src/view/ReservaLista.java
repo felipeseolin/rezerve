@@ -298,6 +298,11 @@ public class ReservaLista extends javax.swing.JFrame {
      */   
     public void listar() {
         ArrayList registros = control.listarTodasReservas();
+        if (registros == null) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Não há itens.");
+            return;
+        }
         Iterator iterator = registros.iterator();
         DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
         tabela.setNumRows(0);

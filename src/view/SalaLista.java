@@ -5,21 +5,15 @@
  */
 package view;
 
-import controller.ReservaRecursoController;
 import controller.SalaRecursoController;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Bloco;
 import model.Departamento;
-import model.Horario;
-import model.Sala;
-import model.Situacao;
 import model.TipoSala;
-import model.Usuario;
 
 /**
  *
@@ -332,6 +326,11 @@ public class SalaLista extends javax.swing.JFrame {
      */
     public void listar() {
         ArrayList registros = control.listarSala();
+        if (registros == null) {
+            this.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Não há itens.");
+            return;
+        }
         Iterator iterator = registros.iterator();
         DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
         tabela.setNumRows(0);
