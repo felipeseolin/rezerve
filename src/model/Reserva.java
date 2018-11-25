@@ -40,6 +40,24 @@ public final class Reserva extends ReservaDAO {
         this.situacao = situacao;
     }
     
+    public Reserva(int id, String motivo, Date data, String horarioInicial,
+            String horarioFinal, boolean confirmada, Usuario usuario,
+            Sala sala, Situacao situacao
+    ) {
+        this.id = id;
+        this.motivo = motivo;
+        this.data = data;
+        Horario horario = Horario.M1;
+        horario.setValor(horarioInicial);
+        this.horarioInicial = horario;
+        horario.setValor(horarioFinal);
+        this.horarioFinal = horario;
+        this.confirmada = confirmada;
+        this.usuario = usuario;
+        this.sala = sala;
+        this.situacao = situacao;
+    }
+    
     public Reserva(String motivo, Date data, Horario horarioInicial, 
             Horario horarioFinal, boolean confirmada, Usuario usuario, 
             Sala sala, Situacao situacao

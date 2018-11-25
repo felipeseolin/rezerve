@@ -397,11 +397,22 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                 return;
             }
             
+            Horario horarioInicial = (Horario) cbHorarioInicial.getSelectedItem();
+            Horario horarioFinal = (Horario) cbHorarioFinal.getSelectedItem();
+            int valorHoraInicial = Horario.valorHorario(horarioInicial);
+            int valorHoraFinal = Horario.valorHorario(horarioFinal);
+
+            if (valorHoraInicial > valorHoraFinal) {
+                JOptionPane.showMessageDialog(this, "Horários inválidos! "
+                        + "O valor do horário inicial é maior que o final");
+                return;
+            }
+            
             //Capturando informações e adicionando a uma lista
             novaLista.add(taMotivo.getText());
             novaLista.add(dateData.getDate());
-            novaLista.add(cbHorarioInicial.getSelectedItem());
-            novaLista.add(cbHorarioFinal.getSelectedItem());
+            novaLista.add(horarioInicial);
+            novaLista.add(horarioFinal);
             novaLista.add(false);//Confirmada
             novaLista.add(Login.getUsuario());//USUARIO
             novaLista.add(cbSala.getSelectedItem());

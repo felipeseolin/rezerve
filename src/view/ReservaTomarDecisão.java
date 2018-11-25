@@ -367,33 +367,33 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemCadastrarSalaActionPerformed
 
     private void mItemListarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarSalasActionPerformed
-        new SalaLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new SalaLista().setVisible(true);
     }//GEN-LAST:event_mItemListarSalasActionPerformed
 
     private void mItemCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarUsuarioActionPerformed
-        new UsuarioCadastrar().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new UsuarioCadastrar().setVisible(true);
     }//GEN-LAST:event_mItemCadastrarUsuarioActionPerformed
 
     private void mItemListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarUsuariosActionPerformed
-        new UsuarioLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new UsuarioLista().setVisible(true);
     }//GEN-LAST:event_mItemListarUsuariosActionPerformed
 
     private void mItemCadastrarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarReservaActionPerformed
-        new ReservaCadastrar().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new ReservaCadastrar().setVisible(true);
     }//GEN-LAST:event_mItemCadastrarReservaActionPerformed
 
     private void mItemListarTodasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarTodasReservasActionPerformed
-        new ReservaLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new ReservaLista().setVisible(true);
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -401,9 +401,9 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        new ReservaLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new ReservaLista().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc=" AUX ">
@@ -422,22 +422,68 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Senha incorreta.");
                 return;
             }
-            Situacao situacao = (Situacao) cbSituacao.getSelectedItem() ;//situacao
+            //Informações dos campos
+            int id = (int) spinId.getValue();
+            Date data = dateData.getDate();
+            Horario horarioInicial = (Horario) cbHorarioInicial.getSelectedItem();
+            int valorHorarioInicial = Horario.valorHorario(horarioInicial);
+            Horario horarioFinal = (Horario) cbHorarioFinal.getSelectedItem();
+            int valorHorarioFinal = Horario.valorHorario(horarioFinal);
+            Sala sala = (Sala) cbSala.getSelectedItem();
+
+            //Logica que verifica reservas
+            Situacao situacao = (Situacao) cbSituacao.getSelectedItem();//situacao
+            if (situacao.getId() == 1) {
+                ArrayList todasReservas = control.listarTodasReservas();
+                if (todasReservas == null) {
+                    JOptionPane.showMessageDialog(this, "Não há reservas!");
+                    return;
+                }
+                Iterator it = todasReservas.iterator();
+                while (it.hasNext()) {
+                    int idLista = (int) it.next();
+                    String motivoLista = (String) it.next().toString();
+                    Date dataLista = (Date) it.next();
+                    Horario horarioInicialLista = (Horario) it.next();
+                    int valorHorarioInicialLista = Horario.valorHorario(horarioInicialLista);
+                    Horario horarioFinalLista = (Horario) it.next();
+                    int valorHorarioFinalLista = Horario.valorHorario(horarioFinalLista);
+                    boolean confirmadaLista = (boolean) it.next();
+                    Usuario usuarioLista = (Usuario) it.next();
+                    Sala salaLista = (Sala) it.next();
+                    Situacao situacaoLista = (Situacao) it.next();
+
+                    boolean datasIguais = data.equals(dataLista);
+                    if (idLista != id //id das reservas devem ser diferentes, para não se autoeliminar
+                            && (situacaoLista.getId() == 1 || confirmadaLista) //a reserva da lista deve estar confirmada
+                            && situacao.getId() == 1 //o usuario deve estar tentando confirmar essa reserva
+                            && data.equals(dataLista) //a data deve ser a mesma
+                            && sala.equals(salaLista)
+                            && valorHorarioInicial >= valorHorarioInicialLista
+                            && valorHorarioFinal <= valorHorarioFinalLista) {
+                        String message = "Conflito!\n"
+                                + "Já há uma reserva confimada nestas condições, logo a sala estará ocupada.";
+                        JOptionPane.showMessageDialog(this, message);
+                        return;
+                    }
+
+                }
+            }
             //Capturando informações e adicionando a uma lista
-            novaLista.add((int) spinId.getValue());//id
+            novaLista.add(id);//id
             novaLista.add(taMotivo.getText());//motivo
-            novaLista.add(dateData.getDate());//data
-            novaLista.add(cbHorarioInicial.getSelectedItem());//horario inicial
-            novaLista.add(cbHorarioFinal.getSelectedItem());//hoarario final
-            if(situacao.getId() == 1) {
+            novaLista.add(data);//data
+            novaLista.add(horarioInicial);//horario inicial
+            novaLista.add(horarioFinal);//hoarario final
+            if (situacao.getId() == 1) {
                 novaLista.add(true);//Confirmada
             } else {
                 novaLista.add(false);//Não confirmada
             }
             novaLista.add(Login.getUsuario());//usuario
-            novaLista.add(cbSala.getSelectedItem());//sala
+            novaLista.add(sala);//sala
             novaLista.add(cbSituacao.getSelectedItem());//situacao
-            
+
             //Mandando para o Contoller
             if (control.editarReserva(novaLista)) {
                 JOptionPane.showMessageDialog(this, "Sua decisão foi salva!");
@@ -450,38 +496,38 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, msgErro);
         }
     }
-    
-    public void iniciar(int id, String motivo, Date data, Horario horarioInicial, 
-            Horario horarioFinal, boolean confirmada, Usuario usuario, 
-            Sala sala, Situacao situacao){
-            
+
+    public void iniciar(int id, String motivo, Date data, Horario horarioInicial,
+            Horario horarioFinal, boolean confirmada, Usuario usuario,
+            Sala sala, Situacao situacao) {
+
         spinId.setValue(id);
         spinId.setEnabled(false);
-        
+
         taMotivo.setText(motivo);
         taMotivo.setEnabled(false);
-        
+
         dateData.setDate(data);
         dateData.setEnabled(false);
-        
+
         cbHorarioInicial.addItem(horarioInicial);
         cbHorarioInicial.setSelectedItem(horarioInicial);
         cbHorarioInicial.setEnabled(false);
-        
+
         cbHorarioFinal.addItem(horarioFinal);
         cbHorarioFinal.setSelectedItem(horarioFinal);
         cbHorarioFinal.setEnabled(false);
-        
+
         cbSala.addItem(sala);
         cbSala.setSelectedItem(sala);
         cbSala.setEnabled(false);
-        
+
         tfUsuario.setText(usuario.getpNome() + " " + usuario.getuNome());
         tfUsuario.setEnabled(false);
-        
+
         tfEmail.setText(usuario.getEmail());
         tfEmail.setEnabled(false);
-        
+
         carregaComboBoxes();
     }
 
@@ -499,7 +545,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                     (String) iterator.next()//Mensagem
             );
             cbSituacao.addItem(situacao);
-            if(situacao.getId() == 2) {
+            if (situacao.getId() == 2) {
                 cbSituacao.setSelectedItem(situacao);
             }
         }

@@ -4,23 +4,23 @@
 -- enum
 CREATE TYPE horario AS ENUM
 (
-    'M1',
-    'M2', 
-    'M3', 
-    'M4', 
-    'M5', 
-    'M6', 
-    'T1', 
-    'T2', 
-    'T3', 
-    'T4', 
-    'T5', 
-    'T6', 
-    'N1', 
-    'N2', 
-    'N3', 
-    'N4', 
-    'N5'
+    'M1 (07h30 - 08h20)',
+    'M2 (08h20 - 09h10)',
+    'M3 (09h10 - 10h00)',
+    'M4 (10h20 - 11h10)',
+    'M5 (11h10 - 12h00)',
+    'M6 (12h00 - 12h50)',
+    'T1 (13h00 - 13h50)',
+    'T2 (13h50 - 14h40)',
+    'T3 (14h40 - 15h30)',
+    'T4 (15h50 - 16h40)',
+    'T5 (16h40 - 17h30)',
+    'T6 (17h50 - 18h40)',
+    'N1 (18h40 - 19h30)',
+    'N2 (19h30 - 20h20)',
+    'N3 (20h20 - 21h10)',
+    'N4 (21h20 - 22h10)',
+    'N5 (22h10 - 23h00)'
 );
 
 -- end
@@ -147,7 +147,7 @@ CREATE TABLE usuario
     USU_PNOME varchar(100) NOT NULL,
     USU_UNOME varchar(100) NOT NULL,
     USU_EMAIL varchar(30) NOT NULL,
-    USU_SENHA varchar(20) NOT NULL UNIQUE,
+    USU_SENHA varchar(200) NOT NULL UNIQUE,
     USU_ATIVO boolean NOT NULL DEFAULT TRUE,
     DEP_ID int NOT NULL,
     TIPUS_ID int NOT NULL,

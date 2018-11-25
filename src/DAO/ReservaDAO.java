@@ -226,21 +226,21 @@ public class ReservaDAO {
                 + " DEPARTAMENTO.DEP_ID, DEP_NOME, DEP_SIGLA, DEP_ATIVO, "
                 + " TIPO_DE_USUARIO.TIPUS_ID, TIPUS_SIGLA, TIPUS_NOME, "
                 + " SALA.SALA_ID, SALA_NUM, SALA_NUM_CADEIRAS, SALA_NUM_COMP, "
-                + " SALA_DETALHES, SALA_ATIVA, TIPO_DE_SALA.TIPSAL_ID, "
+                + " SALA_DETALHES, SALA_ATIVA, TIPO_DE_SALA.TIPSAL_ID,  "
                 + " TIPSAL_NOME, BLOCO.BLOC_ID, BLOC_LETRA, BLOC_NOME, "
                 + " BLOC_DESCRICAO, BLOC_ATIVO, SITUACAO.SIT_ID, SIT_NOME, "
                 + " SIT_MENSAGEM, DEP_SIGLA "
                 + " from RESERVA, SALA, USUARIO,  SITUACAO, DEPARTAMENTO, "
                 + " TIPO_DE_USUARIO, TIPO_DE_SALA, BLOCO "
-                + " where RESERVA.SALA_ID = SALA.SALA_ID and"
+                + " where RESERVA.SALA_ID = SALA.SALA_ID and "
                 + " RESERVA.USU_ID = USUARIO.USU_ID and "
-                + " USUARIO.TIPUS_ID = TIPO_DE_USUARIO.TIPUS_ID and"
-                + " DEPARTAMENTO.DEP_ID = USUARIO.DEP_ID and "
+                + " USUARIO.TIPUS_ID = TIPO_DE_USUARIO.TIPUS_ID and  "
+                + " DEPARTAMENTO.DEP_ID = SALA.DEP_ID and "
                 + " RESERVA.SIT_ID = SITUACAO.SIT_ID and "
                 + " SALA.TIPSAL_ID = TIPO_DE_SALA.TIPSAL_ID and "
                 + " BLOCO.BLOC_ID = SALA.BLOC_ID and "
                 + " SITUACAO.SIT_ID = 2 and "
-                + " DEP_SIGLA = '" + siglaDep + "' "
+                + " DEP_SIGLA = '"+ siglaDep +"' "
                 + " order by RESER_DATA desc";
 
         PreparedStatement pstdados = null;
@@ -271,8 +271,8 @@ public class ReservaDAO {
                 int idReserva = (int) iterator.next();
                 String motivoReserva = iterator.next().toString();
                 Date dataReserva = (java.util.Date) iterator.next(); //data
-                Horario horarioInicial = (Horario) Horario.valueOf(iterator.next().toString());
-                Horario horarioFinal = (Horario) Horario.valueOf(iterator.next().toString()); //data Final
+                Horario horarioInicial = Horario.valorHorario(iterator.next().toString());
+                Horario horarioFinal = Horario.valorHorario(iterator.next().toString());
                 boolean confirmada = (boolean) iterator.next();
 
                 int idUsuario = (int) iterator.next();//id
@@ -374,8 +374,8 @@ public class ReservaDAO {
                         (int) iterator.next(), //id
                         (String) iterator.next().toString(), //motivo
                         (java.util.Date) iterator.next(), //data
-                        (Horario) Horario.valueOf(iterator.next().toString()), //data Iniciail
-                        (Horario) Horario.valueOf(iterator.next().toString()), //data Final
+                        Horario.valorHorario(iterator.next().toString()), //data Iniciail
+                        Horario.valorHorario(iterator.next().toString()), //data Final
                         (boolean) iterator.next(), //confirmada
                         new Usuario(
                                 (int) iterator.next(),//id

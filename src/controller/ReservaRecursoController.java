@@ -76,6 +76,9 @@ public class ReservaRecursoController {
 
     public ArrayList listarTodasReservas() {
         ArrayList<Reserva> listagem = Reserva.selectAll();
+        if(listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 
@@ -100,6 +103,9 @@ public class ReservaRecursoController {
     
     public ArrayList listarMinhasReservas() {
         ArrayList<Reserva> listagem = Reserva.selectAllMy();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 
