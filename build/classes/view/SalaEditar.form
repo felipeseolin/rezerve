@@ -15,7 +15,6 @@
             <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHomeMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuHomeActionPerformed"/>
           </Events>
         </Menu>
@@ -84,6 +83,45 @@
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarTodasReservasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemListarMinhasReservas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar minhas Reservas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarMinhasReservasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemListarReservasDecisao">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar reservas aguardando decis&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarReservasDecisaoActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuUsuario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemEditarUsuario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar minhas informa&#xe7;&#xf5;es"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemEditarUsuarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemSair">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemSairActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>

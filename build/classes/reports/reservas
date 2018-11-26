@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9a362112-6ef7-4412-bada-ad87265c4526">
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     reserva."reser_motivo" AS Motivo,
+     reserva."reser_data" AS Data,
+     reserva."reser_horario_inicial" AS horario_inicial,
+     reserva."reser_horario_final" AS horario_final,
+     reserva."reser_confirmada" AS confirmada,
+     reserva."sala_id" AS sala,
+     usuario."usu_pnome" AS pnome,
+     usuario."usu_unome" AS unome,
+     usuario."usu_id" AS usuario_usu_id,
+     reserva."reser_id" AS reserva_reser_id
+FROM
+     "public"."usuario" usuario INNER JOIN "public"."reserva" reserva ON usuario."usu_id" = reserva."usu_id"]]>
+	</queryString>
+	<field name="motivo" class="java.lang.String"/>
+	<field name="data" class="java.sql.Date"/>
+	<field name="horario_inicial" class="java.lang.Object"/>
+	<field name="horario_final" class="java.lang.Object"/>
+	<field name="confirmada" class="java.lang.Boolean"/>
+	<field name="sala" class="java.lang.String"/>
+	<field name="pnome" class="java.lang.String"/>
+	<field name="unome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="70" splitType="Stretch">
+			<image>
+				<reportElement x="275" y="0" width="300" height="64" uuid="c5fef398-fedd-4b07-824e-5377151071a8"/>
+				<imageExpression><![CDATA["leaf_banner_green.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="78e5e122-3cc9-4c8c-a6e1-2c9f518ffaef"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leaf Green Title]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="f2d966f2-c275-48e2-8127-815daa86e746"/>
+				<text><![CDATA[Leaf Green SubTitle]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="a0e0fb3e-7ca3-4205-8cb8-ae6e20e8f83d"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="69" height="15" uuid="f5916e7f-ac9b-42fb-9629-d6ca46e08927"/>
+				<text><![CDATA[motivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="69" y="19" width="69" height="15" uuid="659f518d-126a-4654-9b71-dffd18a207cb"/>
+				<text><![CDATA[data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="138" y="19" width="69" height="15" uuid="cd2ee00a-af16-4d86-b548-b01080a6be67"/>
+				<text><![CDATA[horario_inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="207" y="19" width="69" height="15" uuid="3d772dbe-d238-42ea-9e39-523cbe30f4a2"/>
+				<text><![CDATA[horario_final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="276" y="19" width="69" height="15" uuid="a00a993b-0198-4440-9267-a6c18b872a93"/>
+				<text><![CDATA[confirmada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="345" y="19" width="69" height="15" uuid="e7433d5a-83b9-46b2-aa2d-50064c301538"/>
+				<text><![CDATA[sala]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="414" y="19" width="69" height="15" uuid="fa685a8a-ac88-40ac-b997-b921cbb73944"/>
+				<text><![CDATA[pnome]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="483" y="19" width="69" height="15" uuid="a5d340bc-edb6-4e98-b97c-5435fd2c4edc"/>
+				<text><![CDATA[unome]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="0f7a7cbe-567f-4cee-b3ff-a22ba91e1744"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="69" height="15" uuid="beb30cbb-6c47-467c-aafa-ba048dea092f"/>
+				<textFieldExpression><![CDATA[$F{motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="69" y="0" width="69" height="15" uuid="abf98ad6-6b3a-4aeb-ae56-a1dac682f9dc"/>
+				<textFieldExpression><![CDATA[$F{data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="138" y="0" width="69" height="15" uuid="17faf71f-4b7b-4abf-9d34-ff044c3621ad"/>
+				<textFieldExpression><![CDATA[""+$F{horario_inicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="207" y="0" width="69" height="15" uuid="9f34236c-8c84-4b63-a6f2-a428621daffc"/>
+				<textFieldExpression><![CDATA[""+$F{horario_final}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="276" y="0" width="69" height="15" uuid="163dafd6-fd10-4848-84bf-8ae812fbc6db"/>
+				<textFieldExpression><![CDATA[$F{confirmada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="345" y="0" width="69" height="15" uuid="49c4d061-1bb8-40a9-ab09-cca43078078e"/>
+				<textFieldExpression><![CDATA[$F{sala}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="414" y="0" width="69" height="15" uuid="c9ba4218-5769-48ce-8e0a-7f98a4c012b0"/>
+				<textFieldExpression><![CDATA[$F{pnome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="483" y="0" width="69" height="15" uuid="2bef94de-6768-4098-9410-e8f34792de77"/>
+				<textFieldExpression><![CDATA[$F{unome}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="5655f07f-fa7e-452d-b2b9-16e4661d448a"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="8aa5e1a9-d997-41fd-976b-ca06f59c90c5"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="19d82d77-fb28-4aa1-884d-1c5d69b04e58"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="65866982-0373-4829-9d42-14cc5c6a2bb3"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

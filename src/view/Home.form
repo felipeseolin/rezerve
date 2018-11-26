@@ -85,6 +85,45 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarTodasReservasActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemListarMinhasReservas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar minhas Reservas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarMinhasReservasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemListarReservasDecisao">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar reservas aguardando decis&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarReservasDecisaoActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuUsuario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemEditarUsuario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar minhas informa&#xe7;&#xf5;es"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemEditarUsuarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemSair">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemSairActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -92,12 +131,16 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Rezerve"/>
+    <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
+      <Color id="Cursor Padr&#xe3;o"/>
+    </Property>
     <Property name="extendedState" type="int" value="6"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="barraMenu"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
-    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="true"/>
   </SyntheticProperties>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -120,7 +163,7 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="158" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="161" max="-2" attributes="0"/>
               <Component id="btnGerenciarSalas" min="-2" pref="142" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
               <Component id="btnGerenciarUsuários" min="-2" max="-2" attributes="0"/>
@@ -139,7 +182,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="labelLogotipo" min="-2" pref="393" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnGerenciarSalas" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
                   <Component id="btnGerenciarUsuários" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
@@ -147,7 +190,7 @@
                   <Component id="btnGerenciarMinhasReservas" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
                   <Component id="btnReservasDecisoes" alignment="3" min="-2" pref="62" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="116" max="32767" attributes="0"/>
+              <EmptySpace pref="80" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

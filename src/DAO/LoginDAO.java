@@ -6,6 +6,7 @@
 package DAO;
 
 import controller.BDController;
+import model.BCrypt;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -33,13 +34,14 @@ public class LoginDAO {
             Usuario usuario = (Usuario) iterator.next();
             String email = usuario.getEmail();
             String senha = usuario.getSenha();
-            
-            if(email.equals(user.getEmail())
-                    && senha.equals(user.getSenha())) {
+            boolean verificaHash = BCrypt.checkpw(user.getSenha(), senha);
+            if(verificaHash == true){
+                if(email.equals(user.getEmail())) {
                     usuario.setSenha("");
                     Login.setUsuario(usuario);
                     Login.setAutenticado(true);
-                return;
+                    return;
+                }
             }
         }
         Login.setSenhaNull();

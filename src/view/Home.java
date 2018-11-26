@@ -21,11 +21,12 @@ public class Home extends javax.swing.JFrame {
         initComponents();
         if(Login.isAutenticado()) {
             Usuario usuario = Login.getUsuario();
+            menuUsuario.setText(usuario.toString());
             String siglaTipoUsuario = usuario.getTipoUsuario().getSigla();
-            if(!siglaTipoUsuario.equals("COORD") ||
-                    siglaTipoUsuario.equals("ADMIN")) {
+            if(!siglaTipoUsuario.equals("COORD")) {
                 btnReservasDecisoes.setEnabled(false);
                 btnReservasDecisoes.setVisible(false);
+                mItemListarReservasDecisao.setVisible(false);
             }
         } else {
             this.dispose();
@@ -58,8 +59,15 @@ public class Home extends javax.swing.JFrame {
         menuGerenciarReservas = new javax.swing.JMenu();
         mItemCadastrarReserva = new javax.swing.JMenuItem();
         mItemListarTodasReservas = new javax.swing.JMenuItem();
+        mItemListarMinhasReservas = new javax.swing.JMenuItem();
+        mItemListarReservasDecisao = new javax.swing.JMenuItem();
+        menuUsuario = new javax.swing.JMenu();
+        mItemEditarUsuario = new javax.swing.JMenuItem();
+        mItemSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Rezerve");
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setExtendedState(6);
 
         labelLogotipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -169,7 +177,43 @@ public class Home extends javax.swing.JFrame {
         });
         menuGerenciarReservas.add(mItemListarTodasReservas);
 
+        mItemListarMinhasReservas.setText("Listar minhas Reservas");
+        mItemListarMinhasReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemListarMinhasReservasActionPerformed(evt);
+            }
+        });
+        menuGerenciarReservas.add(mItemListarMinhasReservas);
+
+        mItemListarReservasDecisao.setText("Listar reservas aguardando decisão");
+        mItemListarReservasDecisao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemListarReservasDecisaoActionPerformed(evt);
+            }
+        });
+        menuGerenciarReservas.add(mItemListarReservasDecisao);
+
         barraMenu.add(menuGerenciarReservas);
+
+        menuUsuario.setText("Usuario");
+
+        mItemEditarUsuario.setText("Editar minhas informações");
+        mItemEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemEditarUsuarioActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(mItemEditarUsuario);
+
+        mItemSair.setText("Sair");
+        mItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemSairActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(mItemSair);
+
+        barraMenu.add(menuUsuario);
 
         setJMenuBar(barraMenu);
 
@@ -182,7 +226,7 @@ public class Home extends javax.swing.JFrame {
                 .addComponent(labelLogotipo, javax.swing.GroupLayout.DEFAULT_SIZE, 1364, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(158, 158, 158)
+                .addGap(161, 161, 161)
                 .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(61, 61, 61)
                 .addComponent(btnGerenciarUsuários)
@@ -199,17 +243,18 @@ public class Home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(labelLogotipo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
+                .addGap(99, 99, 99)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarUsuários, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarMinhasReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReservasDecisoes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGerenciarReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerenciarReservasActionPerformed
@@ -284,6 +329,32 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnReservasDecisoesActionPerformed
 
+    private void mItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemSairActionPerformed
+        Login.setAutenticado(false);
+        Login.setUsuario(null);
+        this.setVisible(false);
+        this.dispose();
+        new LoginHome().setVisible(true);
+    }//GEN-LAST:event_mItemSairActionPerformed
+
+    private void mItemListarMinhasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarMinhasReservasActionPerformed
+        this.setVisible(false);
+        this.dispose();
+        new ReservaListaMinhas().setVisible(true);
+    }//GEN-LAST:event_mItemListarMinhasReservasActionPerformed
+
+    private void mItemListarReservasDecisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarReservasDecisaoActionPerformed
+        this.setVisible(false);
+        this.dispose();
+        new ReservaListaDecisoes().setVisible(true);
+    }//GEN-LAST:event_mItemListarReservasDecisaoActionPerformed
+
+    private void mItemEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemEditarUsuarioActionPerformed
+        this.setVisible(false);
+        this.dispose();
+        new UsuarioEditarMinhasInfo().setVisible(true);
+    }//GEN-LAST:event_mItemEditarUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -330,12 +401,17 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
     private javax.swing.JMenuItem mItemCadastrarUsuario;
+    private javax.swing.JMenuItem mItemEditarUsuario;
+    private javax.swing.JMenuItem mItemListarMinhasReservas;
+    private javax.swing.JMenuItem mItemListarReservasDecisao;
     private javax.swing.JMenuItem mItemListarSalas;
     private javax.swing.JMenuItem mItemListarTodasReservas;
     private javax.swing.JMenuItem mItemListarUsuarios;
+    private javax.swing.JMenuItem mItemSair;
     private javax.swing.JMenu menuGerenciarReservas;
     private javax.swing.JMenu menuGerenciarSalas;
     private javax.swing.JMenu menuGerenciarUsuarios;
     private javax.swing.JMenu menuHome;
+    private javax.swing.JMenu menuUsuario;
     // End of variables declaration//GEN-END:variables
 }

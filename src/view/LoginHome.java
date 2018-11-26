@@ -20,6 +20,10 @@ public class LoginHome extends javax.swing.JFrame {
      */
     public LoginHome() {
         initComponents();
+        menuUsuario.setVisible(false);
+        menuGerenciarReservas.setVisible(false);
+        menuGerenciarSalas.setVisible(false);
+        menuGerenciarUsuarios.setVisible(false);
     }
 
     /**
@@ -51,6 +55,11 @@ public class LoginHome extends javax.swing.JFrame {
         menuGerenciarReservas = new javax.swing.JMenu();
         mItemCadastrarReserva = new javax.swing.JMenuItem();
         mItemListarTodasReservas = new javax.swing.JMenuItem();
+        mItemListarMinhasReservas = new javax.swing.JMenuItem();
+        mItemListarReservasDecisao = new javax.swing.JMenuItem();
+        menuUsuario = new javax.swing.JMenu();
+        mItemEditarUsuario = new javax.swing.JMenuItem();
+        mItemSair = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
@@ -207,7 +216,43 @@ public class LoginHome extends javax.swing.JFrame {
         });
         menuGerenciarReservas.add(mItemListarTodasReservas);
 
+        mItemListarMinhasReservas.setText("Listar minhas Reservas");
+        mItemListarMinhasReservas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemListarMinhasReservasActionPerformed(evt);
+            }
+        });
+        menuGerenciarReservas.add(mItemListarMinhasReservas);
+
+        mItemListarReservasDecisao.setText("Listar reservas aguardando decisão");
+        mItemListarReservasDecisao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemListarReservasDecisaoActionPerformed(evt);
+            }
+        });
+        menuGerenciarReservas.add(mItemListarReservasDecisao);
+
         barraMenu.add(menuGerenciarReservas);
+
+        menuUsuario.setText("Usuario");
+
+        mItemEditarUsuario.setText("Editar minhas informações");
+        mItemEditarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemEditarUsuarioActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(mItemEditarUsuario);
+
+        mItemSair.setText("Sair");
+        mItemSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mItemSairActionPerformed(evt);
+            }
+        });
+        menuUsuario.add(mItemSair);
+
+        barraMenu.add(menuUsuario);
 
         setJMenuBar(barraMenu);
 
@@ -231,6 +276,10 @@ public class LoginHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
+        login();
+    }//GEN-LAST:event_btnEntrarActionPerformed
+
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
         new Home().setVisible(true);
         this.setVisible(false);
@@ -238,44 +287,44 @@ public class LoginHome extends javax.swing.JFrame {
     }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
-        new SalaCadastrar().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        
     }//GEN-LAST:event_mItemCadastrarSalaActionPerformed
 
     private void mItemListarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarSalasActionPerformed
-        new SalaLista().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        
     }//GEN-LAST:event_mItemListarSalasActionPerformed
 
     private void mItemCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarUsuarioActionPerformed
-        new UsuarioCadastrar().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        
     }//GEN-LAST:event_mItemCadastrarUsuarioActionPerformed
 
     private void mItemListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarUsuariosActionPerformed
-        new UsuarioLista().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        
     }//GEN-LAST:event_mItemListarUsuariosActionPerformed
 
     private void mItemCadastrarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarReservaActionPerformed
-        new ReservaCadastrar().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        
     }//GEN-LAST:event_mItemCadastrarReservaActionPerformed
 
     private void mItemListarTodasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarTodasReservasActionPerformed
-        new ReservaLista().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
+        
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
-    private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        login();
-    }//GEN-LAST:event_btnEntrarActionPerformed
+    private void mItemListarMinhasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarMinhasReservasActionPerformed
+        
+    }//GEN-LAST:event_mItemListarMinhasReservasActionPerformed
+
+    private void mItemListarReservasDecisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarReservasDecisaoActionPerformed
+        
+    }//GEN-LAST:event_mItemListarReservasDecisaoActionPerformed
+
+    private void mItemEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemEditarUsuarioActionPerformed
+        
+    }//GEN-LAST:event_mItemEditarUsuarioActionPerformed
+
+    private void mItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemSairActionPerformed
+       
+    }//GEN-LAST:event_mItemSairActionPerformed
 
     private void login() {
         String email = tfEmail.getText();
@@ -338,13 +387,18 @@ public class LoginHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
     private javax.swing.JMenuItem mItemCadastrarUsuario;
+    private javax.swing.JMenuItem mItemEditarUsuario;
+    private javax.swing.JMenuItem mItemListarMinhasReservas;
+    private javax.swing.JMenuItem mItemListarReservasDecisao;
     private javax.swing.JMenuItem mItemListarSalas;
     private javax.swing.JMenuItem mItemListarTodasReservas;
     private javax.swing.JMenuItem mItemListarUsuarios;
+    private javax.swing.JMenuItem mItemSair;
     private javax.swing.JMenu menuGerenciarReservas;
     private javax.swing.JMenu menuGerenciarSalas;
     private javax.swing.JMenu menuGerenciarUsuarios;
     private javax.swing.JMenu menuHome;
+    private javax.swing.JMenu menuUsuario;
     private javax.swing.JPanel painelAuxiliar;
     private javax.swing.JPanel painelLogin;
     private javax.swing.JPasswordField passSenha;

@@ -15,7 +15,6 @@
             <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHomeMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuHomeActionPerformed"/>
           </Events>
         </Menu>
@@ -86,6 +85,45 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarTodasReservasActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemListarMinhasReservas">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar minhas Reservas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarMinhasReservasActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemListarReservasDecisao">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Listar reservas aguardando decis&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarReservasDecisaoActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="menuUsuario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Usuario"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemEditarUsuario">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar minhas informa&#xe7;&#xf5;es"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemEditarUsuarioActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mItemSair">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sair"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemSairActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -119,26 +157,20 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
-                      <Component id="labelUsuario" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="painelForm" max="32767" attributes="0"/>
-                          <Component id="painelBotoes" max="32767" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
+                  <Component id="painelForm" max="32767" attributes="0"/>
+                  <Component id="painelBotoes" max="32767" attributes="0"/>
+                  <Component id="labelUsuario" alignment="1" max="32767" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="labelUsuario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="painelForm" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="painelBotoes" max="32767" attributes="0"/>
@@ -195,7 +227,7 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
                       <Component id="spinId" min="-2" max="-2" attributes="0"/>
                       <Component id="labeliD" min="-2" max="-2" attributes="0"/>
