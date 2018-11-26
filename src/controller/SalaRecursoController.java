@@ -75,6 +75,9 @@ public class SalaRecursoController {
 
     public ArrayList listarSala() {
         ArrayList<Sala> listagem = Sala.selectAll();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 

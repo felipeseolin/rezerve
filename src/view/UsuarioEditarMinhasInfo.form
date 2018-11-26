@@ -15,6 +15,7 @@
             <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHomeMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuHomeActionPerformed"/>
           </Events>
         </Menu>
@@ -217,6 +218,11 @@
                               <Component id="passConfirmarSenha" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="labelId" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="spinId" max="32767" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -225,7 +231,12 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="labelId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="spinId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="tfPNome" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="labelPNome" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -343,6 +354,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Confirmar Senha:"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="labelId">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Identifica&#xe7;&#xe3;o/SIAPE:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSpinner" name="spinId">
         </Component>
       </SubComponents>
     </Container>

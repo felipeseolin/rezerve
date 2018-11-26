@@ -31,6 +31,25 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
         if (Login.isAutenticado()) {
             Usuario usuario = Login.getUsuario();
             menuUsuario.setText(usuario.toString());
+            String sigla = usuario.getTipoUsuario().getSigla();
+            switch (sigla) {
+                case "ADMIN":
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                case "COORD":
+                    mItemCadastrarSala.setVisible(false);
+                    mItemCadastrarUsuario.setVisible(false);
+                    break;
+                case "COMUM":
+                    mItemCadastrarSala.setVisible(false);
+                    menuUsuario.setVisible(false);
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Usuário não logado!");
+                    System.exit(-1);
+                    break;
+            }
         } else {
             this.dispose();
         }
@@ -62,6 +81,8 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
         passSenha = new javax.swing.JPasswordField();
         passConfirmarSenha = new javax.swing.JPasswordField();
         labelConfirmarSenha = new javax.swing.JLabel();
+        labelId = new javax.swing.JLabel();
+        spinId = new javax.swing.JSpinner();
         labelUsuario = new javax.swing.JLabel();
         painelBotoes = new javax.swing.JPanel();
         btnSalvar = new javax.swing.JButton();
@@ -114,6 +135,8 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
 
         labelConfirmarSenha.setText("Confirmar Senha:");
 
+        labelId.setText("Identificação/SIAPE:");
+
         javax.swing.GroupLayout painelFormLayout = new javax.swing.GroupLayout(painelForm);
         painelForm.setLayout(painelFormLayout);
         painelFormLayout.setHorizontalGroup(
@@ -143,13 +166,21 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
                             .addComponent(tfUNome, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(passSenha)
-                            .addComponent(passConfirmarSenha))))
+                            .addComponent(passConfirmarSenha)))
+                    .addGroup(painelFormLayout.createSequentialGroup()
+                        .addComponent(labelId)
+                        .addGap(48, 48, 48)
+                        .addComponent(spinId)))
                 .addContainerGap())
         );
         painelFormLayout.setVerticalGroup(
             painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFormLayout.createSequentialGroup()
-                .addGap(44, 44, 44)
+                .addGap(17, 17, 17)
+                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelId)
+                    .addComponent(spinId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfPNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelPNome))
@@ -225,6 +256,11 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
 
         menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
         menuHome.setText("Home");
+        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHomeMouseClicked(evt);
+            }
+        });
         menuHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuHomeActionPerformed(evt);
@@ -443,6 +479,12 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
         new LoginHome().setVisible(true);
     }//GEN-LAST:event_mItemSairActionPerformed
 
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        this.setVisible(false);
+        this.dispose();
+        new LoginHome().setVisible(true);
+    }//GEN-LAST:event_menuHomeMouseClicked
+
     // <editor-fold defaultstate="collapsed" desc=" AUX ">
     /**
      * Método responsável por tratar a requisição de quando o usuário pede para
@@ -450,6 +492,7 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
      */
     public void iniciar() {
         Usuario user = Login.getUsuario();
+        spinId.setValue((int) user.getId());
         tfPNome.setText(user.getpNome());
         tfUNome.setText(user.getuNome());
         tfEmail.setText(user.getEmail());
@@ -458,6 +501,7 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
         cbTipoUsuario.addItem(user.getTipoUsuario());
         cbTipoUsuario.setSelectedItem(user.getTipoUsuario());
         
+        spinId.setEnabled(false);
         tfPNome.setEditable(false);
         tfUNome.setEditable(false);
         checkAtivo.setEnabled(false);
@@ -480,6 +524,11 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "As senhas digitadas não são iguais.");
                 return;
             }
+            if (senha.length() > 20) {
+                JOptionPane.showMessageDialog(this, "A senha informada deve conter menos de 20 caracteres");
+                return;
+            }
+            
             String salGerado = BCrypt.gensalt();
             String senhaHasheada = BCrypt.hashpw(senha, salGerado);
             boolean ativo = checkAtivo.isSelected();
@@ -553,6 +602,7 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
     private javax.swing.JLabel labelConfirmarSenha;
     private javax.swing.JLabel labelDepartamento;
     private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelPNome;
     private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelTipoUsuario;
@@ -577,6 +627,7 @@ public class UsuarioEditarMinhasInfo extends javax.swing.JFrame {
     private javax.swing.JPanel painelForm;
     private javax.swing.JPasswordField passConfirmarSenha;
     private javax.swing.JPasswordField passSenha;
+    private javax.swing.JSpinner spinId;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfPNome;
     private javax.swing.JTextField tfUNome;

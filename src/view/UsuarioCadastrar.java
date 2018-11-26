@@ -4,11 +4,12 @@
  * and open the template in the editor.
  */
 package view;
-        
+
 import model.BCrypt;
 import controller.DepartamentoRecursoController;
 import controller.TipoUsuarioRecursoController;
 import controller.UsuarioRecursoController;
+import java.awt.Dialog;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -34,6 +35,25 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
         if (Login.isAutenticado()) {
             Usuario usuario = Login.getUsuario();
             menuUsuario.setText(usuario.toString());
+            String sigla = usuario.getTipoUsuario().getSigla();
+            switch (sigla) {
+                case "ADMIN":
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                case "COORD":
+                    mItemCadastrarSala.setVisible(false);
+                    mItemCadastrarUsuario.setVisible(false);
+                    break;
+                case "COMUM":
+                    mItemCadastrarSala.setVisible(false);
+                    menuUsuario.setVisible(false);
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Usuário não logado!");
+                    System.exit(-1);
+                    break;
+            }
         } else {
             this.dispose();
         }
@@ -66,6 +86,8 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
         passSenha = new javax.swing.JPasswordField();
         labelConfirmarSenha = new javax.swing.JLabel();
         passConfirmarSenha = new javax.swing.JPasswordField();
+        labelId = new javax.swing.JLabel();
+        spinId = new javax.swing.JSpinner();
         labelTitulo = new javax.swing.JLabel();
         painelBotoes = new javax.swing.JPanel();
         btnInserir = new javax.swing.JButton();
@@ -112,44 +134,57 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
 
         labelConfirmarSenha.setText("Confirmar Senha:");
 
+        labelId.setText("Identificação/SIAPE:");
+
         javax.swing.GroupLayout painelFormLayout = new javax.swing.GroupLayout(painelForm);
         painelForm.setLayout(painelFormLayout);
         painelFormLayout.setHorizontalGroup(
             painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelFormLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(painelFormLayout.createSequentialGroup()
-                        .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelPNome)
-                            .addComponent(labelUNome))
-                        .addGap(119, 119, 119)
-                        .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfUNome)
-                            .addComponent(tfPNome)))
-                    .addGroup(painelFormLayout.createSequentialGroup()
-                        .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labelEmail)
-                            .addComponent(labelSenha)
-                            .addComponent(labelConfirmarSenha)
-                            .addComponent(labelDepartamento)
-                            .addComponent(labelTipoUsuario))
-                        .addGap(108, 108, 108)
+                        .addGap(8, 8, 8)
                         .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(painelFormLayout.createSequentialGroup()
-                                .addComponent(checkAtivo, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
-                                .addGap(474, 474, 474))
-                            .addComponent(cbTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(passConfirmarSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(passSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(tfEmail)
-                            .addComponent(cbDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelEmail)
+                                    .addComponent(labelSenha)
+                                    .addComponent(labelConfirmarSenha)
+                                    .addComponent(labelDepartamento)
+                                    .addComponent(labelTipoUsuario))
+                                .addGap(108, 108, 108)
+                                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(painelFormLayout.createSequentialGroup()
+                                        .addComponent(checkAtivo, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                                        .addGap(474, 474, 474))
+                                    .addComponent(cbTipoUsuario, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(passConfirmarSenha, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(passSenha, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(tfEmail)
+                                    .addComponent(cbDepartamento, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(painelFormLayout.createSequentialGroup()
+                                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelPNome)
+                                    .addComponent(labelUNome))
+                                .addGap(119, 119, 119)
+                                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfUNome)
+                                    .addComponent(tfPNome)))))
+                    .addGroup(painelFormLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(labelId)
+                        .addGap(96, 96, 96)
+                        .addComponent(spinId)))
                 .addContainerGap())
         );
         painelFormLayout.setVerticalGroup(
             painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelFormLayout.createSequentialGroup()
-                .addGap(8, 8, 8)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelFormLayout.createSequentialGroup()
+                .addContainerGap(26, Short.MAX_VALUE)
+                .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelId)
+                    .addComponent(spinId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(tfPNome, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelPNome))
@@ -181,7 +216,7 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
                     .addComponent(labelTipoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(checkAtivo)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
@@ -227,6 +262,11 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
 
         menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
         menuHome.setText("Home");
+        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHomeMouseClicked(evt);
+            }
+        });
         menuHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuHomeActionPerformed(evt);
@@ -350,7 +390,7 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
                 .addComponent(labelTitulo)
                 .addGap(31, 31, 31)
                 .addComponent(painelForm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE)
                 .addComponent(painelBotoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -366,15 +406,15 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void CancelarButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarButton1ActionPerformed
-        new UsuarioLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new UsuarioLista().setVisible(true);
     }//GEN-LAST:event_CancelarButton1ActionPerformed
 
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new Home().setVisible(true);
     }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
@@ -384,33 +424,33 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemCadastrarSalaActionPerformed
 
     private void mItemListarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarSalasActionPerformed
-        new SalaLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new SalaLista().setVisible(true);
     }//GEN-LAST:event_mItemListarSalasActionPerformed
 
     private void mItemCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarUsuarioActionPerformed
-        new UsuarioCadastrar().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new UsuarioCadastrar().setVisible(true);
     }//GEN-LAST:event_mItemCadastrarUsuarioActionPerformed
 
     private void mItemListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarUsuariosActionPerformed
-        new UsuarioLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new UsuarioLista().setVisible(true);
     }//GEN-LAST:event_mItemListarUsuariosActionPerformed
 
     private void mItemCadastrarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarReservaActionPerformed
-        new ReservaCadastrar().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new ReservaCadastrar().setVisible(true);
     }//GEN-LAST:event_mItemCadastrarReservaActionPerformed
 
     private void mItemListarTodasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarTodasReservasActionPerformed
-        new ReservaLista().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new ReservaLista().setVisible(true);
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
     private void mItemListarMinhasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarMinhasReservasActionPerformed
@@ -439,6 +479,12 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
         new LoginHome().setVisible(true);
     }//GEN-LAST:event_mItemSairActionPerformed
 
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        this.setVisible(false);
+        this.dispose();
+        new LoginHome().setVisible(true);
+    }//GEN-LAST:event_menuHomeMouseClicked
+
     // <editor-fold defaultstate="collapsed" desc=" AUX ">
     /**
      * Método responsável por tratar a requisição de quando o usuário pede para
@@ -448,6 +494,19 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
         ArrayList novaLista = new ArrayList();
 
         try {
+            int id = (int) spinId.getValue();
+
+            if (id < 0) {
+                JOptionPane.showMessageDialog(this, "Identificação/SIAPE inválida!");
+            } else if (id == 0) {
+                String message = "Ao deixar a Identificação/SIAPE igual a 0, este "
+                        + "campo será gerado automaticamente ";
+                int op = JOptionPane.showConfirmDialog(this, "Identificação/SIAPE inválida!");
+                if (op != JOptionPane.YES_OPTION) {
+                    return;
+                }
+            }
+
             String pNome = tfPNome.getText();
             String uNome = tfUNome.getText();
             String email = tfEmail.getText();
@@ -459,14 +518,19 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "As senhas digitadas não são iguais.");
                 return;
             }
-            
+            if (senha.length() > 20) {
+                JOptionPane.showMessageDialog(this, "A senha informada deve conter menos de 20 caracteres");
+                return;
+            }
+
             String salGerado = BCrypt.gensalt();
             String senhaHasheada = BCrypt.hashpw(senha, salGerado);
-            
+
             boolean ativo = checkAtivo.isSelected();
             Departamento departamento = (Departamento) cbDepartamento.getSelectedItem();
             TipoUsuario tipoUsuario = (TipoUsuario) cbTipoUsuario.getSelectedItem();
 
+            novaLista.add(id);
             novaLista.add(pNome);
             novaLista.add(uNome);
             novaLista.add(email);
@@ -564,6 +628,7 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
     private javax.swing.JLabel labelConfirmarSenha;
     private javax.swing.JLabel labelDepartamento;
     private javax.swing.JLabel labelEmail;
+    private javax.swing.JLabel labelId;
     private javax.swing.JLabel labelPNome;
     private javax.swing.JLabel labelSenha;
     private javax.swing.JLabel labelTipoUsuario;
@@ -588,6 +653,7 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
     private javax.swing.JPanel painelForm;
     private javax.swing.JPasswordField passConfirmarSenha;
     private javax.swing.JPasswordField passSenha;
+    private javax.swing.JSpinner spinId;
     private javax.swing.JTextField tfEmail;
     private javax.swing.JTextField tfPNome;
     private javax.swing.JTextField tfUNome;

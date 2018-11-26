@@ -5,6 +5,7 @@
  */
 package view;
 
+import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import model.Login;
 import model.Usuario;
@@ -67,6 +68,12 @@ public class LoginHome extends javax.swing.JFrame {
         labelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo500px.png"))); // NOI18N
 
+        painelAuxiliar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                painelAuxiliarKeyPressed(evt);
+            }
+        });
+
         labelEmail.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         labelEmail.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelEmail.setText("Email:");
@@ -80,6 +87,11 @@ public class LoginHome extends javax.swing.JFrame {
 
         passSenha.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         passSenha.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        passSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passSenhaKeyPressed(evt);
+            }
+        });
 
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +142,8 @@ public class LoginHome extends javax.swing.JFrame {
                     .addContainerGap(33, Short.MAX_VALUE)))
         );
 
+        btnEntrar.getAccessibleContext().setAccessibleDescription("");
+
         javax.swing.GroupLayout painelAuxiliarLayout = new javax.swing.GroupLayout(painelAuxiliar);
         painelAuxiliar.setLayout(painelAuxiliarLayout);
         painelAuxiliarLayout.setHorizontalGroup(
@@ -151,6 +165,11 @@ public class LoginHome extends javax.swing.JFrame {
 
         menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
         menuHome.setText("Home");
+        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHomeMouseClicked(evt);
+            }
+        });
         menuHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuHomeActionPerformed(evt);
@@ -325,6 +344,24 @@ public class LoginHome extends javax.swing.JFrame {
     private void mItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemSairActionPerformed
        
     }//GEN-LAST:event_mItemSairActionPerformed
+
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        this.setVisible(false);
+        this.dispose();
+        new LoginHome().setVisible(true);
+    }//GEN-LAST:event_menuHomeMouseClicked
+
+    private void painelAuxiliarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelAuxiliarKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_painelAuxiliarKeyPressed
+
+    private void passSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passSenhaKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            login();
+        }
+    }//GEN-LAST:event_passSenhaKeyPressed
 
     private void login() {
         String email = tfEmail.getText();

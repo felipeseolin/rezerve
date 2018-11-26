@@ -75,10 +75,7 @@ values
 --Table USUARIO
 insert into usuario
 values
-    (1, 'Felipe', 'Seolin Bento', 'fb@email.com', 'senha', true, 15, 1),
-    (2, 'Administrador', 'Eu Que Fiz', 'admin@email.com', 'admin', true, 7, 1),
-    (3, 'Coordenador', 'Manda Chuva', 'coord@email.com', 'coord', true, 1, 2),
-    (4, 'Comum', 'de Normal', 'comum@email.com', 'comum', true, 3, 3);
+    (1, 'Felipe', 'Seolin Bento', 'fb@email.com', '$2a$10$ciewnTUMsQ.hHY9NW6lqQeTlsvRagSWne/zbi5PAJvzt74WMEGhQW', true, 15, 1);
 
 --Table SALA
 insert into sala

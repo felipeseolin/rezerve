@@ -34,6 +34,27 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
         if (Login.isAutenticado()) {
             Usuario usuario = Login.getUsuario();
             menuUsuario.setText(usuario.toString());
+            String sigla = usuario.getTipoUsuario().getSigla();
+            switch (sigla) {
+                case "ADMIN":
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                case "COORD":
+                    mItemCadastrarSala.setVisible(false);
+                    mItemCadastrarUsuario.setVisible(false);
+                    btnExcluir.setVisible(false);
+                    break;
+                case "COMUM":
+                    mItemCadastrarSala.setVisible(false);
+                    menuUsuario.setVisible(false);
+                    mItemListarReservasDecisao.setVisible(false);
+                    btnExcluir.setVisible(false);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Usuário não logado!");
+                    System.exit(-1);
+                    break;
+            }
         } else {
             this.dispose();
         }
@@ -101,7 +122,7 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
         });
         scrollPane.setViewportView(tabelaReserva);
 
-        btnCadastrar.setText("Cadastrar Reserva");
+        btnCadastrar.setText("Solicitar nova reserva");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
@@ -130,6 +151,11 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
 
         menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
         menuHome.setText("Home");
+        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHomeMouseClicked(evt);
+            }
+        });
         menuHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuHomeActionPerformed(evt);
@@ -243,13 +269,13 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 863, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 871, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditar)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -258,11 +284,10 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(labelTitulo)
                 .addGap(37, 37, 37)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnExcluir)
-                        .addComponent(btnEditar)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrar)
+                    .addComponent(btnEditar)
+                    .addComponent(btnExcluir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
@@ -272,14 +297,10 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        new ReservaCadastrar().setVisible(true);
         this.setVisible(false);
         this.dispose();
+        new ReservaCadastrar().setVisible(true);
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         editar();
@@ -353,6 +374,16 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
         new LoginHome().setVisible(true);
     }//GEN-LAST:event_mItemSairActionPerformed
 
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        this.setVisible(false);
+        this.dispose();
+        new LoginHome().setVisible(true);
+    }//GEN-LAST:event_menuHomeMouseClicked
+
+    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
+        excluir();
+    }//GEN-LAST:event_btnExcluirActionPerformed
+
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
     
     /**
@@ -360,7 +391,7 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
      * inserir um novo registro
      */   
     public void listar() {
-        ArrayList registros = control.listarReservasDecisoes();
+        ArrayList registros = control.listarMinhasReservas();
         if (registros == null) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(this, "Não há itens.");
@@ -405,7 +436,7 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
             }
         } catch (HeadlessException error) {
             String msgError = "Erro: " + error;
-            JOptionPane.showMessageDialog(this, error);
+            JOptionPane.showMessageDialog(this, msgError);
         }
     }
 
@@ -416,17 +447,19 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
         int id = Integer.parseInt(tabela.getValueAt(selectedRowIndex, 0).toString());
         String motivo = tabela.getValueAt(selectedRowIndex, 1).toString();
         Date data = (Date) tabela.getValueAt(selectedRowIndex, 2);
-//        Horario horarioInicial = (Horario) tabela.getValueAt(selectedRowIndex, 3);
-//        Horario horarioFinal = (Horario) tabela.getValueAt(selectedRowIndex, 4);
+        Horario horarioInicial = (Horario) tabela.getValueAt(selectedRowIndex, 3);
+        Horario horarioFinal = (Horario) tabela.getValueAt(selectedRowIndex, 4);
         boolean confirmada = Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, 6).toString());
-//        Usuario usuario = (Usuario) tabela.getValueAt(selectedRowIndex, 6);
-//        Sala sala = (Sala) tabela.getValueAt(selectedRowIndex, 7);
-//        Situacao situacao = (Situacao) tabela.getValueAt(selectedRowIndex, 8);
-
-        SalaEditar ed = new SalaEditar();
-//        ed.iniciar(id, num, cadeiras, computadores, detalhes, ativa);
-        ed.setVisible(true);
+        Usuario usuario = (Usuario) tabela.getValueAt(selectedRowIndex, 6);
+        Sala sala = (Sala) tabela.getValueAt(selectedRowIndex, 7);
+        Situacao situacao = (Situacao) tabela.getValueAt(selectedRowIndex, 8);
         
+        ReservaEditar ed = new ReservaEditar();
+        ed.iniciar(id, motivo, data, horarioInicial, horarioFinal, confirmada,
+                usuario, sala, situacao);
+        ed.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }
 
     // </editor-fold>

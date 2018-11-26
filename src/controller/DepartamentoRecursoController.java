@@ -61,6 +61,9 @@ public class DepartamentoRecursoController {
 
     public ArrayList listarDepartamento() {
         ArrayList<Departamento> listagem = Departamento.selectAll();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 

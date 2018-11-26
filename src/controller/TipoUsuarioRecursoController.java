@@ -58,6 +58,9 @@ public class TipoUsuarioRecursoController {
 
     public ArrayList listarTipoUsuario() {
         ArrayList<TipoUsuario> listagem = TipoUsuario.selectAll();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 

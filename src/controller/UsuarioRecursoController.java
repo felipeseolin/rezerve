@@ -7,6 +7,8 @@ package controller;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import model.Departamento;
 import model.TipoUsuario;
@@ -21,18 +23,32 @@ public class UsuarioRecursoController {
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
     public boolean criarUsuario(ArrayList listaCriar) {
         boolean retorno = false;
-        if (this.validarDados(listaCriar, false)) {
+        if (this.validarDados(listaCriar)) {
             Iterator iterator = listaCriar.iterator();
-
-            Usuario novoUsuario = new Usuario(
-                    (String) iterator.next(),
-                    (String) iterator.next(),
-                    (String) iterator.next(),
-                    (String) iterator.next(),
-                    (boolean) iterator.next(),
-                    (Departamento) iterator.next(),
-                    (TipoUsuario) iterator.next()
-            );
+            Usuario novoUsuario = null;
+            int id = (int) iterator.next();
+            if (id > 0) {
+                novoUsuario = new Usuario(
+                        id,
+                        (String) iterator.next(),
+                        (String) iterator.next(),
+                        (String) iterator.next(),
+                        (String) iterator.next(),
+                        (boolean) iterator.next(),
+                        (Departamento) iterator.next(),
+                        (TipoUsuario) iterator.next()
+                );
+            } else {
+                novoUsuario = new Usuario(
+                        (String) iterator.next(),
+                        (String) iterator.next(),
+                        (String) iterator.next(),
+                        (String) iterator.next(),
+                        (boolean) iterator.next(),
+                        (Departamento) iterator.next(),
+                        (TipoUsuario) iterator.next()
+                );
+            }
             retorno = novoUsuario.insert();
         }
 
@@ -43,7 +59,7 @@ public class UsuarioRecursoController {
 
         boolean retorno = false;
 
-        if (this.validarDados(listaEditar, true)) {
+        if (this.validarDados(listaEditar)) {
             Iterator iterator = listaEditar.iterator();
             Usuario editaUsuario = new Usuario(
                     (int) iterator.next(),
@@ -71,6 +87,9 @@ public class UsuarioRecursoController {
 
     public ArrayList listarUsuarios() {
         ArrayList<Usuario> listagem = Usuario.selectAll();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 
@@ -94,14 +113,12 @@ public class UsuarioRecursoController {
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc=" VALIDAÇÕES ">
-    private boolean validarDados(ArrayList<String> lista, boolean editar) {
+    private boolean validarDados(ArrayList<String> lista) {
         Iterator iterator = lista.iterator();
         String message = "Erros: \n\n";
         boolean valido = true;
         try {
-            if (editar) {
-                iterator.next();//Passa verificação de id
-            }
+            iterator.next();//Passa verificação de id
             String pnome = (String) iterator.next();
             if (pnome.isEmpty()
                     || !pnome.isEmpty() && pnome.trim().isEmpty()) {
@@ -115,8 +132,12 @@ public class UsuarioRecursoController {
                 valido = false;
             }
             String email = (String) iterator.next();
+            String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(email);
             if (email.isEmpty()
-                    || !email.isEmpty() && email.trim().isEmpty()) {
+                    || !email.isEmpty() && email.trim().isEmpty()
+                    || !matcher.matches()) {
                 message += "O campo email é obrigatório.\n";
                 valido = false;
             }

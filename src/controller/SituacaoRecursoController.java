@@ -59,6 +59,9 @@ public class SituacaoRecursoController {
 
     public ArrayList listarSituacoes() {
         ArrayList<Situacao> listagem = Situacao.selectAll();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 

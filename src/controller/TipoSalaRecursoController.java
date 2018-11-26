@@ -57,6 +57,9 @@ public class TipoSalaRecursoController {
 
     public ArrayList listarTipoSala() {
         ArrayList<TipoSala> listagem = TipoSala.selectAll();
+        if (listagem == null) {
+            return null;
+        }
         Iterator iterator = listagem.iterator();
         ArrayList retorno = new ArrayList();
 

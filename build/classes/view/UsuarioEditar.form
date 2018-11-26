@@ -15,6 +15,7 @@
             <Property name="text" type="java.lang.String" value="Home"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="menuHomeMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuHomeActionPerformed"/>
           </Events>
         </Menu>
@@ -197,7 +198,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="cbDepartamento" max="32767" attributes="0"/>
                               <Component id="cbTipoUsuario" max="32767" attributes="0"/>
-                              <Component id="checkAtivo" pref="478" max="32767" attributes="0"/>
+                              <Component id="checkAtivo" pref="482" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -228,9 +229,9 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="spinId" min="-2" max="-2" attributes="0"/>
-                      <Component id="labeliD" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="spinId" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labeliD" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -305,7 +306,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labeliD">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ID:"/>
+            <Property name="text" type="java.lang.String" value="Identifica&#xe7;&#xe3;o/SIAPE:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="checkAtivo">

@@ -34,6 +34,25 @@ public class ReservaLista extends javax.swing.JFrame {
         if (Login.isAutenticado()) {
             Usuario usuario = Login.getUsuario();
             menuUsuario.setText(usuario.toString());
+            String sigla = usuario.getTipoUsuario().getSigla();
+            switch (sigla) {
+                case "ADMIN":
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                case "COORD":
+                    mItemCadastrarSala.setVisible(false);
+                    mItemCadastrarUsuario.setVisible(false);
+                    break;
+                case "COMUM":
+                    mItemCadastrarSala.setVisible(false);
+                    menuUsuario.setVisible(false);
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Usuário não logado!");
+                    System.exit(-1);
+                    break;
+            }
         } else {
             this.dispose();
         }
@@ -130,6 +149,11 @@ public class ReservaLista extends javax.swing.JFrame {
 
         menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
         menuHome.setText("Home");
+        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHomeMouseClicked(evt);
+            }
+        });
         menuHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 menuHomeActionPerformed(evt);
@@ -352,6 +376,12 @@ public class ReservaLista extends javax.swing.JFrame {
         this.dispose();
         new LoginHome().setVisible(true);
     }//GEN-LAST:event_mItemSairActionPerformed
+
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        this.setVisible(false);
+        this.dispose();
+        new LoginHome().setVisible(true);
+    }//GEN-LAST:event_menuHomeMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
     
