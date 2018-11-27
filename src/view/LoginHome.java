@@ -44,7 +44,6 @@ public class LoginHome extends javax.swing.JFrame {
         tfEmail = new javax.swing.JTextField();
         passSenha = new javax.swing.JPasswordField();
         btnEntrar = new javax.swing.JButton();
-        labelEsqueciSenha = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -100,8 +99,6 @@ public class LoginHome extends javax.swing.JFrame {
             }
         });
 
-        labelEsqueciSenha.setText("Esqueci minha senha >");
-
         javax.swing.GroupLayout painelLoginLayout = new javax.swing.GroupLayout(painelLogin);
         painelLogin.setLayout(painelLoginLayout);
         painelLoginLayout.setHorizontalGroup(
@@ -109,9 +106,7 @@ public class LoginHome extends javax.swing.JFrame {
             .addGroup(painelLoginLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(labelEsqueciSenha)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(395, Short.MAX_VALUE))
             .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelLoginLayout.createSequentialGroup()
                     .addContainerGap()
@@ -126,9 +121,7 @@ public class LoginHome extends javax.swing.JFrame {
             painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelLoginLayout.createSequentialGroup()
                 .addGap(0, 164, Short.MAX_VALUE)
-                .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEntrar)
-                    .addComponent(labelEsqueciSenha)))
+                .addComponent(btnEntrar))
             .addGroup(painelLoginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(painelLoginLayout.createSequentialGroup()
                     .addContainerGap()
@@ -418,7 +411,6 @@ public class LoginHome extends javax.swing.JFrame {
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnEntrar;
     private javax.swing.JLabel labelEmail;
-    private javax.swing.JLabel labelEsqueciSenha;
     private javax.swing.JLabel labelLogo;
     private javax.swing.JLabel labelSenha;
     private javax.swing.JMenuItem mItemCadastrarReserva;
