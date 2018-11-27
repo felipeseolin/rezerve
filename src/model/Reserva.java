@@ -238,6 +238,10 @@ public final class Reserva extends ReservaDAO {
     public static ArrayList<Reserva> selectAllSala(String id) {
         return ReservaDAO.selectAllSala(id);
     }
+    
+    public static ArrayList<Reserva> selectAllFilter(ArrayList filtros) {
+        return ReservaDAO.selectAllFilter(filtros);
+    }
     // </editor-fold>
 
     @Override

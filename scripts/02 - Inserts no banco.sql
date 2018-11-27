@@ -32,7 +32,7 @@ values
     ('DAMAT', 'Departamento Acadêmico de Matemática'),
     ('DACIN', 'Departamento Acadêmico de Ciências da Natureza'),
     ('DACHS', 'Departamento Acadêmico de Ciências Humanas e Sociais'),
-    ('COGETI', 'Comitê Gestor de Tecnologia da Informação'),
+    ('COGETI', 'Coordenadoria de Gestão de Tecnologia da Informação'),
     ('DEMAP', 'Departamento de Materiais e Patrimônio'),
     ('DIREC', 'Diretoria de Relações Empresariais e Comunitárias'),
     ('DIRPPG', 'Diretoria de Pesquisa e Pós-Graduação'),

@@ -209,7 +209,7 @@ public class ReservaDAO {
                 + " order by RESER_DATA desc ";
         return select(sqldml);
     }
-    
+
     /**
      * Método responsável por listar todos os registros de reserva daquele
      * usuario
@@ -233,6 +233,115 @@ public class ReservaDAO {
                 + "	SALA.SALA_ID = '" + idSala + "' "
                 + " order by RESER_DATA desc ";
         return select(sqldml);
+    }
+
+    /**
+     * Método responsável por listar todos os registros de reserva daquele
+     * usuario
+     *
+     * @return
+     */
+    protected static ArrayList<Reserva> selectAllFilter(ArrayList filtros) {
+        String sqldml = "select RESER_ID, RESER_MOTIVO, RESER_DATA, "
+                + " RESER_HORARIO_INICIAL, RESER_HORARIO_FINAL, RESER_CONFIRMADA, "
+                + " USUARIO.USU_ID, USU_PNOME, USU_UNOME, USU_EMAIL, USU_ATIVO, "
+                + " USUARIO.DEP_ID, TIPUS_ID, SALA.SALA_ID, SALA_NUM, "
+                + " SALA_NUM_CADEIRAS, SALA_NUM_COMP, SALA_DETALHES, "
+                + " SALA_ATIVA,TIPSAL_ID, SALA.DEP_ID, BLOC_ID, SITUACAO.SIT_ID, "
+                + " SIT_NOME, SIT_MENSAGEM "
+                + " from RESERVA, SALA, USUARIO, SITUACAO "
+                + " where RESERVA.SALA_ID = SALA.SALA_ID and "
+                + "	RESERVA.USU_ID = USUARIO.USU_ID and "
+                + "	RESERVA.SIT_ID = SITUACAO.SIT_ID ";
+        if (filtros == null) {
+            sqldml += " order by RESER_DATA desc ";
+            select(sqldml);
+        }
+        Iterator iterator = filtros.iterator();
+        Date dataInicial = (Date) iterator.next();
+        Date dataFinal = (Date) iterator.next();
+        Horario horarioInicial = (Horario) iterator.next();
+        Horario horarioFinal = (Horario) iterator.next();
+        boolean confirmada = (boolean) iterator.next();
+        Usuario usuario = (Usuario) iterator.next();
+        Sala sala = (Sala) iterator.next();
+        Situacao situacao = (Situacao) iterator.next();
+
+        if (dataInicial != null) {
+            java.sql.Date dateSQL = new java.sql.Date(dataInicial.getTime());
+            sqldml += " and RESER_DATA >= '" + dateSQL + "'::date ";
+        }
+        if (dataFinal != null) {
+            java.sql.Date dateSQL = new java.sql.Date(dataFinal.getTime());
+            sqldml += " and RESER_DATA <= '" + dateSQL + "'::date ";
+        }
+        if(horarioInicial.getValor().equals(horarioFinal.getValor())) {
+            sqldml += " and RESER_HORARIO_INICIAL = "+ horarioInicial.getValor() + "::text "
+                    + " and RESER_HORARIO_FINAL ="+ horarioFinal.getValor() +"::text ";
+        } else {
+            //programar
+        }
+//        if (horarioInicial != null) {
+//            sqldml += " and RESER_HORARIO_INICIAL ";
+//        }
+//        if (horarioFinal != null) {
+//            sqldml += "";
+//        }
+        sqldml += " and RESER_CONFIRMADA = "+ confirmada + " ";
+        if (usuario != null) {
+            sqldml += " and USUARIO.USU_ID = "+ usuario.getId() +" ";
+        }
+        if (sala != null) {
+            sqldml += " and SALA.SALA_ID = "+ sala.getId() +" ";
+        }
+        if (situacao != null) {
+            sqldml += " and SITUACAO.SIT_ID = "+ situacao.getId() + " ";
+        }
+
+        sqldml += " order by RESER_DATA desc ";
+        return select(sqldml);
+    }
+    
+    private String queryIntervaloHorario(Horario horarioInicial, 
+            Horario horarioFinal, String sql) {
+        switch (horarioInicial) {
+            case "M1 (07h30 - 08h20)":
+                return Horario.M1;
+            case "M2 (08h20 - 09h10)":
+                return Horario.M2;
+            case "M3 (09h10 - 10h00)":
+                return Horario.M3;
+            case "M4 (10h20 - 11h10)":
+                return Horario.M4;
+            case "M5 (11h10 - 12h00)":
+                return Horario.M5;
+            case "M6 (12h00 - 12h50)":
+                return Horario.M6;
+            case "T1 (13h00 - 13h50)":
+                return Horario.T1;
+            case "T2 (13h50 - 14h40)":
+                return Horario.T2;
+            case "T3 (14h40 - 15h30)":
+                return Horario.T3;
+            case "T4 (15h50 - 16h40)":
+                return Horario.T4;
+            case "T5 (16h40 - 17h30)":
+                return Horario.T5;
+            case "T6 (17h50 - 18h40)":
+                return Horario.T6;
+            case "N1 (18h40 - 19h30)":
+                return Horario.N1;
+            case "N2 (19h30 - 20h20)":
+                return Horario.N2;
+            case "N3 (20h20 - 21h10)":
+                return Horario.N3;
+            case "N4 (21h20 - 22h10)":
+                return Horario.N4;
+            case "N5 (22h10 - 23h00)":
+                return Horario.N5;
+            default:
+                return null;
+        }
     }
 
     /**
@@ -266,7 +375,7 @@ public class ReservaDAO {
                 + " SALA.TIPSAL_ID = TIPO_DE_SALA.TIPSAL_ID and "
                 + " BLOCO.BLOC_ID = SALA.BLOC_ID and "
                 + " SITUACAO.SIT_ID = 2 and "
-                + " DEP_SIGLA = '"+ siglaDep +"' "
+                + " DEP_SIGLA = '" + siglaDep + "' "
                 + " order by RESER_DATA desc";
 
         PreparedStatement pstdados = null;
@@ -306,52 +415,52 @@ public class ReservaDAO {
                 String unome = (String) iterator.next().toString();//unome
                 String email = (String) iterator.next().toString();//email
                 boolean ativo = (boolean) iterator.next();//ativo
-                
+
                 int idDepartamento = (int) iterator.next();
                 String nomeDepartamento = iterator.next().toString();
                 String siglaDepartamento = iterator.next().toString();
                 boolean ativoDepartamento = (boolean) iterator.next();
                 Departamento departamento = new Departamento(idDepartamento, nomeDepartamento, siglaDepartamento, ativoDepartamento);
-                
+
                 int idTipoUsuario = (int) iterator.next();
                 String siglaTipoUsuario = iterator.next().toString();
                 String nomeTipoUsuario = iterator.next().toString();
                 TipoUsuario tipoUsuario = new TipoUsuario(idTipoUsuario, siglaTipoUsuario, nomeTipoUsuario);
-                
+
                 String idSala = (String) iterator.next().toString();
                 int numeroSala = (int) iterator.next();
                 int numeroCadeiras = (int) iterator.next();
                 int numeroComputadores = (int) iterator.next();
                 String detalhesSala = iterator.next().toString();
                 boolean ativaSala = (boolean) iterator.next();
-                
+
                 int idTipoSala = (int) iterator.next();
                 String nomeTipoSala = iterator.next().toString();
                 TipoSala tipoSala = new TipoSala(idTipoSala, nomeTipoSala);
-                
+
                 int idBloco = (int) iterator.next();
                 char letraBloco = iterator.next().toString().charAt(0);
                 String nomeBloco = (String) iterator.next();
                 String descricaoBloco = iterator.next().toString();
                 boolean ativoBloco = (boolean) iterator.next();
                 Bloco bloco = new Bloco(idBloco, letraBloco, nomeBloco, descricaoBloco, ativoBloco);
-                
+
                 int idSituacao = (int) iterator.next();
                 String nomeSituacao = iterator.next().toString();
                 String mensagemSituacao = iterator.next().toString();
                 Situacao situacao = new Situacao(idSituacao, nomeSituacao, mensagemSituacao);
-                
-                Usuario user = new Usuario(idUsuario, pnome, unome, email, 
+
+                Usuario user = new Usuario(idUsuario, pnome, unome, email,
                         ativo, departamento, tipoUsuario);
-                
-                Sala sala = new Sala(idSala, numeroSala, numeroCadeiras, 
+
+                Sala sala = new Sala(idSala, numeroSala, numeroCadeiras,
                         numeroComputadores, detalhesSala, ativaSala, tipoSala,
                         departamento, bloco);
-                
-                Reserva reserva = new Reserva(idReserva, motivoReserva, 
+
+                Reserva reserva = new Reserva(idReserva, motivoReserva,
                         dataReserva, horarioInicial, horarioFinal, confirmada,
                         user, sala, situacao);
-                
+
                 retornoLista.add(reserva);
 
             } while (rs.next());
@@ -375,7 +484,7 @@ public class ReservaDAO {
         ArrayList<Reserva> retornoLista = null;
         BDController bd = new BDController();
         Connection connection = null;
-        
+
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;

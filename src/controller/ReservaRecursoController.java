@@ -101,6 +101,33 @@ public class ReservaRecursoController {
         return retorno;
     }
     
+    public ArrayList listarTodasReservasComFiltro(ArrayList filtros) {
+        ArrayList<Reserva> listagem = Reserva.selectAllFilter(filtros);
+        if (listagem == null) {
+            return null;
+        }
+        Iterator iterator = listagem.iterator();
+        ArrayList retorno = new ArrayList();
+
+        if (listagem.isEmpty()) {
+            return null;
+        }
+
+        while (iterator.hasNext()) {
+            Reserva listaReserva = (Reserva) iterator.next();
+            retorno.add(listaReserva.getId());
+            retorno.add(listaReserva.getMotivo());
+            retorno.add(listaReserva.getData());
+            retorno.add(listaReserva.getHorarioInicial());
+            retorno.add(listaReserva.getHorarioFinal());
+            retorno.add(listaReserva.isConfirmada());
+            retorno.add(listaReserva.getUsuario());
+            retorno.add(listaReserva.getSala());
+            retorno.add(listaReserva.getSituacao());
+        }
+        return retorno;
+    }
+    
     public ArrayList listarMinhasReservas() {
         ArrayList<Reserva> listagem = Reserva.selectAllMy();
         if (listagem == null) {
