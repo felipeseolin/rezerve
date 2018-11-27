@@ -47,7 +47,7 @@ public class SalaLista extends javax.swing.JFrame {
                     break;
                 case "COMUM":
                     mItemCadastrarSala.setVisible(false);
-                    menuUsuario.setVisible(false);
+                    menuGerenciarUsuarios.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
                     btnCadastrar.setVisible(false);
                     btnEditar.setVisible(false);

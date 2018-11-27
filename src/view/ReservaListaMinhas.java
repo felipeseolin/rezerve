@@ -46,7 +46,7 @@ public class ReservaListaMinhas extends javax.swing.JFrame {
                     break;
                 case "COMUM":
                     mItemCadastrarSala.setVisible(false);
-                    menuUsuario.setVisible(false);
+                    menuGerenciarUsuarios.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
                     btnExcluir.setVisible(false);
                     break;

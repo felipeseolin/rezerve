@@ -28,6 +28,8 @@ public class Home extends javax.swing.JFrame {
                 case "ADMIN":
                     mItemListarReservasDecisao.setVisible(false);
                     btnReservasDecisoes.setVisible(false);
+                    btnReservasDecisoes.setEnabled(false);
+                    btnReservasDecisoes.setVisible(false);
                     break;
                 case "COORD":
                     mItemCadastrarSala.setVisible(false);
@@ -35,27 +37,17 @@ public class Home extends javax.swing.JFrame {
                     break;
                 case "COMUM":
                     mItemCadastrarSala.setVisible(false);
-                    menuUsuario.setVisible(false);
+                    menuGerenciarUsuarios.setVisible(false);
                     btnGerenciarUsuários.setVisible(false);
                     btnReservasDecisoes.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
+                    btnReservasDecisoes.setEnabled(false);
+                    btnReservasDecisoes.setVisible(false);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Usuário não logado!");
                     System.exit(-1);
                     break;
-            }
-            if(!sigla.equals("COORD")) {
-                btnReservasDecisoes.setEnabled(false);
-                btnReservasDecisoes.setVisible(false);
-                mItemListarReservasDecisao.setVisible(false);
-                if (!sigla.equals("ADMIN")) { //Usuario comum
-                    menuGerenciarUsuarios.setVisible(false);
-                    mItemCadastrarSala.setVisible(false);
-                }
-            }
-            if(!sigla.equals("ADMIN")) { //Coordenador e comum
-                menuUsuario.setVisible(false);
             }
         } else {
             this.dispose();

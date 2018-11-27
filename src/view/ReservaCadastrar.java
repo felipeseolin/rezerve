@@ -10,7 +10,6 @@ import controller.SalaRecursoController;
 import controller.SituacaoRecursoController;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import model.Bloco;
@@ -49,7 +48,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                     break;
                 case "COMUM":
                     mItemCadastrarSala.setVisible(false);
-                    menuUsuario.setVisible(false);
+                    menuGerenciarUsuarios.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
                     break;
                 default:
