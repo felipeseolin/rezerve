@@ -415,9 +415,9 @@ public class UsuarioLista extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemSairActionPerformed
 
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
-        new Home().setVisible(true);
     }//GEN-LAST:event_menuHomeMouseClicked
 
     /**

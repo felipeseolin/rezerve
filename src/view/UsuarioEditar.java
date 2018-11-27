@@ -480,9 +480,9 @@ public class UsuarioEditar extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemSairActionPerformed
 
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
-        new LoginHome().setVisible(true);
     }//GEN-LAST:event_menuHomeMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc=" AUX ">

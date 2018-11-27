@@ -23,13 +23,6 @@ import model.TipoSala;
  */
 public class TipoSalaDAO {
     
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public TipoSalaDAO() {
-        connection = bd.conectaBD();
-    }
-
     /**
      * Método responsável por inserir uma instância de tipo de sala no
      * banco de dados
@@ -40,6 +33,8 @@ public class TipoSalaDAO {
     protected static boolean insert(TipoSala tipoSala) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into TIPO_DE_SALA (TIPSAL_NOME) "
                 + "values (?)";
 
@@ -77,6 +72,8 @@ public class TipoSalaDAO {
     protected static boolean update(TipoSala tipoSala) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update TIPO_DE_SALA set TIPSAL_NOME = ? "
                 + "where TIPSAL_ID = ?";
 
@@ -115,6 +112,8 @@ public class TipoSalaDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from TIPO_DE_SALA where TIPSAL_ID = ?";
@@ -150,6 +149,8 @@ public class TipoSalaDAO {
         CallableStatement cstdados = null;
         ResultSet rs = null;
         ArrayList<TipoSala> retornoLista = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;

@@ -32,7 +32,7 @@ public class BDController {
     public Connection conectaBD() {
         try {
             String usuario = "postgres";
-            String senha = "utfpr";
+            String senha = "postgres";
 
             Class.forName("org.postgresql.Driver");  //para acesso ao banco de dados Postgre
             String urlconexao = "jdbc:postgresql://127.0.0.1/rezerve"; //para acesso ao banco de dados fabricio, usando o banco de dados Postgre.

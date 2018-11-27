@@ -121,13 +121,15 @@ public class UsuarioRecursoController {
             iterator.next();//Passa verificação de id
             String pnome = (String) iterator.next();
             if (pnome.isEmpty()
-                    || !pnome.isEmpty() && pnome.trim().isEmpty()) {
+                    || !pnome.isEmpty() && pnome.trim().isEmpty()
+                    || !pnome.matches("[A-Z][a-zA-Z]*")) {
                 message += "O campo pnome é obrigatório.\n";
                 valido = false;
             }
             String unome = (String) iterator.next();
             if (unome.isEmpty()
-                    || !unome.isEmpty() && unome.trim().isEmpty()) {
+                    || !unome.isEmpty() && unome.trim().isEmpty()
+                    || !unome.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
                 message += "O campo unome é obrigatório.\n";
                 valido = false;
             }

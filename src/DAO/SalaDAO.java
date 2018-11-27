@@ -20,13 +20,6 @@ import model.TipoSala;
  */
 public class SalaDAO {
 
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public SalaDAO() {
-        connection = bd.conectaBD();
-    }
-
     /**
      * Método responsável por inserir uma instância de sala no banco de dados
      *
@@ -36,6 +29,8 @@ public class SalaDAO {
     protected static boolean insert(Sala sala) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into SALA (SALA_NUM,SALA_NUM_CADEIRAS,"
                 + "SALA_NUM_COMP,SALA_DETALHES,SALA_ATIVA, SALA_ID,"
                 + "TIPSAL_ID,DEP_ID,BLOC_ID) "
@@ -82,6 +77,8 @@ public class SalaDAO {
     protected static boolean update(Sala sala) {
         boolean retorno = false;
         PreparedStatement pstdados;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update SALA set SALA_NUM = ? ,"
                 + "SALA_NUM_CADEIRAS = ? ,"
                 + "SALA_NUM_COMP = ? ,"
@@ -133,6 +130,8 @@ public class SalaDAO {
     protected static boolean delete(String id) {
         boolean retorno = false;
         PreparedStatement pstdados;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from SALA where SALA_ID = ?";
@@ -168,6 +167,8 @@ public class SalaDAO {
         PreparedStatement pstdados = null;
         ResultSet rs = null;
         ArrayList<Sala> retornoLista = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "select SALA_ID, SALA_NUM, SALA_NUM_CADEIRAS, "

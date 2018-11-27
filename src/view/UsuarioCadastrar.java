@@ -412,9 +412,9 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
     }//GEN-LAST:event_CancelarButton1ActionPerformed
 
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
-        new Home().setVisible(true);
     }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
@@ -480,9 +480,9 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemSairActionPerformed
 
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
-        new LoginHome().setVisible(true);
     }//GEN-LAST:event_menuHomeMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc=" AUX ">
@@ -496,15 +496,16 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
         try {
             int id = (int) spinId.getValue();
 
-            if (id < 0) {
-                JOptionPane.showMessageDialog(this, "Identificação/SIAPE inválida!");
-            } else if (id == 0) {
+            if (id == 0) {
                 String message = "Ao deixar a Identificação/SIAPE igual a 0, este "
                         + "campo será gerado automaticamente ";
-                int op = JOptionPane.showConfirmDialog(this, "Identificação/SIAPE inválida!");
+                int op = JOptionPane.showConfirmDialog(this, message);
                 if (op != JOptionPane.YES_OPTION) {
                     return;
                 }
+            } else if (id == 0) {
+                JOptionPane.showMessageDialog(this, "Identificação/SIAPE inválida!");
+
             }
 
             String pNome = tfPNome.getText();

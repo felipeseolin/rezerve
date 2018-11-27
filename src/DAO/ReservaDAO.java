@@ -27,13 +27,6 @@ import model.Usuario;
  */
 public class ReservaDAO {
 
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public ReservaDAO() {
-        connection = bd.conectaBD();
-    }
-
     /**
      * Método responsável por inserir uma instância de reserva no banco de dados
      *
@@ -43,6 +36,8 @@ public class ReservaDAO {
     protected static boolean insert(Reserva reserva) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into RESERVA (RESER_MOTIVO, RESER_DATA, "
                 + " RESER_HORARIO_INICIAL, RESER_HORARIO_FINAL,"
                 + " RESER_CONFIRMADA, USU_ID, SALA_ID, SIT_ID) "
@@ -88,6 +83,8 @@ public class ReservaDAO {
     protected static boolean update(Reserva reserva) {
         boolean retorno = false;
         PreparedStatement pstdados;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update RESERVA set RESER_MOTIVO = ? ,"
                 + " RESER_DATA = ? ,"
                 + " RESER_HORARIO_INICIAL = ?::horario ,"
@@ -139,6 +136,8 @@ public class ReservaDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from RESERVA where RESER_ID = ?";
@@ -218,6 +217,8 @@ public class ReservaDAO {
      * @return
      */
     protected static ArrayList<Reserva> selectAllCoord() {
+        BDController bd = new BDController();
+        Connection connection = null;
         Usuario usuario = Login.getUsuario();
         String siglaDep = usuario.getDepartamento().getSigla();
         String sqldml = "select RESER_ID, RESER_MOTIVO, RESER_DATA, "
@@ -347,7 +348,9 @@ public class ReservaDAO {
         PreparedStatement pstdados = null;
         ResultSet rs = null;
         ArrayList<Reserva> retornoLista = null;
-
+        BDController bd = new BDController();
+        Connection connection = null;
+        
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;

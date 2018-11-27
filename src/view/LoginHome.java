@@ -300,7 +300,7 @@ public class LoginHome extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new Home().setVisible(true);
+        new LoginHome().setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_menuHomeActionPerformed
@@ -346,9 +346,9 @@ public class LoginHome extends javax.swing.JFrame {
     }//GEN-LAST:event_mItemSairActionPerformed
 
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        new LoginHome().setVisible(true);
         this.setVisible(false);
         this.dispose();
-        new LoginHome().setVisible(true);
     }//GEN-LAST:event_menuHomeMouseClicked
 
     private void painelAuxiliarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_painelAuxiliarKeyPressed

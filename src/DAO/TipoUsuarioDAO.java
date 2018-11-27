@@ -23,13 +23,6 @@ import model.TipoUsuario;
  */
 public class TipoUsuarioDAO {
 
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public TipoUsuarioDAO() {
-        connection = bd.conectaBD();
-    }
-
     /**
      * Método responsável por inserir uma instância de tipo de usuario no banco de
      * dados
@@ -40,6 +33,8 @@ public class TipoUsuarioDAO {
     protected static boolean insert(TipoUsuario tipoUsuario) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into TIPO_DE_USUARIO (TIPUS_SIGLA, TIPUS_NOME) "
                 + "values (?,?)";
 
@@ -78,6 +73,8 @@ public class TipoUsuarioDAO {
     protected static boolean update(TipoUsuario tipoUsuario) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update TIPO_DE_USUARIO set TIPUS_SIGLA= ?, "
                 + " TIPUS_NOME = ? "
                 + " where TIPUS_ID = ?";
@@ -118,6 +115,8 @@ public class TipoUsuarioDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from TIPO_DE_USUARIO where TIPUS_ID = ?";
@@ -153,6 +152,8 @@ public class TipoUsuarioDAO {
         CallableStatement cstdados = null;
         ResultSet rs = null;
         ArrayList<TipoUsuario> retornoLista = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;

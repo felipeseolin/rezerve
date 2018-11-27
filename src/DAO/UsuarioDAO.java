@@ -24,13 +24,6 @@ import model.Usuario;
  */
 public class UsuarioDAO {
 
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public UsuarioDAO() {
-        connection = bd.conectaBD();
-    }
-
     /**
      * Método responsável por inserir uma instância de usuario no banco de dados
      *
@@ -40,6 +33,8 @@ public class UsuarioDAO {
     protected static boolean insert(Usuario usuario) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml;
         if (usuario.getId() > 0) {
             sqldml = "Insert into USUARIO (USU_ID, USU_PNOME, USU_UNOME, "
@@ -95,6 +90,8 @@ public class UsuarioDAO {
     protected static boolean update(Usuario usuario) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update USUARIO set USU_PNOME = ? ,"
                 + "USU_UNOME = ? ,"
                 + "USU_EMAIL = ? ,"
@@ -145,7 +142,8 @@ public class UsuarioDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
-
+        BDController bd = new BDController();
+        Connection connection = null;
         try {
             String sqldml = "delete from USUARIO where USU_ID = ?";
 
@@ -180,7 +178,8 @@ public class UsuarioDAO {
         PreparedStatement pstdados = null;
         ResultSet rs = null;
         ArrayList<Usuario> retornoLista = null;
-
+        BDController bd = new BDController();
+        Connection connection = null;
         try {
             String sqldml = "select USU_ID, USU_PNOME, USU_UNOME, USU_EMAIL, "
                     + " USU_ATIVO, DEP_ID, DEP_NOME, DEP_SIGLA, "
@@ -256,7 +255,8 @@ public class UsuarioDAO {
         PreparedStatement pstdados = null;
         ResultSet rs = null;
         ArrayList<Usuario> retornoLista = null;
-
+        BDController bd = new BDController();
+        Connection connection = null;
         try {
             String sqldml = "select USU_ID, USU_PNOME, USU_UNOME, USU_EMAIL, "
                     + " USU_SENHA, USU_ATIVO, DEP_ID, DEP_NOME, DEP_SIGLA, "

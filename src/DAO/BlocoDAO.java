@@ -22,13 +22,6 @@ import model.Bloco;
  * @author Seolin
  */
 public class BlocoDAO {
- 
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public BlocoDAO() {
-        connection = bd.conectaBD();
-    }
 
     /**
      * Método responsável por inserir uma instância de bloco no banco de
@@ -40,6 +33,8 @@ public class BlocoDAO {
     protected static boolean insert(Bloco bloco) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into BLOCO (BLOC_LETRA, BLOC_NOME, "
                 + "BLOC_DESCRICAO, BLOC_ATIVO)"
                 + "values (?,?,?,?)";
@@ -81,6 +76,8 @@ public class BlocoDAO {
     protected static boolean update(Bloco bloco) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update BLOCO set BLOC_LETRA= ? ,"
                 + "BLOC_NOME = ? ,"
                 + "BLOC_DESCRICAO = ? ,"
@@ -126,6 +123,8 @@ public class BlocoDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from BLOCO where DEP_ID = ?";
@@ -161,7 +160,9 @@ public class BlocoDAO {
         CallableStatement cstdados = null;
         ResultSet rs = null;
         ArrayList<Bloco> retornoLista = null;
-
+        BDController bd = new BDController();
+        Connection connection = null;
+        
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;

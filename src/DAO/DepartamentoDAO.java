@@ -23,13 +23,6 @@ import model.Departamento;
  */
 public class DepartamentoDAO {
     
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public DepartamentoDAO() {
-        connection = bd.conectaBD();
-    }
-    
     /**
      * Método responsável por inserir uma instância de departamento no 
      * banco de dados
@@ -39,6 +32,8 @@ public class DepartamentoDAO {
     protected static boolean insert(Departamento departamento) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into DEPARTAMENTO (DEP_NOME,DEP_SIGLA,"
                 + " DEP_ATIVO)"
                 + "values (?,?,?)";
@@ -78,6 +73,8 @@ public class DepartamentoDAO {
     protected static boolean update(Departamento departamento) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update DEPARTAMENTO set DEP_NOME = ? ,"
                 + "DEP_SIGLA = ? ,"
                 + "DEP_ATIVO = ? "
@@ -121,6 +118,8 @@ public class DepartamentoDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from DEPARTAMENTO where DEP_ID = ?";
@@ -156,6 +155,8 @@ public class DepartamentoDAO {
         CallableStatement cstdados = null;
         ResultSet rs = null;
         ArrayList<Departamento> retornoLista = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;

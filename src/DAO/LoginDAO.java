@@ -19,13 +19,6 @@ import model.Login;
  */
 public class LoginDAO {
     
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public LoginDAO() {
-        connection = bd.conectaBD();
-    }
-    
     public static void autentica(Usuario user) {
         ArrayList usuarios = UsuarioDAO.selectAllWithPass();
         Iterator iterator = usuarios.iterator();

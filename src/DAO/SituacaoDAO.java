@@ -23,13 +23,6 @@ import model.Situacao;
  */
 public class SituacaoDAO {
 
-    private static BDController bd = new BDController();
-    private static Connection connection = null;
-
-    public SituacaoDAO() {
-        connection = bd.conectaBD();
-    }
-
     /**
      * Método responsável por inserir uma instância de situacao no banco de dados
      *
@@ -39,6 +32,8 @@ public class SituacaoDAO {
     protected static boolean insert(Situacao situacao) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "Insert into SITUACAO (SIT_NOME, SIT_MENSAGEM)"
                 + "values (?,?)";
 
@@ -76,6 +71,8 @@ public class SituacaoDAO {
     protected static boolean update(Situacao situacao) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
         String sqldml = "update SITUACAO set SIT_NOME = ? ,"
                 + " SIT_MENSAGEM = ? "
                 + "where SIT_ID = ? ";
@@ -116,6 +113,8 @@ public class SituacaoDAO {
     protected static boolean delete(int id) {
         boolean retorno = false;
         PreparedStatement pstdados = null;
+        BDController bd = new BDController();
+        Connection connection = null;
 
         try {
             String sqldml = "delete from SITUACAO where SIT_ID = ?";
@@ -151,7 +150,9 @@ public class SituacaoDAO {
         CallableStatement cstdados = null;
         ResultSet rs = null;
         ArrayList<Situacao> retornoLista = null;
-
+        BDController bd = new BDController();
+        Connection connection = null;
+        
         try {
             int tipo = ResultSet.TYPE_SCROLL_SENSITIVE;
             int concorrencia = ResultSet.CONCUR_UPDATABLE;
