@@ -5,30 +5,31 @@
  */
 package view;
 
-import controller.SalaRecursoController;
+import controller.ReservaRecursoController;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import model.Bloco;
-import model.Login;
-import model.Departamento;
-import model.TipoSala;
+import model.Horario;
+import model.Sala;
+import model.Situacao;
 import model.Usuario;
+import model.Login;
 
 /**
  *
  * @author Rafael
  */
-public class SalaLista extends javax.swing.JFrame {
+public class ReservaListaPorSala extends javax.swing.JFrame {
 
-    private static SalaRecursoController control = new SalaRecursoController();
+    private static ReservaRecursoController control = new ReservaRecursoController();
 
     /**
      * Creates new form Home
      */
-    public SalaLista() {
+    public ReservaListaPorSala() {
         initComponents();
         if (Login.isAutenticado()) {
             Usuario usuario = Login.getUsuario();
@@ -41,17 +42,11 @@ public class SalaLista extends javax.swing.JFrame {
                 case "COORD":
                     mItemCadastrarSala.setVisible(false);
                     mItemCadastrarUsuario.setVisible(false);
-                    btnCadastrar.setVisible(false);
-                    btnEditar.setVisible(false);
-                    btnExcluir.setVisible(false);
                     break;
                 case "COMUM":
                     mItemCadastrarSala.setVisible(false);
                     menuGerenciarUsuarios.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
-                    btnCadastrar.setVisible(false);
-                    btnEditar.setVisible(false);
-                    btnExcluir.setVisible(false);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Usuário não logado!");
@@ -60,8 +55,7 @@ public class SalaLista extends javax.swing.JFrame {
             }
         } else {
             this.dispose();
-        }
-        listar();
+        };
     }
 
     /**
@@ -74,12 +68,9 @@ public class SalaLista extends javax.swing.JFrame {
     private void initComponents() {
 
         scrollPane = new javax.swing.JScrollPane();
-        tabelaSala = new javax.swing.JTable();
+        tabelaReserva = new javax.swing.JTable();
         btnCadastrar = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         labelTitulo = new javax.swing.JLabel();
-        btnReservas = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -99,19 +90,18 @@ public class SalaLista extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reserva de Salas");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setExtendedState(6);
 
-        tabelaSala.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaReserva.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Id", "Número", "Nº Cadeira", "Nº Comp.", "Detalhes", "Ativa", "Tipo de Sala", "Departamento", "Bloco"
+                "Id", "Motivo", "Data", "Horário Inicial", "Horário Final", "Confirmada", "Usuário", "Sala", "Situação"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false, false, false, false
@@ -125,49 +115,18 @@ public class SalaLista extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        tabelaSala.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                tabelaSalaFocusLost(evt);
-            }
-        });
-        tabelaSala.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tabelaSalaMouseClicked(evt);
-            }
-        });
-        scrollPane.setViewportView(tabelaSala);
+        scrollPane.setViewportView(tabelaReserva);
 
-        btnCadastrar.setText("Cadastrar Sala");
+        btnCadastrar.setText("Cadastrar Reserva");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarActionPerformed(evt);
             }
         });
 
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitulo.setText("Gerenciar Salas");
-
-        btnReservas.setText("Visualizar Reservas");
-        btnReservas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReservasActionPerformed(evt);
-            }
-        });
+        labelTitulo.setText("Gerenciar Reservas");
 
         barraMenu.setToolTipText("");
 
@@ -287,78 +246,36 @@ public class SalaLista extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(scrollPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 802, Short.MAX_VALUE)
+            .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                    .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCadastrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReservas)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(labelTitulo)
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnCadastrar)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnExcluir)
-                        .addComponent(btnReservas)
-                        .addComponent(btnEditar)))
-                .addGap(18, 18, 18)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addGap(37, 37, 37)
+                .addComponent(btnCadastrar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tabelaSalaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tabelaSalaFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tabelaSalaFocusLost
-
-    private void tabelaSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaSalaMouseClicked
-        /*DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
-        int selectedRowIndex = tabelaSala.getSelectedRow();
-
-        tfId.setText(tabela.getValueAt(selectedRowIndex, 0).toString());
-        spinNumero.setValue(Integer.parseInt(tabela.getValueAt(selectedRowIndex, 1).toString()));
-        spinQuantidadeCadeiras.setValue(Integer.parseInt(tabela.getValueAt(selectedRowIndex, 2).toString()));
-        spinQuantidadeComputadores.setValue(Integer.parseInt(tabela.getValueAt(selectedRowIndex, 3).toString()));
-        taDetalhes.setText(tabela.getValueAt(selectedRowIndex, 4).toString());
-        checkAtiva.setSelected(Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, 5).toString()));
-        cbTipoSala.setSelectedItem(tabela.getValueAt(selectedRowIndex, 8));
-        cbDepartamento.setSelectedItem(tabela.getValueAt(selectedRowIndex, 7));
-        cbBloco.setSelectedItem(tabela.getValueAt(selectedRowIndex, 6));
-
-        tfId.setEnabled(false);
-        btnEditar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnInserir.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "Altere os dados desejados no campo acima \nou clique em excluir para apagar os dados.");*/
-    }//GEN-LAST:event_tabelaSalaMouseClicked
-
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        new SalaCadastrar().setVisible(true);
+        new ReservaCadastrar().setVisible(true);
+        this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        excluir();
-    }//GEN-LAST:event_btnExcluirActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        editar();
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
         new Home().setVisible(true);
@@ -434,100 +351,46 @@ public class SalaLista extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_menuHomeMouseClicked
 
-    private void btnReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReservasActionPerformed
-        DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
-        int selectedRowIndex = tabelaSala.getSelectedRow();
-        
-        String id = tabela.getValueAt(selectedRowIndex, 0).toString();
-        ReservaListaPorSala jan = new ReservaListaPorSala();
-        jan.listar(id);
-        jan.setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnReservasActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
+    
     /**
      * Método responsável por tratar a requisição de quando o usuário pede para
      * inserir um novo registro
-     */
-    public void listar() {
-        ArrayList registros = control.listarSala();
+     */   
+    public void listar(String idSala) {
+        ArrayList registros = control.listarTodasReservasPorSala(idSala);
         if (registros == null) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(this, "Não há itens.");
             return;
         }
         Iterator iterator = registros.iterator();
-        DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
+        DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
         tabela.setNumRows(0);
 
         while (iterator.hasNext()) {
 
-            String id = (String) iterator.next().toString();
-            int numero = (int) iterator.next();
-            int cadeiras = (int) iterator.next();
-            int computadores = (int) iterator.next();
-            String detalhes = (String) iterator.next().toString();
-            boolean ativa = (boolean) iterator.next();
-            TipoSala tipoSala = (TipoSala) iterator.next();
-            Departamento departamento = (Departamento) iterator.next();
-            Bloco bloco = (Bloco) iterator.next();
+            int id = (int) iterator.next();
+            String motivo = (String) iterator.next().toString();
+            Date data = (Date) iterator.next();
+            Horario horarioInicial = (Horario) iterator.next();
+            Horario horarioFinal = (Horario) iterator.next();
+            boolean confirmada = (boolean) iterator.next();
+            Usuario usuario = (Usuario) iterator.next();
+            Sala sala = (Sala) iterator.next();
+            Situacao situacao = (Situacao) iterator.next();
 
-            Object[] dados = {id, numero, cadeiras, computadores, detalhes,
-                ativa, tipoSala, departamento, bloco};
+            Object[] dados = {id, motivo, data, horarioInicial, horarioFinal,
+                confirmada, usuario, sala, situacao};
             tabela.addRow(dados);
         }
     }
 
-    public void excluir() {
-        try {
-            int selectedRowIndex = tabelaSala.getSelectedRow();
-            if (selectedRowIndex >= 0) {
-                String id = tabelaSala.getModel().
-                        getValueAt(selectedRowIndex, 0).toString();
-                int confirm = JOptionPane.showConfirmDialog(this,
-                        "Deseja realmente excluir a sala " + id + "?");
-                if (confirm == 0) {
-                    DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
-                    control.excluirSala(id);
-                    tabela.removeRow(selectedRowIndex);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "Nenhuma sala selecionada");
-            }
-        } catch (HeadlessException error) {
-            String msgError = "Erro: " + error;
-            JOptionPane.showMessageDialog(this, error);
-        }
-    }
-
-    public void editar() {
-        DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
-        int selectedRowIndex = tabelaSala.getSelectedRow();
-
-        String id = tabela.getValueAt(selectedRowIndex, 0).toString();
-        int num = Integer.parseInt(tabela.getValueAt(selectedRowIndex, 1).toString());
-        int cadeiras = Integer.parseInt(tabela.getValueAt(selectedRowIndex, 2).toString());
-        int computadores = Integer.parseInt(tabela.getValueAt(selectedRowIndex, 3).toString());
-        String detalhes = tabela.getValueAt(selectedRowIndex, 4).toString();
-        boolean ativa = Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, 5).toString());     
-        TipoSala tipoSala = (TipoSala) tabela.getValueAt(selectedRowIndex, 6);
-        Departamento departamento = (Departamento) tabela.getValueAt(selectedRowIndex, 7);
-        Bloco bloco = (Bloco) tabela.getValueAt(selectedRowIndex, 8);
-  
-
-        SalaEditar ed = new SalaEditar();
-        ed.iniciar(id, num, cadeiras, computadores, detalhes, ativa, tipoSala,
-                departamento, bloco);
-        ed.setVisible(true);
-        
-    }
-
     // </editor-fold>
+
+    /**
+     * @param args 
+     */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -542,23 +405,20 @@ public class SalaLista extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(SalaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaPorSala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(SalaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaPorSala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(SalaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaPorSala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(SalaLista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ReservaListaPorSala.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SalaLista().setVisible(true);
+                new ReservaListaPorSala().setVisible(true);
             }
         });
     }
@@ -566,9 +426,6 @@ public class SalaLista extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnReservas;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
@@ -586,6 +443,6 @@ public class SalaLista extends javax.swing.JFrame {
     private javax.swing.JMenu menuHome;
     private javax.swing.JMenu menuUsuario;
     private javax.swing.JScrollPane scrollPane;
-    private javax.swing.JTable tabelaSala;
+    private javax.swing.JTable tabelaReserva;
     // End of variables declaration//GEN-END:variables
 }

@@ -122,14 +122,16 @@ public class UsuarioRecursoController {
             String pnome = (String) iterator.next();
             if (pnome.isEmpty()
                     || !pnome.isEmpty() && pnome.trim().isEmpty()
-                    || !pnome.matches("[A-Z][a-zA-Z]*")) {
+                    || !pnome.matches("[a-ÿA-ÿ]+([ '-][a-ÿA-ÿ]+)*")
+                    || pnome.length() < 3) {
                 message += "O campo pnome é obrigatório.\n";
                 valido = false;
             }
             String unome = (String) iterator.next();
             if (unome.isEmpty()
                     || !unome.isEmpty() && unome.trim().isEmpty()
-                    || !unome.matches("[a-zA-z]+([ '-][a-zA-Z]+)*")) {
+                    || !unome.matches("[a-ÿA-ÿ]+([ '-][a-ÿA-ÿ]+)*")
+                    || unome.length() < 3) {
                 message += "O campo unome é obrigatório.\n";
                 valido = false;
             }
@@ -139,14 +141,16 @@ public class UsuarioRecursoController {
             Matcher matcher = pattern.matcher(email);
             if (email.isEmpty()
                     || !email.isEmpty() && email.trim().isEmpty()
-                    || !matcher.matches()) {
+                    || !matcher.matches()
+                    || email.length() <= 7) {
                 message += "O campo email é obrigatório.\n";
                 valido = false;
             }
             String senha = (String) iterator.next();
             if (senha.isEmpty()
                     || !senha.isEmpty() && senha.trim().isEmpty()) {
-                message += "O campo senha é obrigatório.\n";
+                message += "O campo senha é obrigatório, deve conter entre 6 e 20 caracteres"
+                        + " e tabém letras minúsculas, maiúsculas e números.\n";
                 valido = false;
             }
             boolean ativo = (boolean) iterator.next();

@@ -519,8 +519,13 @@ public class UsuarioCadastrar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "As senhas digitadas não são iguais.");
                 return;
             }
-            if (senha.length() > 20) {
-                JOptionPane.showMessageDialog(this, "A senha informada deve conter menos de 20 caracteres");
+            if (senha.length() > 20 ||
+                    senha.isEmpty() ||
+                    !senha.isEmpty() && senha.trim().isEmpty() ||
+                    !senha.matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$")){
+                String message = "O campo senha é obrigatório, deve conter entre"
+                        + " 6 e 20 caracteres e tabém letras minúsculas, maiúsculas e números.\n";
+                JOptionPane.showMessageDialog(this, message);
                 return;
             }
 

@@ -209,6 +209,31 @@ public class ReservaDAO {
                 + " order by RESER_DATA desc ";
         return select(sqldml);
     }
+    
+    /**
+     * Método responsável por listar todos os registros de reserva daquele
+     * usuario
+     *
+     * @return
+     */
+    protected static ArrayList<Reserva> selectAllSala(String idSala) {
+        Usuario usuario = Login.getUsuario();
+        int idUsuario = usuario.getId();
+        String sqldml = "select RESER_ID, RESER_MOTIVO, RESER_DATA, "
+                + " RESER_HORARIO_INICIAL, RESER_HORARIO_FINAL, RESER_CONFIRMADA, "
+                + " USUARIO.USU_ID, USU_PNOME, USU_UNOME, USU_EMAIL, USU_ATIVO, "
+                + " USUARIO.DEP_ID, TIPUS_ID, SALA.SALA_ID, SALA_NUM, "
+                + " SALA_NUM_CADEIRAS, SALA_NUM_COMP, SALA_DETALHES, "
+                + " SALA_ATIVA,TIPSAL_ID, SALA.DEP_ID, BLOC_ID, SITUACAO.SIT_ID, "
+                + " SIT_NOME, SIT_MENSAGEM "
+                + " from RESERVA, SALA, USUARIO, SITUACAO "
+                + " where RESERVA.SALA_ID = SALA.SALA_ID and "
+                + "	RESERVA.USU_ID = USUARIO.USU_ID and "
+                + "	RESERVA.SIT_ID = SITUACAO.SIT_ID and "
+                + "	SALA.SALA_ID = '" + idSala + "' "
+                + " order by RESER_DATA desc ";
+        return select(sqldml);
+    }
 
     /**
      * Método responsável por listar todos os registros de reserva daquele

@@ -154,6 +154,33 @@ public class ReservaRecursoController {
         }
         return retorno;
     }
+    
+    public ArrayList listarTodasReservasPorSala(String id) {
+        ArrayList<Reserva> listagem = Reserva.selectAllSala(id);
+        if (listagem == null) {
+            return null;
+        }
+        Iterator iterator = listagem.iterator();
+        ArrayList retorno = new ArrayList();
+
+        if (listagem.isEmpty()) {
+            return null;
+        }
+
+        while (iterator.hasNext()) {
+            Reserva listaReserva = (Reserva) iterator.next();
+            retorno.add(listaReserva.getId());
+            retorno.add(listaReserva.getMotivo());
+            retorno.add(listaReserva.getData());
+            retorno.add(listaReserva.getHorarioInicial());
+            retorno.add(listaReserva.getHorarioFinal());
+            retorno.add(listaReserva.isConfirmada());
+            retorno.add(listaReserva.getUsuario());
+            retorno.add(listaReserva.getSala());
+            retorno.add(listaReserva.getSituacao());
+        }
+        return retorno;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc=" VALIDAÇÕES ">
