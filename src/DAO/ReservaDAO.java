@@ -305,40 +305,40 @@ public class ReservaDAO {
     private String queryIntervaloHorario(Horario horarioInicial, 
             Horario horarioFinal, String sql) {
         switch (horarioInicial) {
-            case "M1 (07h30 - 08h20)":
-                return Horario.M1;
-            case "M2 (08h20 - 09h10)":
-                return Horario.M2;
-            case "M3 (09h10 - 10h00)":
-                return Horario.M3;
-            case "M4 (10h20 - 11h10)":
-                return Horario.M4;
-            case "M5 (11h10 - 12h00)":
-                return Horario.M5;
-            case "M6 (12h00 - 12h50)":
-                return Horario.M6;
-            case "T1 (13h00 - 13h50)":
-                return Horario.T1;
-            case "T2 (13h50 - 14h40)":
-                return Horario.T2;
-            case "T3 (14h40 - 15h30)":
-                return Horario.T3;
-            case "T4 (15h50 - 16h40)":
-                return Horario.T4;
-            case "T5 (16h40 - 17h30)":
-                return Horario.T5;
-            case "T6 (17h50 - 18h40)":
-                return Horario.T6;
-            case "N1 (18h40 - 19h30)":
-                return Horario.N1;
-            case "N2 (19h30 - 20h20)":
-                return Horario.N2;
-            case "N3 (20h20 - 21h10)":
-                return Horario.N3;
-            case "N4 (21h20 - 22h10)":
-                return Horario.N4;
-            case "N5 (22h10 - 23h00)":
-                return Horario.N5;
+//            case "M1 (07h30 - 08h20)":
+//                return Horario.M1;
+//            case "M2 (08h20 - 09h10)":
+//                return Horario.M2;
+//            case "M3 (09h10 - 10h00)":
+//                return Horario.M3;
+//            case "M4 (10h20 - 11h10)":
+//                return Horario.M4;
+//            case "M5 (11h10 - 12h00)":
+//                return Horario.M5;
+//            case "M6 (12h00 - 12h50)":
+//                return Horario.M6;
+//            case "T1 (13h00 - 13h50)":
+//                return Horario.T1;
+//            case "T2 (13h50 - 14h40)":
+//                return Horario.T2;
+//            case "T3 (14h40 - 15h30)":
+//                return Horario.T3;
+//            case "T4 (15h50 - 16h40)":
+//                return Horario.T4;
+//            case "T5 (16h40 - 17h30)":
+//                return Horario.T5;
+//            case "T6 (17h50 - 18h40)":
+//                return Horario.T6;
+//            case "N1 (18h40 - 19h30)":
+//                return Horario.N1;
+//            case "N2 (19h30 - 20h20)":
+//                return Horario.N2;
+//            case "N3 (20h20 - 21h10)":
+//                return Horario.N3;
+//            case "N4 (21h20 - 22h10)":
+//                return Horario.N4;
+//            case "N5 (22h10 - 23h00)":
+//                return Horario.N5;
             default:
                 return null;
         }

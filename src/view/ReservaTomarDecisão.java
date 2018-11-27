@@ -25,7 +25,7 @@ import model.Situacao;
 public class ReservaTomarDecisão extends javax.swing.JFrame {
 
     private static ReservaRecursoController control = new ReservaRecursoController();
-
+    private Usuario user;
     /**
      * Creates new form Cadastrar
      */
@@ -572,7 +572,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
             } else {
                 novaLista.add(false);//Não confirmada
             }
-            novaLista.add(Login.getUsuario());//usuario
+            novaLista.add(user);//usuario
             novaLista.add(sala);//sala
             novaLista.add(cbSituacao.getSelectedItem());//situacao
 
@@ -592,7 +592,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
     public void iniciar(int id, String motivo, Date data, Horario horarioInicial,
             Horario horarioFinal, boolean confirmada, Usuario usuario,
             Sala sala, Situacao situacao) {
-
+        this.user = usuario;
         spinId.setValue(id);
         spinId.setEnabled(false);
 

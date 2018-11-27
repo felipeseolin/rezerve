@@ -72,19 +72,10 @@ values
     ('COORD', 'Coordenador'),
     ('COMUM', 'Comum');
 
---Table USUARIO
-insert into usuario
-values
-    (1, 'Felipe', 'Seolin Bento', 'fb@email.com', '$2a$10$ciewnTUMsQ.hHY9NW6lqQeTlsvRagSWne/zbi5PAJvzt74WMEGhQW', true, 15, 1);
-
 --Table SALA
 insert into sala
 values
     ('A040', 040, 40, 40, 'Possui Datashow', true, 1, 1, 1),
     ('A032', 032, 45, 0, 'Datashow e Computador para professor', true, 2, 1, 1);
-
---Table RESERVA
-insert into reserva
-values ();
 
 -- Fim dos inserts
