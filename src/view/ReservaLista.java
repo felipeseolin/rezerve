@@ -42,11 +42,15 @@ public class ReservaLista extends javax.swing.JFrame {
                 case "COORD":
                     mItemCadastrarSala.setVisible(false);
                     mItemCadastrarUsuario.setVisible(false);
+                    btnEditar.setVisible(false);
+                    btnExcluir.setVisible(false);
                     break;
                 case "COMUM":
                     mItemCadastrarSala.setVisible(false);
                     menuUsuario.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
+                    btnEditar.setVisible(false);
+                    btnExcluir.setVisible(false);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Usuário não logado!");

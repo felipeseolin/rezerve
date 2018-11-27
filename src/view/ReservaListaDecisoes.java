@@ -38,6 +38,7 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
             switch (sigla) {
                 case "ADMIN":
                     mItemListarReservasDecisao.setVisible(false);
+                    btnTomarDecisao.setVisible(false);
                     break;
                 case "COORD":
                     mItemCadastrarSala.setVisible(false);
@@ -47,6 +48,7 @@ public class ReservaListaDecisoes extends javax.swing.JFrame {
                     mItemCadastrarSala.setVisible(false);
                     menuUsuario.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
+                    btnTomarDecisao.setVisible(false);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Usuário não logado!");
