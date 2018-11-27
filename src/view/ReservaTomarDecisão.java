@@ -558,7 +558,6 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(this, message);
                         return;
                     }
-
                 }
             }
             //Capturando informações e adicionando a uma lista
