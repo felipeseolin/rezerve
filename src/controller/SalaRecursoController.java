@@ -100,6 +100,37 @@ public class SalaRecursoController {
 
         return retorno;
     }
+    
+    public ArrayList listarSalasComFiltro(ArrayList filtros) {
+        ArrayList<Sala> listagem = Sala.selectAllFilter(filtros);
+        if (listagem == null) {
+            return null;
+        }
+        if (listagem == null) {
+            return null;
+        }
+        Iterator iterator = listagem.iterator();
+        ArrayList retorno = new ArrayList();
+
+        if (listagem.isEmpty()) {
+            return null;
+        }
+
+        while (iterator.hasNext()) {
+            Sala listaSala = (Sala) iterator.next();
+            retorno.add(listaSala.getId());
+            retorno.add(listaSala.getNumero());
+            retorno.add(listaSala.getNumeroCadeiras());
+            retorno.add(listaSala.getNumeroComputadores());
+            retorno.add(listaSala.getDetalhes());
+            retorno.add(listaSala.isAtiva());
+            retorno.add(listaSala.getTipoSala());
+            retorno.add(listaSala.getDepartamento());
+            retorno.add(listaSala.getBloco());
+        }
+
+        return retorno;
+    }
     // </editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc=" VALIDAÇÕES ">

@@ -192,6 +192,10 @@ public final class Sala extends SalaDAO {
     public static ArrayList<Sala> selectAll() {
         return SalaDAO.selectAll();
     }
+    
+    public static ArrayList<Sala> selectAllFilter(ArrayList filtros) {
+        return SalaDAO.selectAllFilter(filtros);
+    }
     // </editor-fold>
 
     @Override

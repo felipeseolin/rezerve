@@ -124,6 +124,47 @@ public enum Horario {
         }
     }
     
+    public static Horario valorHorario(int horario) {
+        switch (horario) {
+            case 1:
+                return Horario.M1;
+            case 2:
+                return Horario.M2;
+            case 3:
+                return Horario.M3;
+            case 4:
+                return Horario.M4;
+            case 5:
+                return Horario.M5;
+            case 6:
+                return Horario.M6;
+            case 7:
+                return Horario.T1;
+            case 8:
+                return Horario.T2;
+            case 9:
+                return Horario.T3;
+            case 10:
+                return Horario.T4;
+            case 11:
+                return Horario.T5;
+            case 12:
+                return Horario.T6;
+            case 13:
+                return Horario.N1;
+            case 14:
+                return Horario.N2;
+            case 15:
+                return Horario.N3;
+            case 16:
+                return Horario.N4;
+            case 17:
+                return Horario.N5;
+            default:
+                return null;
+        }
+    }
+    
     @Override
     public String toString() {
         return getValor(); //To change body of generated methods, choose Tools | Templates.

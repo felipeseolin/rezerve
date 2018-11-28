@@ -54,6 +54,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                     mItemCadastrarSala.setVisible(false);
                     menuGerenciarUsuarios.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
+                    cbUsuario2.setVisible(false);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Usuário não logado!");
@@ -64,7 +65,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
             this.dispose();
         }
         carregaComboBox();
-        listar();
+        iniciar();
     }
 
     /**
@@ -92,13 +93,13 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         dateDataInicial = new com.toedter.calendar.JDateChooser();
         cbHorarioInicial = new javax.swing.JComboBox<>();
         cbHorarioFinal = new javax.swing.JComboBox<>();
-        cbUsuario = new javax.swing.JComboBox<>();
         cbSala = new javax.swing.JComboBox<>();
         cbSituacao = new javax.swing.JComboBox<>();
         btnBuscar = new javax.swing.JButton();
         labelDataFinal = new javax.swing.JLabel();
         dateDataFinal = new com.toedter.calendar.JDateChooser();
         checkConfirmada = new javax.swing.JCheckBox();
+        cbUsuario2 = new javax.swing.JComboBox<>();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -169,8 +170,6 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
 
         cbHorarioFinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
 
-        cbUsuario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
-
         cbSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
 
         cbSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
@@ -186,6 +185,13 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
 
         checkConfirmada.setText("Confirmada?");
 
+        cbUsuario2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
+        cbUsuario2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbUsuario2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -199,10 +205,10 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(labelUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(165, 165, 165))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(dateDataInicial, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbUsuario2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(dateDataInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(48, 48, 48)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -247,9 +253,9 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                 .addGap(9, 9, 9)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(labelDataInicial)
-                            .addComponent(labelDataFinal))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labelDataFinal, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(labelDataInicial))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dateDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -262,20 +268,21 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbHorarioInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbHorarioFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labelUsuario)
                     .addComponent(labelSala)
                     .addComponent(labelSituacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cbUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnBuscar)
                         .addComponent(checkConfirmada)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
 
         barraMenu.setToolTipText("");
@@ -398,13 +405,11 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(216, 216, 216))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(scrollPane))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -414,8 +419,8 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                 .addComponent(labelTitulo)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -500,11 +505,15 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         filtra();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
+    private void cbUsuario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUsuario2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbUsuario2ActionPerformed
+
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
     private void carregaComboBox() {
         ArrayList lista;
         Iterator iterator;
-        
+
         cbHorarioInicial.addItem(Horario.M1);
         cbHorarioInicial.addItem(Horario.M2);
         cbHorarioInicial.addItem(Horario.M3);
@@ -570,7 +579,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
             );
             cbSituacao.addItem(situacao);
         }
-        
+
         UsuarioRecursoController controlUsuario = new UsuarioRecursoController();
         lista = controlUsuario.listarUsuarios();
         iterator = lista.iterator();
@@ -584,26 +593,46 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                     (Departamento) iterator.next(),//departamento
                     (TipoUsuario) iterator.next()//tipo de usuario
             );
-            cbUsuario.addItem(usuario);
+            cbUsuario2.addItem(usuario);
+            cbUsuario2.setSelectedIndex(0);
         }
     }
-    
+
     public void filtra() {
         ArrayList lista = new ArrayList();
-        lista.add(dateDataInicial.getDate());
-        lista.add(dateDataFinal.getDate());
+        Date dataInicial = dateDataInicial.getDate();
+        Date dataFinal = dateDataFinal.getDate();
+        if( dataInicial != null && dataFinal != null
+                && dataFinal.before(dataInicial)) {
+            String erro = "Erro! \nA data final é menor que a inicial.";
+            JOptionPane.showMessageDialog(this, erro);
+            return;
+        }
+        lista.add(dataInicial);
+        lista.add(dataFinal);
+       
+        if(cbHorarioInicial.getSelectedItem().getClass() != String.class 
+                && cbHorarioFinal.getSelectedItem().getClass() != String.class) {
+            int horaInicial = Horario.valorHorario((Horario) cbHorarioInicial.getSelectedItem());
+            int horaFinal = Horario.valorHorario((Horario) cbHorarioFinal.getSelectedItem());
+            if(horaInicial > horaFinal) {
+                String erro = "Erro! \nO horário final é menor que o horário inicial.";
+                JOptionPane.showMessageDialog(this, erro);    
+                return;
+            }
+        }
         lista.add(
-                cbHorarioInicial.getSelectedItem().getClass() == String.class ?
-                        null : (Horario) cbHorarioInicial.getSelectedItem()
+                cbHorarioInicial.getSelectedItem().getClass() == String.class
+                ? null : (Horario) cbHorarioInicial.getSelectedItem()
         );
         lista.add(
-                cbHorarioFinal.getSelectedItem().getClass() == String.class ?
-                        null : (Horario) cbHorarioFinal.getSelectedItem()
+                cbHorarioFinal.getSelectedItem().getClass() == String.class
+                ? null : (Horario) cbHorarioFinal.getSelectedItem()
         );
         lista.add((boolean) checkConfirmada.isSelected());
         lista.add(
-                cbUsuario.getSelectedItem().getClass() == String.class
-                ? null : (Usuario) cbUsuario.getSelectedItem()
+                cbUsuario2.getSelectedItem().getClass() == String.class
+                ? null : (Usuario) cbUsuario2.getSelectedItem()
         );
         lista.add(
                 cbSala.getSelectedItem().getClass() == String.class
@@ -613,15 +642,25 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                 cbSituacao.getSelectedItem().getClass() == String.class
                 ? null : (Situacao) cbSituacao.getSelectedItem()
         );
-        
-        ArrayList registros = control.listarTodasReservasComFiltro(lista);
+        DefaultTableModel tabela = (DefaultTableModel) tabelaReserva.getModel();
+        tabela.setNumRows(0);
+        listar(control.listarTodasReservasComFiltro(lista));
     }
+
     /**
      * Método responsável por tratar a requisição de quando o usuário pede para
      * inserir um novo registro
-     */   
-    public void listar() {
+     */
+    public void listar(ArrayList registros) {
+        preencheTabela(registros);
+    }
+
+    public void iniciar() {
         ArrayList registros = control.listarTodasReservas();
+        preencheTabela(registros);
+    }
+
+    public void preencheTabela(ArrayList registros) {
         if (registros == null) {
             this.setVisible(true);
             JOptionPane.showMessageDialog(this, "Não há itens.");
@@ -687,13 +726,12 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         SalaEditar ed = new SalaEditar();
 //        ed.iniciar(id, num, cadeiras, computadores, detalhes, ativa);
         ed.setVisible(true);
-        
+
     }
 
     // </editor-fold>
-
     /**
-     * @param args 
+     * @param args
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -734,7 +772,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
     private javax.swing.JComboBox<Object> cbHorarioInicial;
     private javax.swing.JComboBox<Object> cbSala;
     private javax.swing.JComboBox<Object> cbSituacao;
-    private javax.swing.JComboBox<Object> cbUsuario;
+    private javax.swing.JComboBox<Object> cbUsuario2;
     private javax.swing.JCheckBox checkConfirmada;
     private com.toedter.calendar.JDateChooser dateDataFinal;
     private com.toedter.calendar.JDateChooser dateDataInicial;
