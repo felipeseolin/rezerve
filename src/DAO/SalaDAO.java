@@ -271,53 +271,63 @@ public class SalaDAO {
                 Departamento departamento = (Departamento) iterator.next();
                 Bloco bloco = (Bloco) iterator.next();
                 TipoSala tipoSala = (TipoSala) iterator.next();
-
-                boolean first = false;
-                if (numero > 0) {
+                if (numero > 0 || qntCadeiras >= 0 || qntComputadores >= 0
+                        || departamento.getId() != 0 || bloco.getId() != 0
+                        || tipoSala.getId() != 0) {
                     sqldml += " where ";
-                    first = false;
+                }
+                boolean first = true;
+                if (numero > 0) {
+                    if (!first) {
+                        sqldml += " and ";
+                    } else {
+                        first = false;
+                    }
                     sqldml += " SALA_NUM = " + numero + " ";
                 }
                 if (qntCadeiras >= 0) {
                     if (!first) {
-                        sqldml += " where SALA_NUM_CADEIRAS >= " + qntCadeiras + " ";
-                        first = false;
+                        sqldml += " and ";
                     } else {
-                        sqldml += " and SALA_NUM_CADEIRAS >= " + qntCadeiras + " ";
+                        first = false;
                     }
+                    sqldml += " SALA_NUM_CADEIRAS >= " + qntCadeiras + " ";
+
                 }
                 if (qntComputadores >= 0) {
                     if (!first) {
-                        sqldml += " where SALA_NUM_COMP >= " + qntComputadores + " ";
-                        first = false;
+                        sqldml += " and ";
                     } else {
-                        sqldml += " and SALA_NUM_COMP >= " + qntComputadores + " ";
-                    }
-                }
-                if (departamento != null) {
-                    if (!first) {
-                        sqldml += " where DEPARTAMENTO.DEP_ID = " + departamento.getId() + " ";
                         first = false;
-                    } else {
-                        sqldml += " and DEPARTAMENTO.DEP_ID = " + departamento.getId() + " ";
                     }
-                }
-                if (bloco != null) {
-                    if (!first) {
-                        sqldml += " where BLOCO.BLOC_ID = " + bloco.getId() + " ";
-                        first = false;
-                    } else {
-                        sqldml += " and BLOCO.BLOC_ID = " + bloco.getId() + " ";
-                    }
+                    sqldml += " SALA_NUM_COMP >= " + qntComputadores + " ";
 
                 }
-                if (tipoSala != null) {
+                if (departamento.getId() != 0) {
                     if (!first) {
-                        sqldml += " where TIPO_DE_SALA.TIPSAL_ID = " + tipoSala.getId() + " ";
-                        first = false;
+                        sqldml += " and ";
                     } else {
-                        sqldml += " and TIPO_DE_SALA.TIPSAL_ID = " + tipoSala.getId() + " ";
+                        first = false;
                     }
+                    sqldml += " DEPARTAMENTO.DEP_ID = " + departamento.getId() + " ";
+
+                }
+                if (bloco.getId() != 0) {
+                    if (!first) {
+                        sqldml += " and ";
+                    } else {
+                        first = false;
+                    }
+                    sqldml += " BLOCO.BLOC_ID = " + bloco.getId() + " ";
+
+                }
+                if (tipoSala.getId() != 0) {
+                    if (!first) {
+                        sqldml += " and ";
+                    } else {
+                        first = false;
+                    }
+                    sqldml += " TIPO_DE_SALA.TIPSAL_ID = " + tipoSala.getId() + " ";
                 }
                 sqldml += " order by  SALA_ID  ASC ";
             }

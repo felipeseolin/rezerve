@@ -69,6 +69,8 @@ public class Home extends javax.swing.JFrame {
         btnGerenciarReservas = new javax.swing.JButton();
         btnGerenciarMinhasReservas = new javax.swing.JButton();
         btnReservasDecisoes = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -126,6 +128,20 @@ public class Home extends javax.swing.JFrame {
         btnReservasDecisoes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReservasDecisoesActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Salas com Filtro");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Reservas com Filtro");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
             }
         });
 
@@ -265,13 +281,23 @@ public class Home extends javax.swing.JFrame {
                         .addComponent(btnReservasDecisoes)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addGap(92, 92, 92)
+                .addComponent(jButton2)
+                .addGap(414, 414, 414))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(43, 43, 43)
                 .addComponent(labelLogotipo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(99, 99, 99)
+                .addGap(49, 49, 49)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -389,6 +415,18 @@ public class Home extends javax.swing.JFrame {
         new Home().setVisible(true);
     }//GEN-LAST:event_menuHomeMouseClicked
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        new SalaListaFiltros().setVisible(true);
+        this.dispose();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        new ReservaListaFiltros().setVisible(true);
+        this.dispose();
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -431,6 +469,8 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnGerenciarSalas;
     private javax.swing.JButton btnGerenciarUsuários;
     private javax.swing.JButton btnReservasDecisoes;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel labelLogotipo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;

@@ -137,7 +137,8 @@ public final class Bloco extends BlocoDAO {
     
     @Override
     public String toString() {
-        return this.nome;
+        return this.nome == null ?
+                "Todos" : this.nome;
     }
 
     @Override

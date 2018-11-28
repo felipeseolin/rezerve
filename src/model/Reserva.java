@@ -246,7 +246,10 @@ public final class Reserva extends ReservaDAO {
 
     @Override
     public String toString() {
-        return "Reserva: " + this.getMotivo();
+        String retorno = this.getMotivo() == null ?
+                "Todas as reservas" :
+                "Reserva" + getMotivo();
+        return retorno ;
     }    
     
     @Override

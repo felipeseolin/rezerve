@@ -102,7 +102,8 @@ public final class Situacao extends SituacaoDAO {
 
     @Override
     public String toString() {
-        return this.getNome();
+        return this.getNome() == null ?
+                "Todas" : this.getNome();
     } 
     
     @Override

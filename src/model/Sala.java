@@ -200,7 +200,8 @@ public final class Sala extends SalaDAO {
 
     @Override
     public String toString() {
-        return this.getId();
+        return this.getId() == null ?
+                "Todas" : this.getId();
     }
     
     @Override

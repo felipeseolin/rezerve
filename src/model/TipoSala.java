@@ -85,7 +85,8 @@ public final class TipoSala extends TipoSalaDAO {
 
     @Override
     public String toString() {
-        return getNome();
+        return getNome() == null ? 
+                "Todos" : getNome();
     }
     
     @Override

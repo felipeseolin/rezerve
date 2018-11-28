@@ -11,7 +11,6 @@ import controller.SalaRecursoController;
 import controller.TipoSalaRecursoController;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,7 +19,6 @@ import model.Login;
 import model.Departamento;
 import model.Horario;
 import model.Sala;
-import model.Situacao;
 import model.TipoSala;
 import model.Usuario;
 
@@ -207,16 +205,11 @@ public class SalaListaFiltros extends javax.swing.JFrame {
             }
         });
 
-        cbDepartamento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
         cbDepartamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbDepartamentoActionPerformed(evt);
             }
         });
-
-        cbTipoSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
-
-        cbBloco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
 
         checkNumCadeiras.setText("Quantidade de Cadeiras mínima?");
         checkNumCadeiras.addChangeListener(new javax.swing.event.ChangeListener() {
@@ -474,24 +467,7 @@ public class SalaListaFiltros extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaSalaFocusLost
 
     private void tabelaSalaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaSalaMouseClicked
-        /*DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
-        int selectedRowIndex = tabelaSala.getSelectedRow();
-
-        tfId.setText(tabela.getValueAt(selectedRowIndex, 0).toString());
-        spinNumero.setValue(Integer.parseInt(tabela.getValueAt(selectedRowIndex, 1).toString()));
-        spinQuantidadeCadeiras.setValue(Integer.parseInt(tabela.getValueAt(selectedRowIndex, 2).toString()));
-        spinQuantidadeComputadores.setValue(Integer.parseInt(tabela.getValueAt(selectedRowIndex, 3).toString()));
-        taDetalhes.setText(tabela.getValueAt(selectedRowIndex, 4).toString());
-        checkAtiva.setSelected(Boolean.parseBoolean(tabela.getValueAt(selectedRowIndex, 5).toString()));
-        cbTipoSala.setSelectedItem(tabela.getValueAt(selectedRowIndex, 8));
-        cbDepartamento.setSelectedItem(tabela.getValueAt(selectedRowIndex, 7));
-        cbBloco.setSelectedItem(tabela.getValueAt(selectedRowIndex, 6));
-
-        tfId.setEnabled(false);
-        btnEditar.setEnabled(true);
-        btnExcluir.setEnabled(true);
-        btnInserir.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "Altere os dados desejados no campo acima \nou clique em excluir para apagar os dados.");*/
+        
     }//GEN-LAST:event_tabelaSalaMouseClicked
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
@@ -593,18 +569,18 @@ public class SalaListaFiltros extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnReservasActionPerformed
 
-    private void cbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDepartamentoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDepartamentoActionPerformed
-
-    private void checkNumCadeirasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkNumCadeirasStateChanged
-        boolean valor = checkNumCadeiras.isSelected();
+    private void checkNumSalaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkNumSalaStateChanged
+        boolean valor = checkNumSala.isSelected();
         if (valor) {
-            spinNumCadeiras.setEnabled(true);
+            spinNumero.setEnabled(true);
         } else {
-            spinNumCadeiras.setEnabled(false);
+            spinNumero.setEnabled(false);
         }
-    }//GEN-LAST:event_checkNumCadeirasStateChanged
+    }//GEN-LAST:event_checkNumSalaStateChanged
+
+    private void checkNumCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNumCompActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_checkNumCompActionPerformed
 
     private void checkNumCompStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkNumCompStateChanged
         boolean valor = checkNumComp.isSelected();
@@ -615,18 +591,18 @@ public class SalaListaFiltros extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_checkNumCompStateChanged
 
-    private void checkNumCompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkNumCompActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkNumCompActionPerformed
-
-    private void checkNumSalaStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkNumSalaStateChanged
-        boolean valor = checkNumSala.isSelected();
+    private void checkNumCadeirasStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_checkNumCadeirasStateChanged
+        boolean valor = checkNumCadeiras.isSelected();
         if (valor) {
-            spinNumero.setEnabled(true);
+            spinNumCadeiras.setEnabled(true);
         } else {
-            spinNumero.setEnabled(false);
+            spinNumCadeiras.setEnabled(false);
         }
-    }//GEN-LAST:event_checkNumSalaStateChanged
+    }//GEN-LAST:event_checkNumCadeirasStateChanged
+
+    private void cbDepartamentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDepartamentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbDepartamentoActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         filtra();
@@ -640,6 +616,7 @@ public class SalaListaFiltros extends javax.swing.JFrame {
         DepartamentoRecursoController controlDepartamento = new DepartamentoRecursoController();
         ArrayList lista = controlDepartamento.listarDepartamento();
         Iterator iterator = lista.iterator();
+        cbDepartamento.addItem(new Departamento());
         while (iterator.hasNext()) {
             Departamento departamento = new Departamento(
                     (int) iterator.next(),//ID
@@ -651,6 +628,7 @@ public class SalaListaFiltros extends javax.swing.JFrame {
             cbDepartamento.addItem(departamento);
         }
 
+        cbBloco.addItem(new Bloco());
         BlocoRecursoController controlBloco = new BlocoRecursoController();
         lista = controlBloco.listarBlocos();
         iterator = lista.iterator();
@@ -665,6 +643,7 @@ public class SalaListaFiltros extends javax.swing.JFrame {
             cbBloco.addItem(bloco);
         }
 
+        cbTipoSala.addItem(new TipoSala());
         TipoSalaRecursoController controlTipoSala = new TipoSalaRecursoController();
         lista = controlTipoSala.listarTipoSala();
         iterator = lista.iterator();
@@ -713,15 +692,15 @@ public class SalaListaFiltros extends javax.swing.JFrame {
         lista.add(numeroDeComputadores);
         lista.add(
                 cbDepartamento.getSelectedItem().getClass() == String.class
-                ? null : (Horario) cbDepartamento.getSelectedItem()
+                ? null : (Departamento) cbDepartamento.getSelectedItem()
         );
         lista.add(
                 cbBloco.getSelectedItem().getClass() == String.class
-                ? null : (Horario) cbBloco.getSelectedItem()
+                ? null : (Bloco) cbBloco.getSelectedItem()
         );
         lista.add(
                 cbTipoSala.getSelectedItem().getClass() == String.class
-                ? null : (Sala) cbTipoSala.getSelectedItem()
+                ? null : (TipoSala) cbTipoSala.getSelectedItem()
         );
         DefaultTableModel tabela = (DefaultTableModel) tabelaSala.getModel();
         tabela.setNumRows(0);

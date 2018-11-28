@@ -54,7 +54,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                     mItemCadastrarSala.setVisible(false);
                     menuGerenciarUsuarios.setVisible(false);
                     mItemListarReservasDecisao.setVisible(false);
-                    cbUsuario2.setVisible(false);
+                    cbUsuario.setVisible(false);
                     break;
                 default:
                     JOptionPane.showMessageDialog(this, "Usuário não logado!");
@@ -99,7 +99,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         labelDataFinal = new javax.swing.JLabel();
         dateDataFinal = new com.toedter.calendar.JDateChooser();
         checkConfirmada = new javax.swing.JCheckBox();
-        cbUsuario2 = new javax.swing.JComboBox<>();
+        cbUsuario = new javax.swing.JComboBox<>();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -170,10 +170,6 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
 
         cbHorarioFinal.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
 
-        cbSala.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
-
-        cbSituacao.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
-
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,10 +181,9 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
 
         checkConfirmada.setText("Confirmada?");
 
-        cbUsuario2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
-        cbUsuario2.addActionListener(new java.awt.event.ActionListener() {
+        cbUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbUsuario2ActionPerformed(evt);
+                cbUsuarioActionPerformed(evt);
             }
         });
 
@@ -207,7 +202,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                         .addGap(165, 165, 165))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(cbUsuario2, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbUsuario, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(dateDataInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(48, 48, 48)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -277,7 +272,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbUsuario2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnBuscar)
@@ -505,15 +500,15 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         filtra();
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void cbUsuario2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUsuario2ActionPerformed
+    private void cbUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbUsuarioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbUsuario2ActionPerformed
+    }//GEN-LAST:event_cbUsuarioActionPerformed
 
     // <editor-fold defaultstate="collapsed" desc=" CRUD ">
     private void carregaComboBox() {
         ArrayList lista;
         Iterator iterator;
-
+        
         cbHorarioInicial.addItem(Horario.M1);
         cbHorarioInicial.addItem(Horario.M2);
         cbHorarioInicial.addItem(Horario.M3);
@@ -550,6 +545,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         cbHorarioFinal.addItem(Horario.N4);
         cbHorarioFinal.addItem(Horario.N5);
 
+        cbSala.addItem(new Sala());
         SalaRecursoController controlSala = new SalaRecursoController();
         lista = controlSala.listarSala();
         iterator = lista.iterator();
@@ -568,6 +564,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
             cbSala.addItem(sala);
         }
 
+        cbSituacao.addItem(new Situacao());
         SituacaoRecursoController controlSituacao = new SituacaoRecursoController();
         lista = controlSituacao.listarSituacoes();
         iterator = lista.iterator();
@@ -580,6 +577,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
             cbSituacao.addItem(situacao);
         }
 
+        cbUsuario.addItem(new Usuario());
         UsuarioRecursoController controlUsuario = new UsuarioRecursoController();
         lista = controlUsuario.listarUsuarios();
         iterator = lista.iterator();
@@ -593,8 +591,8 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
                     (Departamento) iterator.next(),//departamento
                     (TipoUsuario) iterator.next()//tipo de usuario
             );
-            cbUsuario2.addItem(usuario);
-            cbUsuario2.setSelectedIndex(0);
+            cbUsuario.addItem(usuario);
+            cbUsuario.setSelectedIndex(0);
         }
     }
 
@@ -631,8 +629,8 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
         );
         lista.add((boolean) checkConfirmada.isSelected());
         lista.add(
-                cbUsuario2.getSelectedItem().getClass() == String.class
-                ? null : (Usuario) cbUsuario2.getSelectedItem()
+                cbUsuario.getSelectedItem().getClass() == String.class
+                ? null : (Usuario) cbUsuario.getSelectedItem()
         );
         lista.add(
                 cbSala.getSelectedItem().getClass() == String.class
@@ -772,7 +770,7 @@ public class ReservaListaFiltros extends javax.swing.JFrame {
     private javax.swing.JComboBox<Object> cbHorarioInicial;
     private javax.swing.JComboBox<Object> cbSala;
     private javax.swing.JComboBox<Object> cbSituacao;
-    private javax.swing.JComboBox<Object> cbUsuario2;
+    private javax.swing.JComboBox<Object> cbUsuario;
     private javax.swing.JCheckBox checkConfirmada;
     private com.toedter.calendar.JDateChooser dateDataFinal;
     private com.toedter.calendar.JDateChooser dateDataInicial;

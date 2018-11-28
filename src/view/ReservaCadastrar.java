@@ -10,6 +10,7 @@ import controller.SalaRecursoController;
 import controller.SituacaoRecursoController;
 import java.awt.HeadlessException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import model.Bloco;
@@ -499,6 +500,54 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                         + "O valor do horário inicial é maior que o final");
                 return;
             }
+            //Informações dos campos
+            Date data = dateData.getDate();
+            Sala sala = (Sala) cbSala.getSelectedItem();
+            
+            //Logica que verifica reservas
+            ArrayList filtros = new ArrayList();
+            filtros.add(null);//DataIncial
+            filtros.add(null);//DataFinal
+            filtros.add(null);//Hora Inicial
+            filtros.add(null);//Hora Final
+            filtros.add(true);//Confirmada
+            filtros.add(null);//Usuario
+            filtros.add(sala);//Sala
+            filtros.add(new Situacao(1));//Situacao
+                    
+                ArrayList todasReservas = control.listarTodasReservasComFiltro(filtros);
+                if (todasReservas == null) {
+                    JOptionPane.showMessageDialog(this, "Não há reservas!");
+                    return;
+                }
+                Iterator it = todasReservas.iterator();
+                while (it.hasNext()) {
+                    int idLista = (int) it.next();
+                    String motivoLista = (String) it.next().toString();
+                    Date dataLista = (Date) it.next();
+                    Horario horarioInicialLista = (Horario) it.next();
+                    int valorHorarioInicialLista = Horario.valorHorario(horarioInicialLista);
+                    Horario horarioFinalLista = (Horario) it.next();
+                    int valorHorarioFinalLista = Horario.valorHorario(horarioFinalLista);
+                    boolean confirmadaLista = (boolean) it.next();
+                    Usuario usuarioLista = (Usuario) it.next();
+                    Sala salaLista = (Sala) it.next();
+                    Situacao situacaoLista = (Situacao) it.next();
+                    
+                    if ((situacaoLista.getId() == 1 || confirmadaLista) //a reserva da lista deve estar confirmada
+                            && data.equals(dataLista) //a data deve ser a mesma
+                            && sala.equals(salaLista)
+                            && valorHoraInicial >= valorHorarioInicialLista
+                            && valorHoraFinal <= valorHorarioFinalLista) {
+                        int op = JOptionPane.showConfirmDialog(this, "Já há "
+                                + "uma reserva confirmada para estas condições. "
+                                + " Deseja mesmo assim solicitar a reserva?");
+                        if(op != JOptionPane.YES_OPTION) {
+                            return;
+                        }
+                    }
+                }
+            
             
             //Capturando informações e adicionando a uma lista
             novaLista.add(taMotivo.getText());

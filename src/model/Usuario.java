@@ -34,12 +34,12 @@ public final class Usuario extends UsuarioDAO {
         this.senha = senha;
         this.ativo = ativo;
     }
-    
+
     public Usuario(String email, String senha) {
         this.email = email;
         this.senha = senha;
     }
-    
+
     public Usuario(int id, String pNome, String uNome, String email, boolean ativo
     ) {
         this.id = id;
@@ -48,14 +48,14 @@ public final class Usuario extends UsuarioDAO {
         this.email = email;
         this.ativo = ativo;
     }
-    
+
     public Usuario(String pNome, String uNome, String email, boolean ativo) {
         this.pNome = pNome;
         this.uNome = uNome;
         this.email = email;
         this.ativo = ativo;
     }
-    
+
     public Usuario(int id, String pNome, String uNome, String email, boolean ativo,
             Departamento departamento, TipoUsuario tipoUsuario
     ) {
@@ -69,7 +69,7 @@ public final class Usuario extends UsuarioDAO {
     }
 
     public Usuario(String pNome, String uNome, String email, boolean ativo,
-        Departamento departamento, TipoUsuario tipoUsuario
+            Departamento departamento, TipoUsuario tipoUsuario
     ) {
         this.pNome = pNome;
         this.uNome = uNome;
@@ -78,7 +78,7 @@ public final class Usuario extends UsuarioDAO {
         this.departamento = departamento;
         this.tipoUsuario = tipoUsuario;
     }
-    
+
     public Usuario(int id, String pNome, String uNome, String email, String senha,
             boolean ativo, Departamento departamento, TipoUsuario tipoUsuario
     ) {
@@ -91,7 +91,7 @@ public final class Usuario extends UsuarioDAO {
         this.departamento = departamento;
         this.tipoUsuario = tipoUsuario;
     }
-    
+
     public Usuario(String pNome, String uNome, String email, String senha,
             boolean ativo, Departamento departamento, TipoUsuario tipoUsuario
     ) {
@@ -246,12 +246,19 @@ public final class Usuario extends UsuarioDAO {
 
     @Override
     public String toString() {
-        return this.getpNome() + " "+ this.getuNome();
+        String retorno;
+        if (this.getpNome() == null && this.getuNome() == null) {
+            retorno = "Todas";
+        } else {
+            retorno = this.getpNome() + " " + this.getuNome();
+        }
+
+        return retorno;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         return this.id == ((Usuario) obj).getId();
     }
-    
+
 }

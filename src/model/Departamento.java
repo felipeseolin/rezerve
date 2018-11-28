@@ -118,6 +118,9 @@ public final class Departamento extends DepartamentoDAO {
 
     @Override
     public String toString() {
+        if (this.sigla == null && this.nome == null) {
+            return "Todos";
+        }
         return this.sigla + " - " + this.nome;
     }
     

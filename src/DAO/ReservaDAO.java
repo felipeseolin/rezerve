@@ -294,7 +294,7 @@ public class ReservaDAO {
             sqldml += " and USUARIO.USU_ID = " + usuario.getId() + " ";
         }
         if (sala != null) {
-            sqldml += " and SALA.SALA_ID = " + sala.getId() + " ";
+            sqldml += " and SALA.SALA_ID = '" + sala.getId() + "' ";
         }
         if (situacao != null) {
             sqldml += " and SITUACAO.SIT_ID = " + situacao.getId() + " ";

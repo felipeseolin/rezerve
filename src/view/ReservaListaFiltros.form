@@ -305,7 +305,7 @@
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="cbUsuario2" alignment="0" max="32767" attributes="0"/>
+                              <Component id="cbUsuario" alignment="0" max="32767" attributes="0"/>
                               <Component id="dateDataInicial" max="32767" attributes="0"/>
                           </Group>
                           <EmptySpace min="48" pref="48" max="-2" attributes="0"/>
@@ -401,7 +401,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbSala" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cbUsuario2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cbUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="cbSituacao" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -474,9 +474,7 @@
         <Component class="javax.swing.JComboBox" name="cbSala">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Todos"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -486,9 +484,7 @@
         <Component class="javax.swing.JComboBox" name="cbSituacao">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Todos"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <AuxValues>
@@ -515,16 +511,14 @@
             <Property name="text" type="java.lang.String" value="Confirmada?"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbUsuario2">
+        <Component class="javax.swing.JComboBox" name="cbUsuario">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
-                <StringItem index="0" value="Todos"/>
-              </StringArray>
+              <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbUsuario2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbUsuarioActionPerformed"/>
           </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;Object&gt;"/>

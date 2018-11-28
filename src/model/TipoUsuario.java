@@ -105,7 +105,8 @@ public final class TipoUsuario extends TipoUsuarioDAO {
 
     @Override
     public String toString() {
-        return this.nome;
+        return this.nome == null ?
+                "Todos" : this.getNome();
     }
     
     @Override
