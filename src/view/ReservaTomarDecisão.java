@@ -26,6 +26,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
 
     private static ReservaRecursoController control = new ReservaRecursoController();
     private Usuario user;
+
     /**
      * Creates new form Cadastrar
      */
@@ -527,36 +528,38 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
             Situacao situacao = (Situacao) cbSituacao.getSelectedItem();//situacao
             if (situacao.getId() == 1) {
                 ArrayList todasReservas = control.listarTodasReservas();
-                if (todasReservas == null) {
-                    JOptionPane.showMessageDialog(this, "Não há reservas!");
-                    return;
-                }
-                Iterator it = todasReservas.iterator();
-                while (it.hasNext()) {
-                    int idLista = (int) it.next();
-                    String motivoLista = (String) it.next().toString();
-                    Date dataLista = (Date) it.next();
-                    Horario horarioInicialLista = (Horario) it.next();
-                    int valorHorarioInicialLista = Horario.valorHorario(horarioInicialLista);
-                    Horario horarioFinalLista = (Horario) it.next();
-                    int valorHorarioFinalLista = Horario.valorHorario(horarioFinalLista);
-                    boolean confirmadaLista = (boolean) it.next();
-                    Usuario usuarioLista = (Usuario) it.next();
-                    Sala salaLista = (Sala) it.next();
-                    Situacao situacaoLista = (Situacao) it.next();
+                if (todasReservas != null) {
 
-                    boolean datasIguais = data.equals(dataLista);
-                    if (idLista != id //id das reservas devem ser diferentes, para não se autoeliminar
-                            && (situacaoLista.getId() == 1 || confirmadaLista) //a reserva da lista deve estar confirmada
-                            && situacao.getId() == 1 //o usuario deve estar tentando confirmar essa reserva
-                            && data.equals(dataLista) //a data deve ser a mesma
-                            && sala.equals(salaLista)
-                            && valorHorarioInicial >= valorHorarioInicialLista
-                            && valorHorarioFinal <= valorHorarioFinalLista) {
-                        String message = "Conflito!\n"
-                                + "Já há uma reserva confimada nestas condições, logo a sala estará ocupada.";
-                        JOptionPane.showMessageDialog(this, message);
-                        return;
+                    Iterator it = todasReservas.iterator();
+                    while (it.hasNext()) {
+                        int idLista = (int) it.next();
+                        String motivoLista = (String) it.next().toString();
+                        Date dataLista = (Date) it.next();
+                        Horario horarioInicialLista = (Horario) it.next();
+                        int valorHorarioInicialLista = Horario.valorHorario(horarioInicialLista);
+                        Horario horarioFinalLista = (Horario) it.next();
+                        int valorHorarioFinalLista = Horario.valorHorario(horarioFinalLista);
+                        boolean confirmadaLista = (boolean) it.next();
+                        Usuario usuarioLista = (Usuario) it.next();
+                        Sala salaLista = (Sala) it.next();
+                        Situacao situacaoLista = (Situacao) it.next();
+                        
+                        if (idLista != id //id das reservas devem ser diferentes, para não se autoeliminar
+                                && (situacaoLista.getId() == 1 || confirmadaLista) //a reserva da lista deve estar confirmada
+                                && situacao.getId() == 1 //o usuario deve estar tentando confirmar essa reserva
+                                && data.equals(dataLista) //a data deve ser a mesma
+                                && sala.equals(salaLista)
+                                && (verificaConflito(valorHorarioInicialLista, 
+                                        valorHorarioFinalLista, 
+                                        valorHorarioInicial, 
+                                        valorHorarioFinal)
+                                || (valorHorarioInicial >= valorHorarioInicialLista
+                                    && valorHorarioFinal <= valorHorarioFinalLista))) {
+                            String message = "Conflito!\n"
+                                    + "Já há uma reserva confimada nestas condições, logo a sala estará ocupada.";
+                            JOptionPane.showMessageDialog(this, message);
+                            return;
+                        }
                     }
                 }
             }
@@ -586,6 +589,25 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
             String msgErro = "Erro: " + error;
             JOptionPane.showMessageDialog(this, msgErro);
         }
+    }
+    
+    public boolean verificaConflito(int horaInicialConfirmada,
+            int horaFinalConfirmada, int horaInicialPretende,
+            int horaFinalPretende) {
+        boolean horaInicialEncontrada = false;
+        boolean horaFinalEncontrada = false;
+        for(int i = horaInicialPretende; i <= horaFinalPretende; i++) {
+            if(i == horaInicialConfirmada) {
+                horaInicialEncontrada = true;
+            }
+            else if(i == horaFinalConfirmada) {
+                horaFinalEncontrada = true;
+            }
+            if(horaInicialEncontrada || horaFinalEncontrada) {
+                return true;
+            }
+        }
+        return false; 
     }
 
     public void iniciar(int id, String motivo, Date data, Horario horarioInicial,

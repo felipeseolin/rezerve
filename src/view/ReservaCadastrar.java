@@ -9,6 +9,9 @@ import controller.ReservaRecursoController;
 import controller.SalaRecursoController;
 import controller.SituacaoRecursoController;
 import java.awt.HeadlessException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -390,7 +393,11 @@ public class ReservaCadastrar extends javax.swing.JFrame {
     }//GEN-LAST:event_cbHorarioFinalActionPerformed
 
     private void btnInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInserirActionPerformed
-        inserir();
+        try{
+            inserir();
+        } catch (Exception e){
+            
+        }
     }//GEN-LAST:event_btnInserirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -478,7 +485,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
      * Método responsável por tratar a requisição de quando o usuário pede para
      * inserir um novo registro
      */
-    public void inserir() {
+    public void inserir() throws ParseException {
         ArrayList novaLista = new ArrayList();
 
         try {
@@ -489,7 +496,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Senha incorreta.");
                 return;
             }
-            
+
             Horario horarioInicial = (Horario) cbHorarioInicial.getSelectedItem();
             Horario horarioFinal = (Horario) cbHorarioFinal.getSelectedItem();
             int valorHoraInicial = Horario.valorHorario(horarioInicial);
@@ -501,9 +508,13 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                 return;
             }
             //Informações dos campos
-            Date data = dateData.getDate();
-            Sala sala = (Sala) cbSala.getSelectedItem();
             
+            Date dataNaoFormatada = dateData.getDate();
+            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+            Date data = format.parse(format.format(dataNaoFormatada));
+            
+            Sala sala = (Sala) cbSala.getSelectedItem();
+
             //Logica que verifica reservas
             ArrayList filtros = new ArrayList();
             filtros.add(null);//DataIncial
@@ -514,12 +525,10 @@ public class ReservaCadastrar extends javax.swing.JFrame {
             filtros.add(null);//Usuario
             filtros.add(sala);//Sala
             filtros.add(new Situacao(1));//Situacao
-                    
-                ArrayList todasReservas = control.listarTodasReservasComFiltro(filtros);
-                if (todasReservas == null) {
-                    JOptionPane.showMessageDialog(this, "Não há reservas!");
-                    return;
-                }
+
+            ArrayList todasReservas = control.listarTodasReservasComFiltro(filtros);
+            if (todasReservas != null) {
+
                 Iterator it = todasReservas.iterator();
                 while (it.hasNext()) {
                     int idLista = (int) it.next();
@@ -534,21 +543,28 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                     Sala salaLista = (Sala) it.next();
                     Situacao situacaoLista = (Situacao) it.next();
                     
+                    boolean datasIguais = data.equals(dataLista);
+                    boolean salasIguais = sala.equals(salaLista);
+
                     if ((situacaoLista.getId() == 1 || confirmadaLista) //a reserva da lista deve estar confirmada
-                            && data.equals(dataLista) //a data deve ser a mesma
-                            && sala.equals(salaLista)
-                            && valorHoraInicial >= valorHorarioInicialLista
-                            && valorHoraFinal <= valorHorarioFinalLista) {
+                            && datasIguais //a data deve ser a mesma
+                            && salasIguais
+                            && (verificaConflito(valorHorarioInicialLista,
+                                    valorHorarioFinalLista,
+                                    valorHoraInicial,
+                                    valorHoraFinal)
+                            || (valorHoraInicial >= valorHorarioInicialLista
+                            && valorHoraFinal <= valorHorarioFinalLista))) {
                         int op = JOptionPane.showConfirmDialog(this, "Já há "
                                 + "uma reserva confirmada para estas condições. "
                                 + " Deseja mesmo assim solicitar a reserva?");
-                        if(op != JOptionPane.YES_OPTION) {
+                        if (op != JOptionPane.YES_OPTION) {
                             return;
                         }
                     }
                 }
-            
-            
+            }
+
             //Capturando informações e adicionando a uma lista
             novaLista.add(taMotivo.getText());
             novaLista.add(dateData.getDate());
@@ -558,7 +574,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
             novaLista.add(Login.getUsuario());//USUARIO
             novaLista.add(cbSala.getSelectedItem());
             novaLista.add(cbSituacao.getSelectedItem());
-            
+
             //Mandando para o Contoller
             if (control.criarReserva(novaLista)) {
                 JOptionPane.showMessageDialog(this, "A reserva foi salva com sucesso!");
@@ -571,11 +587,29 @@ public class ReservaCadastrar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, msgErro);
         }
     }
+    
+    public boolean verificaConflito(int horaInicialConfirmada,
+            int horaFinalConfirmada, int horaInicialPretende,
+            int horaFinalPretende) {
+        boolean horaInicialEncontrada = false;
+        boolean horaFinalEncontrada = false;
+        for (int i = horaInicialPretende; i <= horaFinalPretende; i++) {
+            if (i == horaInicialConfirmada) {
+                horaInicialEncontrada = true;
+            } else if (i == horaFinalConfirmada) {
+                horaFinalEncontrada = true;
+            }
+            if (horaInicialEncontrada || horaFinalEncontrada) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     private void carregaComboBoxes() {
         ArrayList lista;
         Iterator iterator;
-        
+
         cbHorarioInicial.addItem(Horario.M1);
         cbHorarioInicial.addItem(Horario.M2);
         cbHorarioInicial.addItem(Horario.M3);
@@ -593,7 +627,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         cbHorarioInicial.addItem(Horario.N3);
         cbHorarioInicial.addItem(Horario.N4);
         cbHorarioInicial.addItem(Horario.N5);
-        
+
         cbHorarioFinal.addItem(Horario.M1);
         cbHorarioFinal.addItem(Horario.M2);
         cbHorarioFinal.addItem(Horario.M3);
@@ -611,7 +645,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
         cbHorarioFinal.addItem(Horario.N3);
         cbHorarioFinal.addItem(Horario.N4);
         cbHorarioFinal.addItem(Horario.N5);
-        
+
         SalaRecursoController controlSala = new SalaRecursoController();
         lista = controlSala.listarSala();
         iterator = lista.iterator();
@@ -640,7 +674,7 @@ public class ReservaCadastrar extends javax.swing.JFrame {
                     (String) iterator.next()//Mensagem
             );
             cbSituacao.addItem(situacao);
-            if(situacao.getId() == 2) {
+            if (situacao.getId() == 2) {
                 cbSituacao.setSelectedItem(situacao);
             }
         }
