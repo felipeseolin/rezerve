@@ -431,9 +431,9 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        new ReservaListaDecisoes().setVisible(true);
         this.setVisible(false);
         this.dispose();
-        new ReservaLista().setVisible(true);
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked

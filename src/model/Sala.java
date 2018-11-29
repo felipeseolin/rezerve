@@ -200,17 +200,13 @@ public final class Sala extends SalaDAO {
 
     @Override
     public String toString() {
-        return this.getId() == null ?
+        return this.getId() == null || this.getId().trim().equals("") ?
                 "Todas" : this.getId();
     }
     
     @Override
     public boolean equals(Object obj) {
-        if(this.getId() == null) {
-            return false;
-        } else {
-            return this.getId().equals(((Sala) obj).getId());
-        }
+        return this.getId().equals(((Sala) obj).getId());
     }
 
 }
