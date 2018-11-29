@@ -8,7 +8,9 @@ package view;
 import controller.BDController;
 import java.util.HashMap;
 import java.util.Map;
+import model.Login;
 import javax.swing.JOptionPane;
+import model.Usuario;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -30,6 +32,33 @@ public class RelatoriosHome extends javax.swing.JFrame {
      */
     public RelatoriosHome() {
         initComponents();
+        if (Login.isAutenticado()) {
+            Usuario usuario = Login.getUsuario();
+            menuUsuario.setText(usuario.toString());
+            String sigla = usuario.getTipoUsuario().getSigla();
+            switch (sigla) {
+                case "ADMIN":
+                    mItemListarReservasDecisao.setVisible(false);
+                    break;
+                case "COORD":
+                    mItemCadastrarSala.setVisible(false);
+                    mItemCadastrarUsuario.setVisible(false);
+                    break;
+                case "COMUM":
+                    mItemCadastrarSala.setVisible(false);
+                    menuGerenciarUsuarios.setVisible(false);
+                    mItemListarReservasDecisao.setVisible(false);
+                    mItemRelatorios.setEnabled(false);
+                    mItemRelatorios.setVisible(false);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(this, "Usuário não logado!");
+                    System.exit(-1);
+                    break;
+            }
+        } else {
+            this.dispose();
+        }
     }
 
     /**
@@ -56,7 +85,7 @@ public class RelatoriosHome extends javax.swing.JFrame {
         mItemListarTodasReservas = new javax.swing.JMenuItem();
         mItemListarMinhasReservas = new javax.swing.JMenuItem();
         mItemListarReservasDecisao = new javax.swing.JMenuItem();
-        mItemRelatórios = new javax.swing.JMenuItem();
+        mItemRelatorios = new javax.swing.JMenuItem();
         menuUsuario = new javax.swing.JMenu();
         mItemEditarUsuario = new javax.swing.JMenuItem();
         mItemSair = new javax.swing.JMenuItem();
@@ -166,13 +195,13 @@ public class RelatoriosHome extends javax.swing.JFrame {
         });
         menuGerenciarReservas.add(mItemListarReservasDecisao);
 
-        mItemRelatórios.setText("Gerar Relatórios");
-        mItemRelatórios.addActionListener(new java.awt.event.ActionListener() {
+        mItemRelatorios.setText("Gerar Relatórios");
+        mItemRelatorios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mItemRelatóriosActionPerformed(evt);
+                mItemRelatoriosActionPerformed(evt);
             }
         });
-        menuGerenciarReservas.add(mItemRelatórios);
+        menuGerenciarReservas.add(mItemRelatorios);
 
         barraMenu.add(menuGerenciarReservas);
 
@@ -221,63 +250,101 @@ public class RelatoriosHome extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JasperPrint impressao;
+        try {
+            BDController bd = new BDController();
+            impressao = JasperFillManager.fillReport(
+                    RELATORIO,
+                    constroiParametros(),
+                    bd.conectaBD());
+            JasperExportManager.exportReportToPdfFile(impressao, PDF);
+            JOptionPane.showMessageDialog(this, "Gerado o arquivo " + PDF);
+        } catch (JRException ex) {
+            System.err.println("Não foi possível exportar o relatório.\n\n");
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
-        new LoginHome().setVisible(true);
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_menuHomeMouseClicked
 
     private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new LoginHome().setVisible(true);
+        new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
-
+        new SalaCadastrar().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemCadastrarSalaActionPerformed
 
     private void mItemListarSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarSalasActionPerformed
-
+        new SalaListaFiltros().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemListarSalasActionPerformed
 
     private void mItemCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarUsuarioActionPerformed
-
+        new UsuarioCadastrar().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemCadastrarUsuarioActionPerformed
 
     private void mItemListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarUsuariosActionPerformed
-
+        new UsuarioLista().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemListarUsuariosActionPerformed
 
     private void mItemCadastrarReservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarReservaActionPerformed
-
+        new ReservaCadastrar().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemCadastrarReservaActionPerformed
 
     private void mItemListarTodasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarTodasReservasActionPerformed
-
+        new ReservaListaFiltros().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemListarTodasReservasActionPerformed
 
     private void mItemListarMinhasReservasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarMinhasReservasActionPerformed
-
+        new ReservaListaMinhas().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemListarMinhasReservasActionPerformed
 
     private void mItemListarReservasDecisaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemListarReservasDecisaoActionPerformed
-
+        new ReservaListaDecisoes().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_mItemListarReservasDecisaoActionPerformed
 
-    private void mItemEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemEditarUsuarioActionPerformed
-
-    }//GEN-LAST:event_mItemEditarUsuarioActionPerformed
-
-    private void mItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemSairActionPerformed
-
-    }//GEN-LAST:event_mItemSairActionPerformed
-
-    private void mItemRelatóriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemRelatóriosActionPerformed
+    private void mItemRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemRelatoriosActionPerformed
         new RelatoriosHome().setVisible(true);
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_mItemRelatóriosActionPerformed
+    }//GEN-LAST:event_mItemRelatoriosActionPerformed
+
+    private void mItemEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemEditarUsuarioActionPerformed
+        new UsuarioEditarMinhasInfo().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_mItemEditarUsuarioActionPerformed
+
+    private void mItemSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemSairActionPerformed
+        Login.setAutenticado(false);
+        Login.setUsuario(null);
+        new LoginHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_mItemSairActionPerformed
 
     private void btnRelatorioGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioGeralActionPerformed
         JasperPrint impressao;
@@ -348,7 +415,7 @@ public class RelatoriosHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem mItemListarSalas;
     private javax.swing.JMenuItem mItemListarTodasReservas;
     private javax.swing.JMenuItem mItemListarUsuarios;
-    private javax.swing.JMenuItem mItemRelatórios;
+    private javax.swing.JMenuItem mItemRelatorios;
     private javax.swing.JMenuItem mItemSair;
     private javax.swing.JMenu menuGerenciarReservas;
     private javax.swing.JMenu menuGerenciarSalas;

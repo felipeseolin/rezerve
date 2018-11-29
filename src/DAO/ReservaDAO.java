@@ -283,20 +283,15 @@ public class ReservaDAO {
                 sqldml = queryIntervaloHorario(horarioInicial, horarioFinal, sqldml);
             }
         }
-//        if (horarioInicial != null) {
-//            sqldml += " and RESER_HORARIO_INICIAL ";
-//        }
-//        if (horarioFinal != null) {
-//            sqldml += "";
-//        }
         sqldml += " and RESER_CONFIRMADA = " + confirmada + " ";
-        if (usuario != null) {
+        if (usuario != null && usuario.getId() != 0) {
             sqldml += " and USUARIO.USU_ID = " + usuario.getId() + " ";
         }
-        if (sala != null) {
+        boolean idVazio = sala.getId().trim().equals("");
+        if (!idVazio) {
             sqldml += " and SALA.SALA_ID = '" + sala.getId() + "' ";
         }
-        if (situacao != null) {
+        if (situacao != null && situacao.getId() != 0) {
             sqldml += " and SITUACAO.SIT_ID = " + situacao.getId() + " ";
         }
 
