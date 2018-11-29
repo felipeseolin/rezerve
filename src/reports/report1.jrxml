@@ -40,14 +40,6 @@ FROM
 				<textElement verticalAlignment="Middle"/>
 				<text><![CDATA[Todas as Reservas]]></text>
 			</staticText>
-			<staticText>
-				<reportElement style="SubTitle" x="100" y="46" width="174" height="22" uuid="6b1a9801-4d18-41fe-ae22-ef0821f2cdbc"/>
-				<text><![CDATA[Leaf Green SubTitle]]></text>
-			</staticText>
-			<image>
-				<reportElement x="340" y="0" width="213" height="70" uuid="e9fa4a65-ecc7-46bc-a447-93d12a110be3"/>
-				<imageExpression><![CDATA["C:\\Users\\Seolin\\Documents\\GitHub\\rezerve\\src\\img\\logo500px.png"]]></imageExpression>
-			</image>
 		</band>
 	</title>
 	<pageHeader>

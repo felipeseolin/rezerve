@@ -15,6 +15,7 @@ import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -23,9 +24,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 public class RelatoriosHome extends javax.swing.JFrame {
     
     public static final String PDF
-            = System.getProperty("user.dir") + "/src/relatorios/Relatorio001.pdf";
+            = System.getProperty("user.dir") + "/src/relatorios/report1.pdf";
     public static final String RELATORIO
-            = System.getProperty("user.dir") + "/src/relatorios/Relatorio001.jasper";
+            = System.getProperty("user.dir") + "/src/reports/report1.jasper";
     
     /**
      * Creates new form RelatoriosHome
@@ -348,16 +349,17 @@ public class RelatoriosHome extends javax.swing.JFrame {
 
     private void btnRelatorioGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioGeralActionPerformed
         JasperPrint impressao;
+        BDController bd = new BDController();
         try {
-            BDController bd = new BDController();
             impressao = JasperFillManager.fillReport(
                     RELATORIO,
                     null,
-                    bd.conectaBD());
-            JasperExportManager.exportReportToPdfFile(impressao, PDF);
-            JOptionPane.showMessageDialog(this, "Gerado o arquivo " + PDF);
+                    bd.conectaBD()
+            );
+            JasperViewer.viewReport(impressao);
         } catch (JRException ex) {
-            JOptionPane.showMessageDialog(this, "Não foi possível exportar o relatório.\n\n");
+            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
+                    + "o relatório.\n\n" + ex);
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnRelatorioGeralActionPerformed
