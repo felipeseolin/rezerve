@@ -206,7 +206,11 @@ public final class Sala extends SalaDAO {
     
     @Override
     public boolean equals(Object obj) {
-        return this.getId().equals(((Sala) obj).getId());
+        if(this.getId() == null) {
+            return false;
+        } else {
+            return this.getId().equals(((Sala) obj).getId());
+        }
     }
 
 }
