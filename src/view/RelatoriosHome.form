@@ -102,12 +102,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemListarReservasDecisaoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="mItemRelat&#xf3;rios">
+            <MenuItem class="javax.swing.JMenuItem" name="mItemRelatorios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Gerar Relat&#xf3;rios"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemRelat&#xf3;riosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mItemRelatoriosActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
