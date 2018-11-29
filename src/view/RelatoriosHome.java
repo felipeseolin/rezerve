@@ -41,8 +41,8 @@ public class RelatoriosHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
+        btnRelatorioGeral = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -64,15 +64,15 @@ public class RelatoriosHome extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
 
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Relatórios");
-        jLabel1.setToolTipText("");
+        labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
+        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitulo.setText("Relatórios");
+        labelTitulo.setToolTipText("");
 
-        jButton1.setText("Relatório de Reservas Geral");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnRelatorioGeral.setText("Relatório de Reservas Geral");
+        btnRelatorioGeral.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnRelatorioGeralActionPerformed(evt);
             }
         });
 
@@ -202,19 +202,19 @@ public class RelatoriosHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jButton1)
+                .addComponent(btnRelatorioGeral)
                 .addContainerGap(725, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jLabel1)
+                .addComponent(labelTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRelatorioGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(261, Short.MAX_VALUE))
         );
 
@@ -279,21 +279,21 @@ public class RelatoriosHome extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mItemRelatóriosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnRelatorioGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioGeralActionPerformed
         JasperPrint impressao;
         try {
             BDController bd = new BDController();
             impressao = JasperFillManager.fillReport(
                     RELATORIO,
-                    constroiParametros(),
+                    null,
                     bd.conectaBD());
             JasperExportManager.exportReportToPdfFile(impressao, PDF);
             JOptionPane.showMessageDialog(this, "Gerado o arquivo " + PDF);
         } catch (JRException ex) {
-            System.err.println("Não foi possível exportar o relatório.\n\n");
+            JOptionPane.showMessageDialog(this, "Não foi possível exportar o relatório.\n\n");
             ex.printStackTrace();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnRelatorioGeralActionPerformed
 
     private Map constroiParametros() {
         Map params = new HashMap();
@@ -337,8 +337,8 @@ public class RelatoriosHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnRelatorioGeral;
+    private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
     private javax.swing.JMenuItem mItemCadastrarUsuario;
