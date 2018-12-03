@@ -163,10 +163,14 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Component id="labelTitulo" alignment="1" max="32767" attributes="0"/>
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
               <Component id="btnRelatorioGeral" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="725" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="btnRelatorioPorSala" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
+              <Component id="btnRelatorioPorData" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="212" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -176,7 +180,13 @@
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
               <Component id="labelTitulo" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="btnRelatorioGeral" min="-2" pref="58" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="btnRelatorioPorData" alignment="0" min="-2" pref="55" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnRelatorioGeral" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="btnRelatorioPorSala" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace pref="261" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -199,6 +209,22 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRelatorioGeralActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRelatorioPorSala">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Reservas Por Sala"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRelatorioPorSalaActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnRelatorioPorData">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Relat&#xf3;rio de Reservas Por Data"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRelatorioPorDataActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

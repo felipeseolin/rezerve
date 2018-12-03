@@ -1,3 +1,8 @@
 
 *.properties
 *.xml
+*.class
+./build
+./dist
+./nbproject
+./test

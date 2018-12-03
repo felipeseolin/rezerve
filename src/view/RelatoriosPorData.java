@@ -23,24 +23,22 @@ import net.sf.jasperreports.view.JasperViewer;
  *
  * @author DIPROSI-01
  */
-public class RelatoriosHome extends javax.swing.JFrame {
+public class RelatoriosPorData extends javax.swing.JFrame {
     
     public static final String PDF
             = System.getProperty("user.dir") + "/src/relatorios/report1.pdf";
-    public static final String RELATORIOTODOS
-            = System.getProperty("user.dir") + "/src/reports/ReservasTodas.jasper";
-    public static final String RELATORIOSALAS
-            = System.getProperty("user.dir") + "/src/reports/ReservasPorSala.jasper";
     public static final String RELATORIODATA
             = System.getProperty("user.dir") + "/src/reports/ReservasPorData.jasper";
     public static ArrayList<Date> datas;
     
     /**
-     * Creates new form RelatoriosHome
+     * Creates new form RelatoriosPorData
      */
-    public RelatoriosHome() {
+    public RelatoriosPorData() {
         initComponents();
         if (Login.isAutenticado()) {
+            dateDataFinal.setDate(new Date());
+            dateDataInicial.setDate(new Date());
             Usuario usuario = Login.getUsuario();
             menuUsuario.setText(usuario.toString());
             String sigla = usuario.getTipoUsuario().getSigla();
@@ -79,9 +77,12 @@ public class RelatoriosHome extends javax.swing.JFrame {
     private void initComponents() {
 
         labelTitulo = new javax.swing.JLabel();
-        btnRelatorioGeral = new javax.swing.JButton();
-        btnRelatorioPorSala = new javax.swing.JButton();
-        btnRelatorioPorData = new javax.swing.JButton();
+        labelDataInicial = new javax.swing.JLabel();
+        labelDataFinal = new javax.swing.JLabel();
+        dateDataInicial = new com.toedter.calendar.JDateChooser();
+        dateDataFinal = new com.toedter.calendar.JDateChooser();
+        btnOk = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -105,27 +106,24 @@ public class RelatoriosHome extends javax.swing.JFrame {
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelTitulo.setText("Relatórios");
+        labelTitulo.setText("Relatório por Data");
         labelTitulo.setToolTipText("");
 
-        btnRelatorioGeral.setText("Relatório de Reservas Geral");
-        btnRelatorioGeral.addActionListener(new java.awt.event.ActionListener() {
+        labelDataInicial.setText("Selecione a data Inicial:");
+
+        labelDataFinal.setText("Selecione a data Final:");
+
+        btnOk.setText("OK");
+        btnOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatorioGeralActionPerformed(evt);
+                btnOkActionPerformed(evt);
             }
         });
 
-        btnRelatorioPorSala.setText("Relatório de Reservas Por Sala");
-        btnRelatorioPorSala.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatorioPorSalaActionPerformed(evt);
-            }
-        });
-
-        btnRelatorioPorData.setText("Relatório de Reservas Por Data");
-        btnRelatorioPorData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRelatorioPorDataActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -255,28 +253,46 @@ public class RelatoriosHome extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(labelTitulo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(124, 124, 124))
             .addGroup(layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(btnRelatorioGeral)
-                .addGap(50, 50, 50)
-                .addComponent(btnRelatorioPorSala)
-                .addGap(50, 50, 50)
-                .addComponent(btnRelatorioPorData)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelDataFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(703, 703, 703))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelDataInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(696, 696, 696))
+                    .addComponent(dateDataInicial, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(dateDataFinal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(55, 55, 55))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnOk, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(labelTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRelatorioPorData, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnRelatorioGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnRelatorioPorSala, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addGap(74, 74, 74)
+                .addComponent(labelDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(dateDataInicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(labelDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(dateDataFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(87, 87, 87)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnOk)
+                    .addComponent(btnCancelar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -365,46 +381,45 @@ public class RelatoriosHome extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mItemSairActionPerformed
 
-    private void btnRelatorioGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioGeralActionPerformed
-        JasperPrint impressao;
-        BDController bd = new BDController();
-        try {
-            impressao = JasperFillManager.fillReport(
-                    RELATORIOTODOS,
-                    null,
-                    bd.conectaBD()
-            );
-            JasperViewer.viewReport(impressao, false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
-                    + "o relatório.\n\n" + ex);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnRelatorioGeralActionPerformed
-
-    private void btnRelatorioPorSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioPorSalaActionPerformed
-        JasperPrint impressao;
-        BDController bd = new BDController();
-        try {
-            impressao = JasperFillManager.fillReport(
-                    RELATORIOSALAS,
-                    null,
-                    bd.conectaBD()
-            );
-            JasperViewer.viewReport(impressao, false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
-                    + "o relatório.\n\n" + ex);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnRelatorioPorSalaActionPerformed
-
-    private void btnRelatorioPorDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioPorDataActionPerformed
-        new RelatoriosPorData().setVisible(true);
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        new RelatoriosHome().setVisible(true);
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_btnRelatorioPorDataActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        Date dataInicial = dateDataInicial.getDate();
+        Date dataFinal = dateDataFinal.getDate();
+        
+        if(dataInicial == null ||
+                dataFinal == null ||
+                dataInicial.after(dataFinal) 
+                ) {
+            JOptionPane.showMessageDialog(this, "Erro! \n Indique corretamente as datas!");
+            return;
+        }
+        JasperPrint impressao;
+        BDController bd = new BDController();
+        try {
+            impressao = JasperFillManager.fillReport(
+                    RELATORIODATA,
+                    constroiParametros(dataInicial, dataFinal),
+                    bd.conectaBD()
+            );
+            JasperViewer.viewReport(impressao, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
+                    + "o relatório.\n\n" + ex);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnOkActionPerformed
+
+    private Map constroiParametros(Date dataInicial, Date dataFinal) {
+        Map params = new HashMap();
+        params.put("dataInicial", dataInicial);
+        params.put("dataFinal", dataFinal);
+        return params;
+    }
     
     public static void addData(Date data) {
         RelatoriosHome.datas.add(data);
@@ -426,29 +441,32 @@ public class RelatoriosHome extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RelatoriosHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosPorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RelatoriosHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosPorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RelatoriosHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosPorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RelatoriosHome.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RelatoriosPorData.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RelatoriosHome().setVisible(true);
+                new RelatoriosPorData().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
-    private javax.swing.JButton btnRelatorioGeral;
-    private javax.swing.JButton btnRelatorioPorData;
-    private javax.swing.JButton btnRelatorioPorSala;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnOk;
+    private com.toedter.calendar.JDateChooser dateDataFinal;
+    private com.toedter.calendar.JDateChooser dateDataInicial;
+    private javax.swing.JLabel labelDataFinal;
+    private javax.swing.JLabel labelDataInicial;
     private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;

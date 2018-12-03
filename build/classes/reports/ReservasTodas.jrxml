@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="dbfd10c9-2009-462e-ac27-5f0539c64920">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="Title" fontName="Arial" fontSize="26" isBold="true" pdfFontName="Helvetica-Bold"/>
+	<style name="SubTitle" forecolor="#666666" fontName="Arial" fontSize="18"/>
+	<style name="Column header" forecolor="#666666" fontName="Arial" fontSize="12" isBold="true"/>
+	<style name="Detail" fontName="Arial" fontSize="12"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     reserva."reser_id" AS reserva_reser_id,
+     reserva."reser_motivo" AS reserva_reser_motivo,
+     reserva."reser_data" AS reserva_reser_data,
+     reserva."reser_horario_inicial" AS reserva_reser_horario_inicial,
+     reserva."reser_horario_final" AS reserva_reser_horario_final,
+     reserva."reser_confirmada" AS reserva_reser_confirmada,
+     reserva."sala_id" AS reserva_sala_id
+FROM
+     "public"."reserva" reserva]]>
+	</queryString>
+	<field name="reserva_reser_id" class="java.lang.Integer"/>
+	<field name="reserva_reser_motivo" class="java.lang.String"/>
+	<field name="reserva_reser_data" class="java.sql.Date"/>
+	<field name="reserva_reser_horario_inicial" class="java.lang.Object"/>
+	<field name="reserva_reser_horario_final" class="java.lang.Object"/>
+	<field name="reserva_reser_confirmada" class="java.lang.Boolean"/>
+	<field name="reserva_sala_id" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="81" splitType="Stretch">
+			<staticText>
+				<reportElement style="Title" x="0" y="13" width="263" height="33" uuid="64072f67-3926-426c-9587-997ea048aa1f"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Rezerve]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="SubTitle" x="0" y="46" width="274" height="35" uuid="5e90bac6-5e9c-4aed-b08e-d5975ad9e7fe"/>
+				<text><![CDATA[Todas as reservas solicitadas]]></text>
+			</staticText>
+			<image>
+				<reportElement x="353" y="3" width="200" height="65" uuid="c73050f3-0beb-4e4d-8a2a-ea801ec81031"/>
+				<imageExpression><![CDATA["C:\\Users\\DIPROSI-01\\Documents\\GitHub\\rezerve\\src\\reports\\logo500px.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="35" width="555" height="1" uuid="3de7e3d8-9e62-4153-826e-8b79fc0a4437"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<staticText>
+				<reportElement style="Column header" x="0" y="19" width="79" height="15" uuid="7197b898-e693-40fe-9dd9-4e08242fde6e"/>
+				<text><![CDATA[Id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="79" y="19" width="79" height="15" uuid="086edec1-3aa1-44d8-9219-5b7ae7d3560b"/>
+				<text><![CDATA[Motivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="158" y="19" width="79" height="15" uuid="ea74006d-4362-40f6-bd1b-23918dde8376"/>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="237" y="19" width="79" height="15" uuid="8c076a26-9171-4320-9e48-e989da02c206"/>
+				<text><![CDATA[Horário Inicial]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="316" y="19" width="79" height="15" uuid="653d89f4-0091-4fc2-b9ea-9bc2904aa056"/>
+				<text><![CDATA[Horário Final]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="395" y="19" width="79" height="15" uuid="0a8c5fc0-c7ab-4fea-ab4f-ef7a6c85cbcb"/>
+				<text><![CDATA[Confirmada]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="Column header" x="474" y="19" width="79" height="15" uuid="674316d4-429b-4fa7-a9df-f4916b56d5e2"/>
+				<text><![CDATA[Sala]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="16" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="15" width="555" height="1" uuid="07fc3ec5-a707-4115-a4a2-a5cbe2176e90"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement style="Detail" x="0" y="0" width="79" height="15" uuid="6b2b9c1c-b258-4749-b5c7-d4baf6f6f01b"/>
+				<textFieldExpression><![CDATA[$F{reserva_reser_id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="79" y="0" width="79" height="15" uuid="38373b7f-fcda-4712-8073-e5256cca0acc"/>
+				<textFieldExpression><![CDATA[$F{reserva_reser_motivo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="158" y="0" width="79" height="15" uuid="5f3a6e63-df73-466d-9252-adbd5963e0ac"/>
+				<textFieldExpression><![CDATA[$F{reserva_reser_data}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="237" y="0" width="79" height="15" uuid="899743a0-695c-43b3-ad0d-84113a4c351c"/>
+				<textFieldExpression><![CDATA[""+$F{reserva_reser_horario_inicial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="316" y="0" width="79" height="15" uuid="eb2535da-f53a-4049-aa72-f7f2651179ec"/>
+				<textFieldExpression><![CDATA[""+$F{reserva_reser_horario_final}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="395" y="0" width="79" height="15" uuid="b2c637d6-0575-4c9b-bbd6-e83f8752ff14"/>
+				<textFieldExpression><![CDATA[$F{reserva_reser_confirmada}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="Detail" x="474" y="0" width="79" height="15" uuid="afd7a295-5125-4494-a3d2-7f286e9ace4f"/>
+				<textFieldExpression><![CDATA[$F{reserva_sala_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="3" width="555" height="1" uuid="bb0e8030-f046-4f53-841c-c3496867e4e8"/>
+				<graphicElement>
+					<pen lineWidth="0.5" lineColor="#999999"/>
+				</graphicElement>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement style="Column header" x="433" y="0" width="80" height="20" uuid="6b3f0c11-eab1-423f-be51-97eafa7f8873"/>
+				<textElement textAlignment="Right">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement style="Column header" x="513" y="0" width="40" height="20" uuid="2188ccd7-b633-4f1f-ac0e-a1239965fd77"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement style="Column header" x="0" y="0" width="197" height="20" uuid="a9ed18fd-6290-4ac8-bfa1-b25ec8573871"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
