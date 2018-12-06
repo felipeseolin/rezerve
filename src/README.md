@@ -28,9 +28,6 @@ Passos para execução {
     Obs.: O sistema possui permissões, o tipo de usuário
     mais completo é coordenador e administrador. Vale ob-
     servar que ambos podem gerar relatórios.
-    Obs2.: Cada o NetBeans ou outra IDE aponte erro pois
-    não consegue encontro o jdbc.jar, indique que este
-    está localizado na pasta lib
 
     1. Crie um banco no Postgresql chamado "rezerve"
     2. Mude as credencias de usuario e senha reverentes

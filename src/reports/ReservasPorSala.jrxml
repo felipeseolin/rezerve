@@ -103,8 +103,8 @@ FROM
 				<text><![CDATA[Reservas por Sala]]></text>
 			</staticText>
 			<image>
-				<reportElement x="342" y="0" width="200" height="65" uuid="e1f587b9-906c-46c0-8de9-16e79015c4da"/>
-				<imageExpression><![CDATA["C:\\Users\\DIPROSI-01\\Documents\\GitHub\\rezerve\\src\\reports\\logo500px.jpg"]]></imageExpression>
+				<reportElement x="356" y="3" width="199" height="65" uuid="215b1087-db15-497d-a20a-2b094e443051"/>
+				<imageExpression><![CDATA["D:\\NETBEANS\\master\\src\\reports\\logo200px.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

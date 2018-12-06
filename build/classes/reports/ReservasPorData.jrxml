@@ -103,8 +103,8 @@ WHERE
 				<text><![CDATA[Reservas por Data]]></text>
 			</staticText>
 			<image>
-				<reportElement x="353" y="3" width="200" height="65" uuid="3109922e-cbd7-4dd7-b106-d69649254c00"/>
-				<imageExpression><![CDATA["C:\\Users\\DIPROSI-01\\Documents\\GitHub\\rezerve\\src\\reports\\logo500px.jpg"]]></imageExpression>
+				<reportElement x="356" y="3" width="199" height="65" uuid="8598a726-6ad5-46a4-b068-5472d06ed2b4"/>
+				<imageExpression><![CDATA["D:\\NETBEANS\\master\\src\\reports\\logo200px.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>

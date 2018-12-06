@@ -25,6 +25,7 @@ import net.sf.jasperreports.view.JasperViewer;
  */
 public class RelatoriosPorData extends javax.swing.JFrame {
     
+    
     public static final String PDF
             = System.getProperty("user.dir") + "/src/relatorios/report1.pdf";
     public static final String RELATORIODATA
@@ -35,6 +36,7 @@ public class RelatoriosPorData extends javax.swing.JFrame {
      * Creates new form RelatoriosPorData
      */
     public RelatoriosPorData() {
+    System.out.println(PDF);
         initComponents();
         if (Login.isAutenticado()) {
             dateDataFinal.setDate(new Date());

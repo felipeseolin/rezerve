@@ -41,8 +41,8 @@ FROM
 				<text><![CDATA[Todas as reservas solicitadas]]></text>
 			</staticText>
 			<image>
-				<reportElement x="353" y="3" width="200" height="65" uuid="c73050f3-0beb-4e4d-8a2a-ea801ec81031"/>
-				<imageExpression><![CDATA["C:\\Users\\DIPROSI-01\\Documents\\GitHub\\rezerve\\src\\reports\\logo500px.jpg"]]></imageExpression>
+				<reportElement x="356" y="0" width="199" height="65" uuid="197621ab-9b86-4df8-99f4-1b02ebe55f34"/>
+				<imageExpression><![CDATA["D:\\NETBEANS\\master\\src\\reports\\logo200px.jpg"]]></imageExpression>
 			</image>
 		</band>
 	</title>
