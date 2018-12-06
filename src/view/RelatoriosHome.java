@@ -6,6 +6,7 @@
 package view;
 
 import controller.BDController;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -82,8 +83,8 @@ public class RelatoriosHome extends javax.swing.JFrame {
         btnRelatorioGeral = new javax.swing.JButton();
         btnRelatorioPorSala = new javax.swing.JButton();
         btnRelatorioPorData = new javax.swing.JButton();
-        barraMenu = new javax.swing.JMenuBar();
-        menuHome = new javax.swing.JMenu();
+        barraMenu2 = new javax.swing.JMenuBar();
+        menuHome2 = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
         mItemCadastrarSala = new javax.swing.JMenuItem();
         mItemListarSalas = new javax.swing.JMenuItem();
@@ -102,6 +103,8 @@ public class RelatoriosHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"))
+        );
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -129,21 +132,15 @@ public class RelatoriosHome extends javax.swing.JFrame {
             }
         });
 
-        barraMenu.setToolTipText("");
+        barraMenu2.setToolTipText("");
 
-        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
-        menuHome.setText("Home");
-        menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
+        menuHome2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo3Menu.png"))); // NOI18N
+        menuHome2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuHomeMouseClicked(evt);
+                menuHome2MouseClicked(evt);
             }
         });
-        menuHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHomeActionPerformed(evt);
-            }
-        });
-        barraMenu.add(menuHome);
+        barraMenu2.add(menuHome2);
 
         menuGerenciarSalas.setText("Gerenciar Salas");
 
@@ -163,7 +160,7 @@ public class RelatoriosHome extends javax.swing.JFrame {
         });
         menuGerenciarSalas.add(mItemListarSalas);
 
-        barraMenu.add(menuGerenciarSalas);
+        barraMenu2.add(menuGerenciarSalas);
 
         menuGerenciarUsuarios.setText("Gerenciar Usuários");
 
@@ -183,7 +180,7 @@ public class RelatoriosHome extends javax.swing.JFrame {
         });
         menuGerenciarUsuarios.add(mItemListarUsuarios);
 
-        barraMenu.add(menuGerenciarUsuarios);
+        barraMenu2.add(menuGerenciarUsuarios);
 
         menuGerenciarReservas.setText("Gerenciar Reservas");
 
@@ -227,7 +224,7 @@ public class RelatoriosHome extends javax.swing.JFrame {
         });
         menuGerenciarReservas.add(mItemRelatorios);
 
-        barraMenu.add(menuGerenciarReservas);
+        barraMenu2.add(menuGerenciarReservas);
 
         menuUsuario.setText("Usuario");
 
@@ -247,9 +244,9 @@ public class RelatoriosHome extends javax.swing.JFrame {
         });
         menuUsuario.add(mItemSair);
 
-        barraMenu.add(menuUsuario);
+        barraMenu2.add(menuUsuario);
 
-        setJMenuBar(barraMenu);
+        setJMenuBar(barraMenu2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -276,7 +273,7 @@ public class RelatoriosHome extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnRelatorioGeral, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnRelatorioPorSala, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(261, Short.MAX_VALUE))
+                .addContainerGap(259, Short.MAX_VALUE))
         );
 
         pack();
@@ -285,17 +282,51 @@ public class RelatoriosHome extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
-        new Home().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_menuHomeMouseClicked
+    private void btnRelatorioGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioGeralActionPerformed
+        JasperPrint impressao;
+        BDController bd = new BDController();
+        try {
+            impressao = JasperFillManager.fillReport(
+                    RELATORIOTODOS,
+                    null,
+                    bd.conectaBD()
+            );
+            JasperViewer.viewReport(impressao, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
+                    + "o relatório.\n\n" + ex);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnRelatorioGeralActionPerformed
 
-    private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
+    private void btnRelatorioPorSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioPorSalaActionPerformed
+        JasperPrint impressao;
+        BDController bd = new BDController();
+        try {
+            impressao = JasperFillManager.fillReport(
+                    RELATORIOSALAS,
+                    null,
+                    bd.conectaBD()
+            );
+            JasperViewer.viewReport(impressao, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
+                    + "o relatório.\n\n" + ex);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnRelatorioPorSalaActionPerformed
+
+    private void btnRelatorioPorDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioPorDataActionPerformed
+        new RelatoriosPorData().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnRelatorioPorDataActionPerformed
+
+    private void menuHome2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHome2MouseClicked
         new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
-    }//GEN-LAST:event_menuHomeActionPerformed
+    }//GEN-LAST:event_menuHome2MouseClicked
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
         new SalaCadastrar().setVisible(true);
@@ -365,46 +396,6 @@ public class RelatoriosHome extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mItemSairActionPerformed
 
-    private void btnRelatorioGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioGeralActionPerformed
-        JasperPrint impressao;
-        BDController bd = new BDController();
-        try {
-            impressao = JasperFillManager.fillReport(
-                    RELATORIOTODOS,
-                    null,
-                    bd.conectaBD()
-            );
-            JasperViewer.viewReport(impressao, false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
-                    + "o relatório.\n\n" + ex);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnRelatorioGeralActionPerformed
-
-    private void btnRelatorioPorSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioPorSalaActionPerformed
-        JasperPrint impressao;
-        BDController bd = new BDController();
-        try {
-            impressao = JasperFillManager.fillReport(
-                    RELATORIOSALAS,
-                    null,
-                    bd.conectaBD()
-            );
-            JasperViewer.viewReport(impressao, false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
-                    + "o relatório.\n\n" + ex);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnRelatorioPorSalaActionPerformed
-
-    private void btnRelatorioPorDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioPorDataActionPerformed
-        new RelatoriosPorData().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnRelatorioPorDataActionPerformed
-
     
     public static void addData(Date data) {
         RelatoriosHome.datas.add(data);
@@ -446,6 +437,8 @@ public class RelatoriosHome extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
+    private javax.swing.JMenuBar barraMenu1;
+    private javax.swing.JMenuBar barraMenu2;
     private javax.swing.JButton btnRelatorioGeral;
     private javax.swing.JButton btnRelatorioPorData;
     private javax.swing.JButton btnRelatorioPorSala;
@@ -465,6 +458,8 @@ public class RelatoriosHome extends javax.swing.JFrame {
     private javax.swing.JMenu menuGerenciarSalas;
     private javax.swing.JMenu menuGerenciarUsuarios;
     private javax.swing.JMenu menuHome;
+    private javax.swing.JMenu menuHome1;
+    private javax.swing.JMenu menuHome2;
     private javax.swing.JMenu menuUsuario;
     // End of variables declaration//GEN-END:variables
 }

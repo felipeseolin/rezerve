@@ -8,6 +8,7 @@ package view;
 import controller.ReservaRecursoController;
 import controller.SituacaoRecursoController;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -117,6 +118,8 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Cadastrar Sala");
         setExtendedState(6);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"))
+        );
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +199,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                     .addGroup(painelFormLayout.createSequentialGroup()
                         .addComponent(labelSenha)
                         .addGap(42, 42, 42)
-                        .addComponent(passSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 753, Short.MAX_VALUE))
+                        .addComponent(passSenha))
                     .addGroup(painelFormLayout.createSequentialGroup()
                         .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labelHorarioInicial)
@@ -222,7 +225,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfEmail, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(tfUsuario, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(spinId))))
+                            .addComponent(spinId, javax.swing.GroupLayout.DEFAULT_SIZE, 771, Short.MAX_VALUE))))
                 .addGap(57, 57, 57))
         );
         painelFormLayout.setVerticalGroup(
@@ -230,7 +233,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
             .addGroup(painelFormLayout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(spinId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(spinId)
                     .addComponent(labelId))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -264,7 +267,7 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbSituacao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelSituacao))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
                 .addGroup(painelFormLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labelSenha)
                     .addComponent(passSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -277,16 +280,10 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
 
         barraMenu.setToolTipText("");
 
-        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
-        menuHome.setText("Home");
+        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo3Menu.png"))); // NOI18N
         menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuHomeMouseClicked(evt);
-            }
-        });
-        menuHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHomeActionPerformed(evt);
             }
         });
         barraMenu.add(menuHome);
@@ -441,12 +438,6 @@ public class ReservaTomarDecisão extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_menuHomeMouseClicked
-
-    private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new Home().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
         new SalaCadastrar().setVisible(true);

@@ -5,9 +5,13 @@
  */
 package view;
 
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import model.Login;
 import model.Usuario;
+import org.pushingpixels.substance.api.skin.SubstanceGraphiteLookAndFeel;
 
 /**
  *
@@ -65,12 +69,12 @@ public class Home extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        labelLogotipo = new javax.swing.JLabel();
         btnGerenciarSalas = new javax.swing.JButton();
         btnGerenciarUsuários = new javax.swing.JButton();
         btnGerenciarReservas = new javax.swing.JButton();
         btnGerenciarMinhasReservas = new javax.swing.JButton();
         btnReservasDecisoes = new javax.swing.JButton();
+        labelTitulo = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuHome = new javax.swing.JMenu();
         menuGerenciarSalas = new javax.swing.JMenu();
@@ -93,9 +97,8 @@ public class Home extends javax.swing.JFrame {
         setTitle("Rezerve");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setExtendedState(6);
-
-        labelLogotipo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        labelLogotipo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo1.png"))); // NOI18N
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"))
+        );
 
         btnGerenciarSalas.setText("Gerenciar Salas");
         btnGerenciarSalas.addActionListener(new java.awt.event.ActionListener() {
@@ -132,18 +135,15 @@ public class Home extends javax.swing.JFrame {
             }
         });
 
+        labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo3.png"))); // NOI18N
+
         barraMenu.setToolTipText("");
 
-        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
-        menuHome.setText("Home");
+        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo3Menu.png"))); // NOI18N
         menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuHomeMouseClicked(evt);
-            }
-        });
-        menuHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHomeActionPerformed(evt);
             }
         });
         barraMenu.add(menuHome);
@@ -258,38 +258,33 @@ public class Home extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(labelLogotipo, javax.swing.GroupLayout.DEFAULT_SIZE, 1364, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(148, 148, 148)
-                        .addComponent(btnGerenciarUsuários)
-                        .addGap(61, 61, 61)
-                        .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(62, 62, 62)
-                        .addComponent(btnGerenciarReservas)
-                        .addGap(61, 61, 61)
-                        .addComponent(btnGerenciarMinhasReservas)
-                        .addGap(62, 62, 62)
-                        .addComponent(btnReservasDecisoes)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(112, Short.MAX_VALUE)
+                .addComponent(btnGerenciarUsuários)
+                .addGap(61, 61, 61)
+                .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(62, 62, 62)
+                .addComponent(btnGerenciarReservas)
+                .addGap(61, 61, 61)
+                .addComponent(btnGerenciarMinhasReservas)
+                .addGap(62, 62, 62)
+                .addComponent(btnReservasDecisoes)
+                .addGap(398, 398, 398))
+            .addComponent(labelTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addComponent(labelLogotipo, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(90, 90, 90)
+                .addGap(147, 147, 147)
+                .addComponent(labelTitulo)
+                .addGap(139, 139, 139)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGerenciarSalas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarMinhasReservas, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReservasDecisoes, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGerenciarUsuários, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -313,12 +308,6 @@ public class Home extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_btnGerenciarSalasActionPerformed
-
-    private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new Home().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
         new SalaCadastrar().setVisible(true);
@@ -394,17 +383,17 @@ public class Home extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_mItemEditarUsuarioActionPerformed
 
-    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
-        new Home().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_menuHomeMouseClicked
-
     private void mItemRelatoriosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemRelatoriosActionPerformed
         new RelatoriosHome().setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_mItemRelatoriosActionPerformed
+
+    private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
+        new Home().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_menuHomeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -415,32 +404,24 @@ public class Home extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    UIManager.setLookAndFeel(new SubstanceGraphiteLookAndFeel());
+                } catch (Exception e) {
+                    System.out.println("Substance Graphite failed to initialize");
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Home().setVisible(true);
-            }
         });
-    }
+            //</editor-fold>
 
+            /* Create and display the form */
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Home().setVisible(true);
+                }
+            });
+        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar barraMenu;
     private javax.swing.JButton btnGerenciarMinhasReservas;
@@ -448,7 +429,7 @@ public class Home extends javax.swing.JFrame {
     private javax.swing.JButton btnGerenciarSalas;
     private javax.swing.JButton btnGerenciarUsuários;
     private javax.swing.JButton btnReservasDecisoes;
-    private javax.swing.JLabel labelLogotipo;
+    private javax.swing.JLabel labelTitulo;
     private javax.swing.JMenuItem mItemCadastrarReserva;
     private javax.swing.JMenuItem mItemCadastrarSala;
     private javax.swing.JMenuItem mItemCadastrarUsuario;

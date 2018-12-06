@@ -7,6 +7,7 @@ package view;
 
 import controller.SalaRecursoController;
 import java.awt.HeadlessException;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
@@ -104,6 +105,8 @@ public class SalaLista extends javax.swing.JFrame {
         setTitle("Reserva de Salas");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setExtendedState(6);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"))
+        );
 
         tabelaSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -174,16 +177,10 @@ public class SalaLista extends javax.swing.JFrame {
 
         barraMenu.setToolTipText("");
 
-        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
-        menuHome.setText("Home");
+        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo3Menu.png"))); // NOI18N
         menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuHomeMouseClicked(evt);
-            }
-        });
-        menuHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHomeActionPerformed(evt);
             }
         });
         barraMenu.add(menuHome);
@@ -326,7 +323,7 @@ public class SalaLista extends javax.swing.JFrame {
                         .addComponent(btnReservas)
                         .addComponent(btnEditar)))
                 .addGap(18, 18, 18)
-                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addComponent(scrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -388,12 +385,6 @@ public class SalaLista extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_menuHomeMouseClicked
-
-    private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new Home().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
         new SalaCadastrar().setVisible(true);

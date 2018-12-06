@@ -6,6 +6,7 @@
 package view;
 
 import controller.BDController;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -105,6 +106,8 @@ public class RelatoriosPorData extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setExtendedState(6);
+        setIconImage(Toolkit.getDefaultToolkit().getImage(getClass().getResource("icon.png"))
+        );
 
         labelTitulo.setFont(new java.awt.Font("Dialog", 1, 36)); // NOI18N
         labelTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -131,16 +134,10 @@ public class RelatoriosPorData extends javax.swing.JFrame {
 
         barraMenu.setToolTipText("");
 
-        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Z25px.png"))); // NOI18N
-        menuHome.setText("Home");
+        menuHome.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/logo3Menu.png"))); // NOI18N
         menuHome.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 menuHomeMouseClicked(evt);
-            }
-        });
-        menuHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuHomeActionPerformed(evt);
             }
         });
         barraMenu.add(menuHome);
@@ -303,17 +300,44 @@ public class RelatoriosPorData extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        new RelatoriosHome().setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
+        Date dataInicial = dateDataInicial.getDate();
+        Date dataFinal = dateDataFinal.getDate();
+        
+        if(dataInicial == null ||
+                dataFinal == null ||
+                dataInicial.after(dataFinal) 
+                ) {
+            JOptionPane.showMessageDialog(this, "Erro! \n Indique corretamente as datas!");
+            return;
+        }
+        JasperPrint impressao;
+        BDController bd = new BDController();
+        try {
+            impressao = JasperFillManager.fillReport(
+                    RELATORIODATA,
+                    constroiParametros(dataInicial, dataFinal),
+                    bd.conectaBD()
+            );
+            JasperViewer.viewReport(impressao, false);
+        } catch (JRException ex) {
+            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
+                    + "o relatório.\n\n" + ex);
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_btnOkActionPerformed
+
     private void menuHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHomeMouseClicked
         new Home().setVisible(true);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_menuHomeMouseClicked
-
-    private void menuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuHomeActionPerformed
-        new Home().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_menuHomeActionPerformed
 
     private void mItemCadastrarSalaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mItemCadastrarSalaActionPerformed
         new SalaCadastrar().setVisible(true);
@@ -382,39 +406,6 @@ public class RelatoriosPorData extends javax.swing.JFrame {
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_mItemSairActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        new RelatoriosHome().setVisible(true);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
-
-    private void btnOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOkActionPerformed
-        Date dataInicial = dateDataInicial.getDate();
-        Date dataFinal = dateDataFinal.getDate();
-        
-        if(dataInicial == null ||
-                dataFinal == null ||
-                dataInicial.after(dataFinal) 
-                ) {
-            JOptionPane.showMessageDialog(this, "Erro! \n Indique corretamente as datas!");
-            return;
-        }
-        JasperPrint impressao;
-        BDController bd = new BDController();
-        try {
-            impressao = JasperFillManager.fillReport(
-                    RELATORIODATA,
-                    constroiParametros(dataInicial, dataFinal),
-                    bd.conectaBD()
-            );
-            JasperViewer.viewReport(impressao, false);
-        } catch (JRException ex) {
-            JOptionPane.showMessageDialog(this, "Não foi possível exportar "
-                    + "o relatório.\n\n" + ex);
-            ex.printStackTrace();
-        }
-    }//GEN-LAST:event_btnOkActionPerformed
 
     private Map constroiParametros(Date dataInicial, Date dataFinal) {
         Map params = new HashMap();
